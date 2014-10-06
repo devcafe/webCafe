@@ -4,16 +4,16 @@ $(function(){
 	/****************************************/
 
 	//Tha body of main table, where the data will be appended
-	var table_gerLinhas = $('#gerLinhas_table tbody');
+	var table_gerAparelhos = $('#gerAparelhos_table tbody');
 
 	//The amount of data to retrieve in each page
-	var regsLimit = $('#gerLinhas_regs option:selected').val();
+	var regsLimit = $('#gerAparelhos_regs option:selected').val();
 
 	//The first page (it's a hidden input with value = 1)
 	var page = $('#paginationController').val();
 
 	//Pagination wrapper
-	var paginationWrapper = $('#gerLinhas_pagination');
+	var paginationWrapper = $('#gerAparelhos_pagination');
 
 	//Call the function on page load
 	loadTable('1', regsLimit);
@@ -38,7 +38,7 @@ $(function(){
 		//Send ajax to get data using the parameters received
 		//The data returner is a json object
 		$.ajax({
-			url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+			url: 'modulos/mod_telefonia/controller/ger_aparelhos.php',
 			type: 'POST',
 			data: {
 				regsLimit: regsLimit, //The amount of regs i wanna show in page
@@ -50,23 +50,20 @@ $(function(){
 			dataType: 'json',
 			success: function(data){	
 				//Show the total regs				
-				$('#gerLinhas_tableRegTotal').html(data['totalRegs']);
-
-				//Show actual page
-				$('#gerLinhas_tableRegPage').html(data['actualPage']);
+				$('#gerAparelhos_tableRegTotal').html(data['totalRegs']);			
 
 				//Show the total pages
-				$("#gerLinhas_tableTotalPages").html(data['totalPages']);
+				$("#gerAparelhos_tableTotalPages").html(data['totalPages']);
 
 				//Check if the result dont return any data, in cases where the user
 				//try to search for a value which do not exist
 				if(data['totalPages'] <= 0){
 					//Update the table
-					table_gerLinhas.empty();
+					table_gerAparelhos.empty();
 					paginationWrapper.empty();
 
 					//Append the information to user warning the query not returned any result
-					table_gerLinhas.append(""+
+					table_gerAparelhos.append(""+
 						"<tr>"+
 							"<td colspan = '2'>Nenhum resultado encontrado</td>"+
 						"</tr>"+
@@ -75,8 +72,11 @@ $(function(){
 				} else if(page > data['totalPages']){ //Check if the user try to search for a page that does not exist
 					alert("Página não existe");
 				} else { //Return the data and append the pagination
+					//Show actual page
+					$('#gerAparelhos_tableRegPage').html(data['actualPage']);
+
 					//To update table data, clear first
-					table_gerLinhas.empty();
+					table_gerAparelhos.empty();
 					paginationWrapper.empty();
 
 					//Check if page is diferent from 1, because its not possible to go a page previous 1
@@ -124,10 +124,15 @@ $(function(){
 
 					//Append data in table
 					for(var i=0;i<data[1].length;i++){					
-						table_gerLinhas.append(""+
+						table_gerAparelhos.append(""+
 							"<tr>"+
-								"<td>"+data[1][i].numLinha+"</td>"+
-								"<td>"+data[1][i].plano+"</td>"+
+								"<td>"+data[1][i].marcaAparelho+"</td>"+
+								"<td>"+data[1][i].modeloAparelho+"</td>"+
+								"<td>"+data[1][i].imeiAparelho+"</td>"+
+								"<td>"+data[1][i].tipo+"</td>"+
+								"<td>"+data[1][i].statusAparelho+"</td>"+
+								"<td>"+data[1][i].acessorios+"</td>"+
+								"<td>"+data[1][i].observacoes+"</td>"+								
 							"</tr>"+
 						"");
 					}
@@ -137,28 +142,28 @@ $(function(){
 	}
 
 	//This function go to a specific page, if user click in the pagination
-	$("#gerLinhas_pagination").on('click', 'li a:not(.reticence)', function(){
+	$("#gerAparelhos_pagination").on('click', 'li a:not(.reticence)', function(){
 		//Get the page number
 		var page = $(this).attr('id').split('_')[1];
 
 		//The amount of records to show in table
-		var regsLimit = $('#gerLinhas_regs option:selected').val();
+		var regsLimit = $('#gerAparelhos_regs option:selected').val();
 
 		//Call the main function
 		loadTable(page, regsLimit);
 	})
 
 	//This function is used to go page to page
-	$("#gerLinhas_pagination").on('click', 'li a.onePage', function(){
+	$("#gerAparelhos_pagination").on('click', 'li a.onePage', function(){
 		//Get the operation (next or prev)
 		var op = $(this).attr('id').split('_')[0];
 
 		//The amount of records to show in table
-		var regsLimit = $('#gerLinhas_regs option:selected').val();
+		var regsLimit = $('#gerAparelhos_regs option:selected').val();
 
 		//Get the search data to keep the filter
-		$('#gerLinhas_pagination_search').val();
-		var searchVal = $('#gerLinhas_pagination_search').val();
+		$('#gerAparelhos_pagination_search').val();
+		var searchVal = $('#gerAparelhos_pagination_search').val();
 
 		//Check for op (next or prev)
 		if(op == 'next'){
@@ -177,34 +182,34 @@ $(function(){
 	});
 
 	//This function is used to change the amount of data to show in page
-	$('#gerLinhas_regs').change(function(){
+	$('#gerAparelhos_regs').change(function(){
 		//If uncomment this line, its able to possibility to keep the current page on change the amount of data to show 
-		//var page = $('#gerLinhas_pagination li a.current').attr('id').split('_')[1];
+		//var page = $('#gerAparelhos_pagination li a.current').attr('id').split('_')[1];
 
 		//Get the amount of records to show
-		var regsLimit = $('#gerLinhas_regs option:selected').val();
+		var regsLimit = $('#gerAparelhos_regs option:selected').val();
 
 		//To keep the search filter
-		var searchVal = $('#gerLinhas_pagination_search').val();
+		var searchVal = $('#gerAparelhos_pagination_search').val();
 
 		//Call the main function
 		loadTable('1', regsLimit, searchVal);
 	})
 
 	//To go to one page on give a page number
-	$('#gerLinhas_pagination_go').click(function(){
+	$('#gerAparelhos_pagination_go').click(function(){
 		//Get the page number
-		var page = $('#gerLinhas_pagination_goPage').val();
+		var page = $('#gerAparelhos_pagination_goPage').val();
 
 		//To keep the amount of records to show in table
-		var regsLimit = $('#gerLinhas_regs option:selected').val();
+		var regsLimit = $('#gerAparelhos_regs option:selected').val();
 
 		//Call the main function
 		loadTable(page, regsLimit);
 	})
 
 	//Function to search for a value
-	$('#gerLinhas_pagination_search').keyup(function(){
+	$('#gerAparelhos_pagination_search').keyup(function(){
 		//Value for search
 		var searchVal = $(this).val();
 
@@ -212,22 +217,22 @@ $(function(){
 		var page = '1';
 
 		//Amount of records to show in table
-		var regsLimit = $('#gerLinhas_regs option:selected').val();
+		var regsLimit = $('#gerAparelhos_regs option:selected').val();
 
 		//Call the main function
 		loadTable(page, regsLimit, searchVal);
 	})
 
 	//This function is used to order the data
-	$('#gerLinhas_table thead th span').on('click', function(){
+	$('#gerAparelhos_table thead th span').on('click', function(){
 		//To keep the search filter
-		var searchVal = $('#gerLinhas_pagination_search').val();
+		var searchVal = $('#gerAparelhos_pagination_search').val();
 
 		//Back to page 1 after order
 		var page = '1';
 
 		//The amount of records to show in table
-		var regsLimit = $('#gerLinhas_regs option:selected').val();
+		var regsLimit = $('#gerAparelhos_regs option:selected').val();
 
 		//The field to order
 		var field = $(this).parent().attr('id');
@@ -238,8 +243,8 @@ $(function(){
 		//Check what is the actual order
 		if($(this).hasClass('glyphicon-chevron-down')){
 			//Back all the others columns to default icon
-			$('#gerLinhas_table thead th span').removeClass("glyphicon-chevron-up");
-			$('#gerLinhas_table thead th span').addClass("glyphicon-chevron-down");
+			$('#gerAparelhos_table thead th span').removeClass("glyphicon-chevron-up");
+			$('#gerAparelhos_table thead th span').addClass("glyphicon-chevron-down");
 
 			//Change only the clicked column icon to UP
 			$(this).removeClass("glyphicon-chevron-down");

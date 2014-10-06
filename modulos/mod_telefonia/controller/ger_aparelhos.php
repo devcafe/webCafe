@@ -1,12 +1,21 @@
 <?php
-	require_once("../model/ger_linhas.php");
+	require_once("../model/ger_aparelhos.php");
 
 	if($_POST['op'] == 'loadTable'){
 		$end = $_POST['regsLimit'];
 		$page = $_POST['page'];
 
 		if(isset($_POST['searchVal']) && $_POST['searchVal'] != ''){
-			$where = "Where numLinha like '%".$_POST['searchVal']."%' Or plano like '%".$_POST['searchVal']."%'";
+			$where = "
+				Where
+					marcaAparelho like '%".$_POST['searchVal']."%' 
+				Or modeloAparelho like '%".$_POST['searchVal']."%'
+				Or imeiAparelho like '%".$_POST['searchVal']."%'
+				Or tipo like '%".$_POST['searchVal']."%'
+				Or aparelhoStatus like '%".$_POST['searchVal']."%'
+				Or acessorios like '%".$_POST['searchVal']."%'
+				Or observacoes like '%".$_POST['searchVal']."%'
+			";
 		} else {
 			$where = '';
 		}
@@ -17,7 +26,7 @@
 			$orderBy = '';
 		}
 
-		$linhas = new Linhas();
-		echo $linhas->loadTableData($end, $page, $where, $orderBy);
+		$aparelhos = new Aparelhos();
+		echo $aparelhos->loadTableData($end, $page, $where, $orderBy);
 	}
 ?>

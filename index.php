@@ -15,7 +15,7 @@
 
 	</head>
 	<body>
-		<div id = "mainWrapper">
+		<div id = "mainWrapper" class="col-xs-12">
 			<div id = "formWrapper">
 				<div id = "login">
 

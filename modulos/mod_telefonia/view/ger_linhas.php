@@ -1,8 +1,3 @@
-<!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
- -->
-
 <script src="modulos/mod_telefonia/view/resources/js/ger_linhas.js"></script>
 <link rel="stylesheet" href="modulos/mod_telefonia/view/resources/css/ger_linhas.css" />
 
@@ -20,7 +15,7 @@
 				</select>
 			</div>
 
-			<button type="button" class="btn btn-primary pull-left">
+			<button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#add_linha">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar linha
 			</button>
 		</div>
@@ -28,8 +23,11 @@
 
 	<table id = "gerLinhas_table" class="table table-striped table-hover">
 		<thead> 
+			<th class = "width30"></th>
 			<th id = "numLinha"> Numero <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<th id = "plano"> Plano <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+			<th id = "iccid"> ICCID <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+			<th class = "width100"></th>
 		</thead>
 
 		<tbody>
@@ -37,8 +35,11 @@
 		</tbody>
 
 		<tfoot>
+			<th class = "width30"></th>
 			<th> Numero </th>
 			<th> Plano </th>
+			<th> ICCID </th>
+			<th class = "width100"></th>
 		</tfoot>
 	</table>
 
@@ -67,3 +68,64 @@
 	</div>
 
 </div>
+
+<!-- Modals -->
+<div class="modal fade" id = "add_linha">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span>
+				</button>
+				<h4 class="modal-title">Adicionar linha</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form">
+					<div class="row">
+						<div class="form-group">
+							<div class="col-xs-4">
+								<label for="numLinha">Linha:</label>
+								<input type="text" name = "numLinha" id="numLinha" class="form-control" placeholder="Número da linha">
+							</div>
+							<div class="col-xs-6">
+								<label for="plano">Plano</label>
+								<input type="text" name = "plano" id="plano" class="form-control" placeholder="Plano">
+							</div>
+							<div class="col-xs-4">
+								<label for="iccid">ICCID</label>
+								<input type="text" name = "iccid" id="iccid" class="form-control" placeholder="ICCID">
+							</div>
+							<div class="col-xs-4">
+								<label for="operadora">Operadora</label>
+								<select name = "operadora" id = "operadora" class="form-control">
+									<option value = "Vivo">Vivo</option>
+									<option value = "TIM">TIM</option>
+									<option value = "OI">OI</option>
+									<option value = "Nextel">Nextel</option>
+									<option value = "Claro">Claro</option>
+								</select>
+							</div>
+							<div class="col-xs-4">
+								<label for="status">Status</label>
+								<select name = "status" id = "status" class="form-control">
+									<option value = "Uso">Uso</option>
+									<option value = "Parado">Parado</option>
+									<option value = "Bloqueado">Bloqueado</option>
+									<option value = "Furtado">Furtado</option>
+								</select>
+							</div>
+							<div class="col-xs-12">
+								<label for="observacoes">Observações</label>
+								<textarea class="form-control" name = "observacoes" id = "observacoes" rows="3"></textarea>	
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+				<button type="button" class="btn btn-primary">Salvar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

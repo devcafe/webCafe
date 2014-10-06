@@ -6,7 +6,7 @@
 		$page = $_POST['page'];
 
 		if(isset($_POST['searchVal']) && $_POST['searchVal'] != ''){
-			$where = "Where numLinha like '%".$_POST['searchVal']."%' Or plano like '%".$_POST['searchVal']."%'";
+			$where = "Where numLinha like '%".$_POST['searchVal']."%' Or plano like '%".$_POST['searchVal']."%' Or iccid like '%".$_POST['searchVal']."%'";
 		} else {
 			$where = '';
 		}

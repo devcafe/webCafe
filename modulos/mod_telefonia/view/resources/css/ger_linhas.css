@@ -7,6 +7,15 @@
 .right20{
 	margin-right:20px;
 }
+.width30{
+	width:30px;
+}
+.width100{
+	width:100px;
+}
 #gerLinhas_table thead th span{
+	cursor:pointer;
+}
+#gerLinhas_table tbody tr td.show{
 	cursor:pointer;
 }

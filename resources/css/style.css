@@ -1,0 +1,33 @@
+#mainWrapper{
+	width: 1366px;
+	margin: 0 auto;
+	height: 100%;
+}
+
+.all{
+	min-height: 100%;
+	min-width: 100%;
+	position: relative;
+	float: left;
+}
+
+#contentWrapper{
+	height: 100%;
+	padding: 40px;
+	background: #FFF;
+}
+
+/*******************************************/
+/* Footer
+/*******************************************/
+.footerInner{
+	padding:15px;
+	font-size: 12px;
+	text-align: center;
+}
+footer{
+	background:#3399cc !important;
+	color:#FFF !important;
+	width:100%;
+	bottom:0;
+}

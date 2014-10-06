@@ -7,7 +7,7 @@
 		function authUser($dados){
 			$pdo = new Connection();
 
-			$auth = $pdo->prepare("select usuario, senha from ipsum_usuarios where usuario = :userLogin And senha = :pwdLogin");
+			$auth = $pdo->prepare("select user, password from webcafe_usuarios where user = :userLogin And password = :pwdLogin");
 			$auth->execute(array(":userLogin" => $dados['userLogin'], ":pwdLogin" => $dados['pwdLogin']));
 
 			$count = $auth->rowCount();
@@ -15,11 +15,11 @@
 			return $count;
 		}
 
-		// Sessão
+		//Sessão
 		function userSession($dados){
 			$pdo = new Connection();
 
-			$auth = $pdo->prepare("select id idUser, concat(nome,' ', sobrenome) name, acessos access from ipsum_usuarios where usuario = :userLogin And senha = :pwdLogin");
+			$auth = $pdo->prepare("select idUser, concat(firstName,' ', lastName) name from webcafe_usuarios where user = :userLogin And password = :pwdLogin");
 			$auth->execute(array(":userLogin" => $dados['userLogin'], ":pwdLogin" => $dados['pwdLogin']));
 
 			$res = $auth->fetch(PDO::FETCH_OBJ);

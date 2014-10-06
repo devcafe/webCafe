@@ -29,7 +29,7 @@
 		$_SESSION['loged'] = true;
 
 		//Grava tipo do usuário
-		$_SESSION['access'] = $logon->userSession($dados)->access;
+		//$_SESSION['access'] = $logon->userSession($dados)->access;
 
 		//Usuário autenticado
 		$msg = 1;

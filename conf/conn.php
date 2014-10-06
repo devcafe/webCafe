@@ -1,6 +1,6 @@
 <?php
 class Connection extends PDO {
-	private $dsn = 'mysql:dbname=ipsum;host=127.0.0.1';
+	private $dsn = 'mysql:dbname=webCafe;host=127.0.0.1';
 	private $user = 'root';
 	private $password = '';
 	public $pdo = null;

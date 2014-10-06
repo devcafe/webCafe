@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 06-Out-2014 às 19:23
+-- Generation Time: 06-Out-2014 às 20:14
 -- Versão do servidor: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -105,8 +105,17 @@ CREATE TABLE IF NOT EXISTS `webcafe_usuarios` (
   `idUser` int(11) NOT NULL AUTO_INCREMENT,
   `user` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
+  `firstName` varchar(25) NOT NULL,
+  `lastName` varchar(25) NOT NULL,
   PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `webcafe_usuarios`
+--
+
+INSERT INTO `webcafe_usuarios` (`idUser`, `user`, `password`, `firstName`, `lastName`) VALUES
+(1, 'luis.abeno', 'faea5242a00c52da62a0f00df168c199b7ab748d', 'Luis', 'Abeno');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

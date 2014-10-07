@@ -1,8 +1,10 @@
 <?php
 	require_once("../../../conf/conn.php");
+	require_once("../../../actions/security.php");
 
 	class Linhas {
 
+		//Method to load table data
 		function loadTableData($end, $page, $where, $orderBy){
 			$pdo = new Connection();
 
@@ -30,6 +32,11 @@
 			$res[1] = $limit->fetchAll(PDO::FETCH_OBJ);
 
 			return json_encode($res);
+		}
+
+		//Method to save data
+		function save(){
+
 		}
 	}
 

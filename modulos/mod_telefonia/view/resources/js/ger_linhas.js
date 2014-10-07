@@ -273,4 +273,22 @@ $(function(){
 		}
 	})
 	
+	//Save new line
+	$('#gerLinhas_save').click(function(){
+		//Get data to save
+		var formData = $('#gerLinhas_form').serialize();
+
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+			type: 'POST',
+			data: {
+				formData: formData,
+				op: 'save' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+			}
+		});
+	})
 })

@@ -1,3 +1,5 @@
+<?php require_once("../../../actions/security.php"); ?>
+
 <script src="modulos/mod_telefonia/view/resources/js/ger_linhas.js"></script>
 <link rel="stylesheet" href="modulos/mod_telefonia/view/resources/css/ger_linhas.css" />
 
@@ -80,7 +82,7 @@
 				<h4 class="modal-title">Adicionar linha</h4>
 			</div>
 			<div class="modal-body">
-				<form role="form">
+				<form role="form" id = "gerLinhas_form">
 					<div class="row">
 						<div class="form-group">
 							<div class="col-xs-4">
@@ -124,7 +126,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				<button type="button" class="btn btn-primary">Salvar</button>
+				<button type="button" id = "gerLinhas_save" name = "gerLinhas_save" class="btn btn-primary">Salvar</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

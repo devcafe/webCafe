@@ -25,7 +25,7 @@
 
 	<table id = "gerLinhas_table" class="table table-striped table-hover">
 		<thead> 
-			<th class = "width30"></th>
+			<th class = "width50"></th>
 			<th id = "numLinha"> Numero <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<th id = "plano"> Plano <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<th id = "iccid"> ICCID <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
@@ -37,7 +37,7 @@
 		</tbody>
 
 		<tfoot>
-			<th class = "width30"></th>
+			<th class = "width50"></th>
 			<th> Numero </th>
 			<th> Plano </th>
 			<th> ICCID </th>

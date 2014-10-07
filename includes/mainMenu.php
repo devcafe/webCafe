@@ -7,8 +7,8 @@
       <li><a href='?page=home'>Home</a></li>
       <li class='has-sub'><a href='#'>Telefonia</a>
          <ul>
-            <li><a href='#' id = "ger_linhas">Gerenciar linhas</a>  </li>
-            <li><a href='#' id = "ger_aparelhos">Gerenciar aparelhos</a> </li>
+            <li><a href='?mod=mod_telefonia&page=ger_linhas' id = "ger_linhas">Gerenciar linhas</a>  </li>
+            <li><a href='?mod=mod_telefonia&page=ger_aparehos' id = "ger_aparelhos">Gerenciar aparelhos</a> </li>
          </ul>
       </li>
    </ul>

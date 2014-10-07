@@ -36,7 +36,7 @@ $(document).ready(function(){
 				filtro: filtro,
 				ordemLojas: ordemLojas,
 			},
-			url: 'mod_operacional/ajax/carregaListaLojasConsulta.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaLojasConsulta.php',
 			success: function (data){
 				$('#listaLojas').empty();
 
@@ -117,7 +117,7 @@ $(document).ready(function(){
 				numero: numero,
 				ordemLojas: ordemLojas,
 			},
-			url: 'mod_operacional/ajax/carregaListaLojasConsulta.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaLojasConsulta.php',
 			success: function (data){
 				$('#listaLojas').empty();
 
@@ -177,7 +177,7 @@ $(document).ready(function(){
 				numero: numero,
 				ordemLojas: ordemLojas,
 			},
-			url: 'mod_operacional/ajax/carregaListaLojasConsulta.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaLojasConsulta.php',
 			success: function (data){
 				$('#listaLojas').empty();
 
@@ -252,7 +252,7 @@ $(document).ready(function(){
 			data:{
 				idLoja: idLoja
 			},
-			url: 'mod_operacional/ajax/carregaDadosLoja.php',
+			url: 'modulos/mod_operacional/ajax/carregaDadosLoja.php',
 			success: function (data){
 				
 				var json = $.parseJSON(data);

@@ -59,7 +59,7 @@ $(document).ready(function() {
 				buscaCampo: buscaCampo,
 				editar:'0',
 			},
-			url: 'mod_operacional/ajax/carregaListaColaboradores.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaColaboradores.php',
 			success: function (data){
 			//limpa o campo				
 				$('.listaColaboradores').empty();
@@ -109,7 +109,7 @@ $(document).ready(function() {
 				toSearchLoja: toSearchLoja,
 				buscaCampoLoja: buscaCampoLoja
 			},
-			url: 'mod_operacional/ajax/carregaListaLojasRoteiro.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaLojasRoteiro.php',
 			success: function (data){
 				//limpa  a lista de lojas
 				$('.listaLoja').empty();
@@ -156,7 +156,7 @@ $(document).ready(function() {
 				cnpjAdd: cnpjAdd,
 				nomeAdd: nomeAdd,
 			},
-			url: 'mod_operacional/ajax/geraListaLojas.php',
+			url: 'modulos/mod_operacional/ajax/geraListaLojas.php',
 			success: function(data){								
 				$('#lojasForm').append(data);
 				$('#lojasModal').dialog( "destroy" );							
@@ -213,7 +213,7 @@ $(document).ready(function() {
 					matricula: matricula,
 					lojasItens : lojasItens,
 				},
-				url: 'mod_operacional/ajax/cadRoteiro.php',
+				url: 'modulos/mod_operacional/ajax/cadRoteiro.php',
 				success:function(data){				
 					$('#criarRoteiroModal').dialog( "destroy" );
 					carregaListaRoteiros();
@@ -234,7 +234,7 @@ $(document).ready(function() {
 				nomeAdd: 'null',
 				idRoteiro: idRoteiro,
 			},
-			url: 'mod_operacional/ajax/geraListaLojas.php',
+			url: 'modulos/mod_operacional/ajax/geraListaLojas.php',
 			success: function(data){
 				$('#lojasForm').empty();								
 				$('#lojasForm').append(data);										
@@ -253,7 +253,7 @@ $(document).ready(function() {
 				pag: pag,
 				idLoggedUser: idLoggedUser
 			},
-			url: 'mod_operacional/ajax/carregaListaRoteiros.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaRoteiros.php',
 			success:function(data){
 				$('#addDataRoteiro').empty();
 				$('#addDataRoteiro').append(data);
@@ -273,7 +273,7 @@ $(document).ready(function() {
 				idAcaoSelect:idAcaoSelect,
 				idLoggedUser: idLoggedUser
 			},
-			url:'mod_operacional/ajax/acaoSelect.php',
+			url:'modulos/mod_operacional/ajax/acaoSelect.php',
 			success:function(data){
 				$('#acaoSelect').append(data);
 			}
@@ -292,7 +292,7 @@ $(document).ready(function() {
 					buscaCampo: buscaCampo,
 					editar:'1'
 				},
-				url: 'mod_operacional/ajax/carregaListaColaboradores.php',
+				url: 'modulos/mod_operacional/ajax/carregaListaColaboradores.php',
 				success: function (data){
 					var jsonC = $.parseJSON(data);			
 				// limpa o campo
@@ -326,7 +326,7 @@ $(document).ready(function() {
 			data:{
 				idRoteiro:idRoteiro,
 			},
-			url:'mod_operacional/ajax/carregaListaRoteiroEdicao.php',
+			url:'modulos/mod_operacional/ajax/carregaListaRoteiroEdicao.php',
 			success: function(data){
 				//transforma os dados em json				
 				var json = $.parseJSON(data);							
@@ -392,7 +392,7 @@ $(document).ready(function() {
 					data: {
 						itens: itens,
 					},
-					url: 'mod_operacional/ajax/deletaRoteiro.php',
+					url: 'modulos/mod_operacional/ajax/deletaRoteiro.php',
 					success: function(data){
 						carregaListaRoteiros();
 						alert(data);
@@ -428,7 +428,7 @@ $(document).ready(function() {
 				data: {
 					idLojaCarta: idLojaCarta,
 				},
-				url: 'mod_operacional/ajax/GeraListaCartasPrint.php',
+				url: 'modulos/mod_operacional/ajax/GeraListaCartasPrint.php',
 				success: function(data){
 					$('#addDataPrint').empty().append(data);
 				}
@@ -481,7 +481,7 @@ $(document).ready(function() {
 			 if($(this).attr('id') == idLojaDestinoCarta){
 			 	$(this).find('#idCarta').val(idCarta);
 			 	$(this).find('.openModalPrint').html(nomeCarta);
-			 	$(this).find("img").attr('src','../main/resources/images/print.png');
+			 	$(this).find("img").attr('src','../../main/resources/img/print.png');
 
 			 }
 		})
@@ -535,7 +535,7 @@ $(document).ready(function() {
 				 if($(this).attr('id') == idLojaDestinoCarta){
 				 	$(this).find('#idCarta').val(1);
 				 	$(this).find('.openModalPrint').html("Nenhum");
-				    $(this).find("img").attr('src','../main/resources/images/noPrint.png');
+				    $(this).find("img").attr('src','../../main/resources/img/noPrint.png');
 
 				 }
 			})

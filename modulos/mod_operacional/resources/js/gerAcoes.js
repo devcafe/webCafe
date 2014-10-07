@@ -40,7 +40,7 @@ $(document).ready(function() {
 			data: {
 				colaboradoresSearch: colaboradoresSearch
 			},
-			url: 'mod_operacional/ajax/carregaListaColaboradoresAcao.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaColaboradoresAcao.php',
 			success: function (data){
 				
 				$('.listaColaboradoresAcao').empty();
@@ -60,7 +60,7 @@ $(document).ready(function() {
 			data: {
 				colaboradoresSearch: colaboradoresSearch
 			},
-			url: 'mod_operacional/ajax/carregaListaColaboradoresAcaoAlt.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaColaboradoresAcaoAlt.php',
 			success: function (data){
 				
 				$('.listaColaboradoresAcaoAlt').empty();
@@ -136,7 +136,7 @@ $(document).ready(function() {
 				itens: itens,
 				nomeAcao: nomeAcao
 			},
-			url: 'mod_operacional/ajax/cadAcao.php',
+			url: 'modulos/mod_operacional/ajax/cadAcao.php',
 			success: function (data){
 				alert(data);
 
@@ -157,7 +157,7 @@ $(document).ready(function() {
 			data: {
 				pag: pag
 			},
-			url: 'mod_operacional/ajax/carregaAcoes.php',
+			url: 'modulos/mod_operacional/ajax/carregaAcoes.php',
 			success: function (data){
 				$('.acoesList').empty();
 				$('.acoesList').append(data);
@@ -176,7 +176,7 @@ $(document).ready(function() {
 			data: {
 				id: id
 			},
-			url: 'mod_operacional/ajax/carregaDadosAcao.php',
+			url: 'modulos/mod_operacional/ajax/carregaDadosAcao.php',
 			success: function (data){
 				//Abre modal com lojas
 				$( "#alteraAcaoModal" ).dialog({
@@ -213,7 +213,7 @@ $(document).ready(function() {
 				nomeAcao: nomeAcao,
 				idAcaoAlt: idAcaoAlt
 			},
-			url: 'mod_operacional/ajax/altAcao.php',
+			url: 'modulos/mod_operacional/ajax/altAcao.php',
 			success: function (data){
 				alert(data);
 
@@ -276,7 +276,7 @@ $(document).ready(function() {
 				//Envia array com os itens selecionados para exclusão
 				$.ajax({
 					type: 'POST',
-					url: 'mod_operacional/ajax/deletaAcao.php',
+					url: 'modulos/mod_operacional/ajax/deletaAcao.php',
 					data: {
 						itens: itens
 					},

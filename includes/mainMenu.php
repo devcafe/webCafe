@@ -13,11 +13,11 @@
       </li>
        <li class='has-sub'><a href='#'>Operacional</a>
          <ul>
-            <li><a href='#' id = "cadLoja" class = "mod_operacional">Cadastrar Loja</a>  </li>
-            <li><a href='#' id = "gerAcoes" class = "mod_operacional">Gerenciar Ações</a> </li>
-            <li><a href='#' id = "gerLojas" class = "mod_operacional">Gerenciar Lojas</a>  </li>
-            <li><a href='#' id = "gerRoteiro" class = "mod_operacional">Gerenciar Roteiro</a> </li>            
-            <li><a href='#' id = "listLojas" class = "mod_operacional">Listar Loja</a> </li>
+            <li><a href='?mod=mod_operacional&page=cadLoja' id = "cadLoja">Cadastrar Loja</a>  </li>
+            <li><a href='?mod=mod_operacional&page=gerAcoes' id = "gerAcoes">Gerenciar Ações</a> </li>
+            <li><a href='?mod=mod_operacional&page=gerLojas' id = "gerLojas">Gerenciar Lojas</a>  </li>
+            <li><a href='?mod=mod_operacional&page=gerRoteiro' id = "gerRoteiro">Gerenciar Roteiro</a> </li>            
+            <li><a href='?mod=mod_operacional&page=listLojas' id = "listLojas">Listar Loja</a> </li>
          </ul>
       </li>
    </ul>

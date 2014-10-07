@@ -40,7 +40,7 @@ $(document).ready(function(){
 				filtro: filtro,
 				ordemLojas: ordemLojas,
 			},
-			url: 'mod_operacional/ajax/carregaListaLojasGerencial.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaLojasGerencial.php',
 			success: function (data){
 				$('.addDataLoja').empty();
 
@@ -114,7 +114,7 @@ $(document).ready(function(){
 					numero: numero,
 					ordemLojas: ordemLojas,
 				},
-				url: 'mod_operacional/ajax/carregaListaLojasGerencial.php',
+				url: 'modulos/mod_operacional/ajax/carregaListaLojasGerencial.php',
 				success: function (data){
 					$('#listaLojas').empty();
 
@@ -190,7 +190,7 @@ $(document).ready(function(){
 					numero: numero,
 					ordemLojas: ordemLojas,
 				},
-				url: 'mod_operacional/ajax/carregaListaLojasGerencial.php',
+				url: 'modulos/mod_operacional/ajax/carregaListaLojasGerencial.php',
 				success: function (data){
 					$('#listaLojas').empty();
 
@@ -218,7 +218,7 @@ $(document).ready(function(){
 					numero: numero,
 				ordemLojas: ordemLojas,
 				},
-				url: 'mod_operacional/ajax/carregaListaLojasGerencial.php',
+				url: 'modulos/mod_operacional/ajax/carregaListaLojasGerencial.php',
 				success: function (data){
 					$('#listaLojas').empty();
 
@@ -279,7 +279,7 @@ $(document).ready(function(){
 				numero: numero,
 				ordemLojas: ordemLojas,
 			},
-			url: 'mod_operacional/ajax/carregaListaLojasGerencial.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaLojasGerencial.php',
 			success: function (data){
 				$('#listaLojas').empty();
 
@@ -355,7 +355,7 @@ $(document).ready(function(){
 			data:{
 				idLoja: idLoja
 			},
-			url: 'mod_operacional/ajax/carregaDadosLoja.php',
+			url: 'modulos/mod_operacional/ajax/carregaDadosLoja.php',
 			success: function (data){
 				
 				var json = $.parseJSON(data);
@@ -404,7 +404,7 @@ $(document).ready(function(){
 			data:{
 				id: id
 			},
-			url: 'mod_operacional/ajax/carregaDadosLojaReceita.php',
+			url: 'modulos/mod_operacional/ajax/carregaDadosLojaReceita.php',
 			success: function (data){
 
 				var json = $.parseJSON(data);
@@ -461,7 +461,7 @@ $(document).ready(function(){
 				ordemLojas: ordemLojas,
 
 			},
-			url: 'mod_operacional/ajax/carregaListaLojasGerencial.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaLojasGerencial.php',
 			success: function (data){
 				$('#listaLojas').empty();
 
@@ -478,7 +478,7 @@ $(document).ready(function(){
 	$('.btnToCSV').on('click', function(){
 		$.ajax({
 			type: 'POST',
-			url: 'mod_operacional/ajax/geraCSVLojas.php',
+			url: 'modulos/mod_operacional/ajax/geraCSVLojas.php',
 			success: function (data){
 				//console.log(data);
 				window.location = "mod_operacional/ajax/geraCSVLojas.php";
@@ -490,7 +490,7 @@ $(document).ready(function(){
 	$('.btnToExcel').on('click', function(){
 		$.ajax({
 			type: 'POST',
-			url: 'mod_operacional/ajax/geraExcelLojas.php',
+			url: 'modulos/mod_operacional/ajax/geraExcelLojas.php',
 			success: function (data){				
 				window.location = "mod_operacional/ajax/geraExcelLojas.php";
 			}
@@ -525,7 +525,7 @@ $(document).ready(function(){
 
 		$.ajax({
 			type:'POST',
-			url:'mod_operacional/cadLoja.php',
+			url:'modulos/mod_operacional/cadLoja.php',
 			data: {
 
 			},
@@ -535,7 +535,7 @@ $(document).ready(function(){
 
 				$.ajax({
 					type:'POST',
-					url:'mod_operacional/ajax/carregaDadosLoja.php',
+					url:'modulos/mod_operacional/ajax/carregaDadosLoja.php',
 					data: {
 						idLoja: idLoja,
 					},

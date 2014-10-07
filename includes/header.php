@@ -10,8 +10,6 @@
 		<link href = "libs/jqueryUI/jquery-ui.css" type = "text/css" rel = "stylesheet">
 		<link href = "resources/css/style.css" type = "text/css" rel = "stylesheet">
 	
-		
-
 		<!-- Script -->
 		<script src = "libs/jquery/jquery-1.11.1.js" type = "text/javascript"> </script>
 		<script src = "libs/bootstrap/js/bootstrap.js" type = "text/javascript"> </script>

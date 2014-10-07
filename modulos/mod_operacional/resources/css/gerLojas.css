@@ -1,0 +1,215 @@
+.fakeRow{
+	height:30px;
+}
+
+.totalReg{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+/* Botoes */
+.proximaPag:link{
+	color:#fff !important;
+	background: url('../../../resources/images/Operacional/btnBG.png') repeat-x top left;
+	padding: 5px;
+	border-radius: 5px;
+	text-decoration: none;
+}
+
+
+.voltarPag:link{
+	color:#fff !important;
+	background: url('../../../resources/images/Operacional/btnBG.png') repeat-x top left;
+	padding: 5px;
+	border-radius: 5px;
+	text-decoration: none;
+}
+
+.order_a-z {
+	background: url('../../../resources/images/Operacional/sortDown.png') no-repeat top right;
+	}
+.order_z-a {
+	background: url('../../../resources/images/Operacional/sortUp.png') no-repeat top right;
+	}	
+
+
+/* Tabela lista Lojas */
+#lojasTable{
+	border: 1px solid #e7e7e7;
+	width:100%;
+}
+
+#lojasTable tr:first-child{
+	background: #ADC4DC !important;
+	color: #000;
+	font-weight: bold;
+	font-size:12px;
+	line-height: 20px;
+}
+
+#lojasTable tr{
+	border-bottom: solid 1px #e7e7e7;
+	line-height: 20px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#lojasTable tr td{
+	max-width: 200px;
+	min-width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* ID */
+#lojasTable tr td:nth-child(1){
+	max-width: 78px;
+	min-width: 78px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Numero */
+#lojasTable tr td:nth-child(8){
+	max-width: 80px;
+	min-width: 80px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* UF */
+#lojasTable tr td:nth-child(11){
+	max-width: 40px;
+	min-width: 40px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.par{
+	background: #E8E8E8;
+}
+
+.impar{
+	background: #FFF;
+}
+
+.formInner{
+	margin-bottom: 50px;
+}
+
+table tr:not(:first-child):hover{
+	background:#CCC;
+	cursor:pointer;
+}
+
+#alteraLojaBtn:hover{
+	background: #ADC4DC !important;
+}
+
+.formInner{
+	width:1165px;
+	margin: 0 auto;
+	padding: 20px;
+	background: #F6F6F6;
+	min-height: 500px;	
+	overflow: auto;
+}
+
+
+/* Painel */
+.painel{
+	height:auto;
+	width:100%;
+	margin:5px;
+	float:left;
+}
+
+.btnFiltrar, .btnSelFields{
+	float:left;
+}
+
+.filtro{
+	float: left;
+	height: 100%;
+	width: 100%;
+	margin-top:15px;
+	margin-bottom: 25px;
+	/*text-align: center;*/
+}
+
+.filtro02{
+	margin-top:5px;
+	/*margin-left: -86px;*/
+}
+
+.blue{
+	color:blue;
+}
+
+.navLojas{
+	float:right;
+}
+
+.btnSelFields, .btnToCSV, #btnToExcel{
+	cursor:pointer;
+}
+
+.btnToCSV{
+	height: 0px;
+}
+
+input[type="checkbox"]{
+	margin-left:10px;
+}
+
+.fieldsToShow input{
+	width:auto !important;
+}
+
+.btnSelFields{
+	margin-left:10px;
+}
+
+.btnToCSV img{
+	margin-left:15px;
+}
+
+#btnToExcel {
+	float: left;
+	width: 22px;
+	height: 15px;
+	margin-left: 45px;
+}
+
+.chooseFields{
+	margin:15px 15px 25px 15px;
+}
+
+#sendFields{
+	width:250px !important;
+	margin-top:15px;
+}
+
+.toCenter{
+	text-align: center;
+}
+ 
+.fieldsToShow tr:not(:first-child):hover {
+	background: none;
+}
+
+#sendFields:hover {
+	background: #ADC4DC !important;
+}
+
+#limparFiltro {
+
+}

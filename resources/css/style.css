@@ -41,3 +41,14 @@ footer{
 	bottom:0;
 	position: absolute;
 }
+
+
+/*******************************************/
+/* Procedimentos
+/*******************************************/
+.filePdf{
+	padding-left:50px !important; 
+}
+.dirPdf {
+	font-weight: bold;
+}

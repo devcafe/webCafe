@@ -1,7 +1,6 @@
 <?php
 	require_once("../model/ger_linhas.php");
 	require_once("../../../actions/security.php");
-	require_once("../../../conf/conn.php");
 
 	//Check if page variable export exists, if does'nt, continue with normal operations
 	if(!(isset($_GET['export'])) && !(isset($_GET['import']))){

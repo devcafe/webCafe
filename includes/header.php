@@ -5,10 +5,11 @@
 		<title> WebCafé </title>
 
 		<!-- CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
 		<link href = "libs/formValidator/form-validator/jquery.form-validator.js" type = "text/css" rel = "stylesheet">
 		<link href = "libs/jqueryUI/jquery-ui.css" type = "text/css" rel = "stylesheet">
 		<link href = "resources/css/style.css" type = "text/css" rel = "stylesheet">
+	
 		
 
 		<!-- Script -->

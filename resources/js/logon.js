@@ -5,6 +5,7 @@ $(document).ready(function(){
 		//Pega os valores dos campos
 		var userLogin = $('#userLogin').val(); 
 		var pwdLogin = $('#pwdLogin').val();
+		var remember = $('#remember').is(':checked');		
 		
 		//Envia via ajax para o logon	
 		$.ajax({
@@ -13,6 +14,7 @@ $(document).ready(function(){
 			data: {
 				userLogin : userLogin,
 				pwdLogin : pwdLogin,
+				remember: remember,
 			},
 			success: function(data){
 				console.log(data);

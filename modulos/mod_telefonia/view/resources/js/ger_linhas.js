@@ -126,11 +126,11 @@ $(function(){
 					for(var i=0;i<data[1].length;i++){					
 						table_gerLinhas.append(""+
 							"<tr>"+
-								"<td class = 'show width50'>"+
-								"<button id = 'show_"+ data[1][i].idLinha +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_linha'>"+
-								  "<span class='glyphicon glyphicon-search'></span>"+
-								"</button>"+
-								//"<span id = 'show_"+ data[1][i].idLinha +"' class='glyphicon glyphicon-search'></span></td>"+
+								"<td class = 'show width50 pull-left'>"+
+									"<button id = 'show_"+ data[1][i].idLinha +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_linha'>"+
+									  "<span class='glyphicon glyphicon-search'></span>"+
+									"</button>"+
+								"</td>"+
 								"<td>"+data[1][i].numLinha+"</td>"+
 								"<td>"+data[1][i].plano+"</td>"+
 								"<td>"+data[1][i].iccid+"</td>"+

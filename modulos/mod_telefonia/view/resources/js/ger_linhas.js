@@ -52,9 +52,6 @@ $(function(){
 				//Show the total regs				
 				$('#gerLinhas_tableRegTotal').html(data['totalRegs']);
 
-				//Show actual page
-				$('#gerLinhas_tableRegPage').html(data['actualPage']);
-
 				//Show the total pages
 				$("#gerLinhas_tableTotalPages").html(data['totalPages']);
 
@@ -75,6 +72,9 @@ $(function(){
 				} else if(page > data['totalPages']){ //Check if the user try to search for a page that does not exist
 					alert("Página não existe");
 				} else { //Return the data and append the pagination
+					//Show actual page
+					$('#gerLinhas_tableRegPage').html(data['actualPage']);
+
 					//To update table data, clear first
 					table_gerLinhas.empty();
 					paginationWrapper.empty();
@@ -126,8 +126,18 @@ $(function(){
 					for(var i=0;i<data[1].length;i++){					
 						table_gerLinhas.append(""+
 							"<tr>"+
+								"<td class = 'show width30'><span id = 'show_"+ data[1][i].idLinha +"' class='glyphicon glyphicon-search'></span></td>"+
 								"<td>"+data[1][i].numLinha+"</td>"+
 								"<td>"+data[1][i].plano+"</td>"+
+								"<td>"+data[1][i].iccid+"</td>"+
+								"<td class = 'width100'>"+
+									"<button id = 'del_"+ data[1][i].idLinha +"' type='button' class='btn btn-danger pull-left'>"+
+									  "<span class='glyphicon glyphicon-trash'></span>"+
+									"</button>"+
+									"<button id = 'edit_"+ data[1][i].idLinha +"' type='button' class='btn btn-warning pull-left'>"+
+									  "<span class='glyphicon glyphicon-pencil'></span>"+
+									"</button>"+
+								"</td>"+
 							"</tr>"+
 						"");
 					}
@@ -263,4 +273,22 @@ $(function(){
 		}
 	})
 	
+	//Save new line
+	$('#gerLinhas_save').click(function(){
+		//Get data to save
+		var formData = $('#gerLinhas_form').serialize();
+
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+			type: 'POST',
+			data: {
+				formData: formData,
+				op: 'save' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+			}
+		});
+	})
 })

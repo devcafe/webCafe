@@ -13,6 +13,6 @@
       </li>
    </ul>
 
-   <div class = "logout"> <a href = "../actions/logout.php"> <img src = "resources/img/logout.png" title = "logout"> </a> </div>
+   <div class = "logout"> <a href = "actions/logout.php"> <img src = "resources/img/logout.png" title = "logout"> </a> </div>
 </div>
 

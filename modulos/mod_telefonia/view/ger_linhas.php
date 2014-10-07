@@ -17,7 +17,7 @@
 				</select>
 			</div>
 
-			<button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#add_linha">
+			<button type="button" id = "gerLinhas_addLinhaBtn" class="btn btn-primary pull-left" data-toggle="modal" data-target="#add_linha">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar linha
 			</button>
 		</div>
@@ -72,6 +72,7 @@
 </div>
 
 <!-- Modals -->
+<!-- Add/Update line -->
 <div class="modal fade" id = "add_linha">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -87,7 +88,7 @@
 						<div class="form-group">
 							<div class="col-xs-4">
 								<label for="numLinha">Linha:</label>
-								<input type="text" name = "numLinha" id="numLinha" class="form-control" placeholder="Número da linha">
+								<input type="text" name = "numLinha" class="form-control" placeholder="Número da linha">
 							</div>
 							<div class="col-xs-6">
 								<label for="plano">Plano</label>
@@ -124,9 +125,58 @@
 					</div>
 				</form>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-footer" id = "gerLinhas_modalFooter">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 				<button type="button" id = "gerLinhas_save" name = "gerLinhas_save" class="btn btn-primary">Salvar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- See line information -->
+<div class="modal fade" id = "show_linha">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span>
+				</button>
+				<h4 class="modal-title">Dados da linha</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form">
+					<div class="row">
+						<div class="form-group">
+							<div class="col-xs-4">
+								<label for="numLinha">Linha:</label>
+								<span id = "show_numLinha"> </span>
+							</div>
+							<div class="col-xs-6">
+								<label for="plano">Plano</label>
+								<span id = "show_plano"> </span>
+							</div>
+							<div class="col-xs-4">
+								<label for="iccid">ICCID</label>
+								<span id = "show_iccid"> </span>
+							</div>
+							<div class="col-xs-4">
+								<label for="operadora">Operadora</label>
+								<span id = "show_operadora"> </span>
+							</div>
+							<div class="col-xs-4">
+								<label for="status">Status</label>
+								<span id = "show_linhaStatus"> </span>
+							</div>
+							<div class="col-xs-12">
+								<label for="observacoes">Observações</label>
+								<span id = "show_observacoes"> </span>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

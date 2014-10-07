@@ -20,9 +20,41 @@
 		}
 
 		$linhas = new Linhas();
-		echo $linhas->loadTableData($end, $page, $where, $orderBy);
+		echo $linhas->loadTableData($end, $page, $where, $orderBy); //Get table return
+
 	} else if ($_POST['op'] == 'save'){ //Save operation
 		$idUser = $_SESSION['idUser'];
-		echo $idUser;
+
+		$linhas = new Linhas();
+
+		//Get actual date
+		$date = date('d/m/Y H:i');
+
+		echo $linhas->save($_POST['formData'], $idUser, $date); //Get return after insert
+
+	} else if ($_POST['op'] == 'loadData'){ //Load line data to edit
+		$linhas = new Linhas();
+
+		echo $linhas->loadData($_POST['idLinha']); //Get return to populate fields
+	
+	} else if ($_POST['op'] == 'update'){ //Edit line
+		$idUser = $_SESSION['idUser'];
+
+		$linhas = new Linhas();
+
+		//Get actual date
+		$date = date('d/m/Y H:i');
+
+		echo $linhas->edit($_POST['formData'], $idUser, $date, $_POST['idLinha']); //Get return after update
+
+	} else if ($_POST['op'] == 'delete'){ //Delete line
+		$idUser = $_SESSION['idUser'];
+
+		$linhas = new Linhas();
+
+		//Get actual date
+		$date = date('d/m/Y H:i');
+
+		echo $linhas->delete($idUser, $date, $_POST['idLinha']); //Get return after delete
 	}
 ?>

@@ -126,15 +126,19 @@ $(function(){
 					for(var i=0;i<data[1].length;i++){					
 						table_gerLinhas.append(""+
 							"<tr>"+
-								"<td class = 'show width30'><span id = 'show_"+ data[1][i].idLinha +"' class='glyphicon glyphicon-search'></span></td>"+
+								"<td class = 'show width50'>"+
+								"<button id = 'show_"+ data[1][i].idLinha +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_linha'>"+
+								  "<span class='glyphicon glyphicon-search'></span>"+
+								"</button>"+
+								//"<span id = 'show_"+ data[1][i].idLinha +"' class='glyphicon glyphicon-search'></span></td>"+
 								"<td>"+data[1][i].numLinha+"</td>"+
 								"<td>"+data[1][i].plano+"</td>"+
 								"<td>"+data[1][i].iccid+"</td>"+
 								"<td class = 'width100'>"+
-									"<button id = 'del_"+ data[1][i].idLinha +"' type='button' class='btn btn-danger pull-left'>"+
+									"<button id = 'del_"+ data[1][i].idLinha +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
 									"</button>"+
-									"<button id = 'edit_"+ data[1][i].idLinha +"' type='button' class='btn btn-warning pull-left'>"+
+									"<button id = 'edit_"+ data[1][i].idLinha +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_linha'>"+
 									  "<span class='glyphicon glyphicon-pencil'></span>"+
 									"</button>"+
 								"</td>"+
@@ -273,8 +277,28 @@ $(function(){
 		}
 	})
 	
+	//On click in the add line, update the button attributes
+	$('#gerLinhas_addLinhaBtn').on('click', function(){
+		//Clear the form, beacause user can click first on edit
+		$('#gerLinhas_form')[0].reset();
+
+		//Clear textarea
+		$('textarea[name=observacoes]').html('');
+
+		//Remove input hidden used to control the line that is changed
+		$('input[name=edit_idLinha]').remove();
+
+		//Update button, its necessary because the operation changes
+		$('#gerLinhas_update').remove();
+		$('#gerLinhas_save').remove();
+		$('#gerLinhas_modalFooter').append("<button type='button' id = 'gerLinhas_save' name = 'gerLinhas_save' class='btn btn-primary'>Salvar</button>");
+	})
+
 	//Save new line
-	$('#gerLinhas_save').click(function(){
+	$('#gerLinhas_modalFooter').on('click', '#gerLinhas_save', function(){
+		//The amount of records to show in table, used to reload table
+		var regsLimit = $('#gerLinhas_regs option:selected').val();
+
 		//Get data to save
 		var formData = $('#gerLinhas_form').serialize();
 
@@ -287,8 +311,161 @@ $(function(){
 			},
 			dataType: 'json',
 			success: function(data){
-				console.log(data);
+				//Check the return
+				if(data == 1){ //Means the insert as successful
+					alert("Linha cadastrada com sucesso!");
+
+					//Reload table
+					loadTable('1', regsLimit);
+
+					//Hide the modal
+					$('#add_linha').modal('hide');
+
+					//Clear the form
+					$('#gerLinhas_form')[0].reset();
+
+					//Clear textarea
+					$('textarea[name=observacoes]').html('');
+				} else { //Have a problem to insert
+					alert("Falha ao inserir linha");
+				}
 			}
 		});
 	})
+
+	//Function to populate fields before edit data
+	$('#gerLinhas_table').on('click', 'button[name=edit]', function(){
+		//Get line id to edit
+		var idLinha = $(this).attr('id').split("_")[1];
+
+		//Update button, its necessary because the operation changes
+		$('#gerLinhas_save').remove();
+		$('#gerLinhas_update').remove();
+		$('#gerLinhas_modalFooter').append("<button type='button' id = 'gerLinhas_update' name = 'gerLinhas_update' class='btn btn-primary'>Gravar</button>");
+
+		//Add a hidden input to control the line
+		$('#gerLinhas_form').append('<input type = "hidden" value = "'+ idLinha +'" name = "edit_idLinha"> ');
+
+		//First populate the line data in fields
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+			type: 'POST',
+			data: {
+				idLinha: idLinha, //Line id to load data
+				op: 'loadData' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				//Popupate fields
+				$('input[name=numLinha]').val(data.numLinha);
+				$('input[name=plano]').val(data.plano);
+				$('input[name=iccid]').val(data.iccid);
+				$('select[name=operadora]').val(data.operadora);
+				$('select[name=status]').val(data.linhaStatus);
+				$('textarea[name=observacoes]').html(data.observacoes);
+			}
+		})
+	})
+
+	//Function to edit data
+	$('#gerLinhas_modalFooter').on('click', '#gerLinhas_update', function(){
+		//The amount of records to show in table, used to reload table
+		var regsLimit = $('#gerLinhas_regs option:selected').val();
+
+		//The line that user want to update
+		var idLinha = $('input[name=edit_idLinha]').val();
+
+		//Get data to update
+		var formData = $('#gerLinhas_form').serialize();
+
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+			type: 'POST',
+			data: {
+				formData: formData,
+				idLinha: idLinha,
+				op: 'update' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				//Check the return
+				if(data == 1){ //Means the update as successful
+					alert("Linha alterada com sucesso!");
+
+					//Reload table
+					loadTable('1', regsLimit);
+
+					//Hide the modal
+					$('#add_linha').modal('hide');
+
+					//Clear the form
+					$('#gerLinhas_form')[0].reset();
+
+					//Clear textarea
+					$('textarea[name=observacoes]').html('');
+				} else { //Have a problem to insert
+					alert("Falha ao atualizar linha");
+				}
+			}
+		});
+	})
+
+	//Function to delete line
+	$('#gerLinhas_table').on('click', 'button[name=delete]', function(){
+		//The amount of records to show in table, used to reload table
+		var regsLimit = $('#gerLinhas_regs option:selected').val();
+
+		//The line that user want to delete
+		var idLinha = $(this).attr('id').split("_")[1];
+
+		//Ask user if he really wanna delete the record
+		var anwswer = confirm("Tem certeza que deseja remover essa linha?");
+
+		if(anwswer){
+			$.ajax({
+				url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+				type: 'POST',
+				data: {
+					idLinha: idLinha,
+					op: 'delete' //The optional operation to pass for back-end
+				},
+				dataType: 'json',
+				success: function(data){
+					//Check the return
+					if(data == 1){ //Means the update as successful
+						alert("Linha removida com sucesso!");
+
+						//Reload table
+						loadTable('1', regsLimit);
+					} else { //Have a problem to insert
+						alert("Falha ao remover linha");
+					}
+				}
+			});
+		}
+	});
+
+	//Function to see the line
+	$('#gerLinhas_table').on('click', 'button[name=show]', function(){
+		var idLinha = $(this).attr('id').split("_")[1];
+
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+			type: 'POST',
+			data: {
+				idLinha: idLinha, //Line id to load data
+				op: 'loadData' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				//Popupate fields
+				$('#show_numLinha').html(data.numLinha);
+				$('#show_plano').html(data.plano);
+				$('#show_iccid').html(data.iccid);
+				$('#show_operadora').html(data.operadora);
+				$('#show_linhaStatus').html(data.linhaStatus);
+				$('#show_observacoes').html(data.observacoes);
+			}
+		})
+	});
 })

@@ -17,13 +17,16 @@
 }
 
 #loginForm {
-	margin-left: 40%;
+	margin-left: 33%;
 	padding-top: 10%;
+	width: 50%;
+	height: 50%;
 }
 
 h1:first-child {
 	margin-bottom: 5%;
-	margin-left: 10%;
+	margin-left: 20%;
+	font-size: 50px;
 }
 
 /*******************************************/

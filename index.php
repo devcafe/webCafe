@@ -5,7 +5,7 @@
 		<title> WebCafé </title>
 
 		<!-- CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
 		<link href = "resources/css/style.css" type = "text/css" rel = "stylesheet">
 		
 		<!-- Script -->
@@ -18,30 +18,37 @@
 		<div id = "mainWrapper" class="col-xs-12">
 			<div id = "formWrapper">
 				<div id = "login">
-
-					<form method="post" id="loginForm">
+					<form class="form-horizontal" role="form" method="post" id="loginForm">
 						<h1>WebCafé</h1>
-						<table>
-							<tr> 
-								<td><label for = "userLogin"> USUARIO  </label></td>
-								<td><input type = "text" id = "userLogin" name= "userLogin"> </td>
-
-							</tr>
-
-							<tr> 
-								<td><label for = "pwdLogin"> PASSWORD  </label></td>
-								<td><input type = "password" id = "pwdLogin" name= "pwdLogin"></td>
-							</tr>
-
-							<tr> 
-								<td></td>
-								<td>
-									<input type = "button" id = "btnLogin" name= "btnLogin" value = "Login" class= "btn btn-primary">
-									<input type = "button" id = "forgotLogin" name= "forgotLogin" value = "Esqueceu a senha?" class= "btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">
-								</td>
-							</td>   
-						</table>
+						<div class="form-group">
+							<label for="userLogin" class="col-sm-2 control-label">Usuario</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="userLogin" placeholder="Usuario">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="pwdLogin" class="col-sm-2 control-label">Password</label>
+							<div class="col-sm-4">
+								<input type="password" class="form-control" id="pwdLogin" placeholder="Password">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="remember"> Lembre-me
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<input type = "button" id = "btnLogin" name= "btnLogin" value = "Login" class= "btn btn-primary">
+								<input type = "button" id = "forgotLogin" name= "forgotLogin" value = "Esqueceu a senha?" class= "btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">
+							</div>
+						</div>
 					</form>
+
 				</div>
 			</div>
 			

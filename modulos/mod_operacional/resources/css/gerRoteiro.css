@@ -1,0 +1,199 @@
+/* Modal de colaboradores */
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.ui-resizable {
+	width: 1100px !important;
+}
+
+.listaColaboradores{
+	margin: 50px 0 0 28px;
+}
+
+/* Tabela de colaboradores */
+.checkboxTD {
+	width: 15px;
+}
+
+.optionTD{
+	width: 15px;
+}
+
+.matriculaTD{
+	width: 159px;
+}
+
+#addDataUser tr td:nth-child(1){
+	width: 159px;	
+}
+
+.optionLabelTD{
+	width: 68px;
+}
+
+#consultarColaborador, #consultarLoja{
+	margin-left: 50px;
+}
+
+#toSearch, #toSearchLoja{
+	width: 330px;
+	margin-right: 30px;
+}
+
+.par{
+	background: #E8E8E8;
+}
+
+.impar{
+	background: #FFF;
+}
+
+.theFirst {
+	background: #ADC4DC !important;
+	color: #000;
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 20px;
+	text-align: left;
+}
+
+.matTD{
+	width: 208px;
+}
+
+.userToAddList tr:not(:first-child):hover{
+	background:#CCC;
+}
+
+#addToList{
+	margin-top:15px;
+}
+
+#addToList:hover{
+	background: #ADC4DC !important;
+}
+
+#addDataUser tr:hover{
+	background:#CCC;
+}
+
+.selected{
+	background: #CCC !important;
+}
+
+/*start*/
+
+input[name=nomeRoteiro]{
+	width: 50%;
+}
+
+input[name=nomeAcao]{
+	width: 50%;
+}
+
+#nomeAcao{
+	width:100%;
+}
+
+#nomeColaborador {
+	white-space: nowrap; 
+	max-width: 50px; 
+	min-height: 50px; 
+	text-overflow: ellipsis; 
+	overflow: hidden;
+}
+
+#cadastrarRoteiro{
+	width: 100%;
+	margin-top: 250px;
+}
+
+
+
+/* Tabela  */
+
+
+#toSearchLoja {
+	margin-bottom: 30px;
+}
+
+#cnpjRadio{
+	margin-left: 50px;
+}
+
+/* tamanho do inputs da ordem da loja*/
+.ordemDiaRoteiro {
+	width: 80% ;	
+	border: 1px solid #CCC !important;
+	text-align: center !important;
+	-webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+	-moz-box-shadow:    0px 0px 0px 0px rgba(0, 0, 0, 0);
+	box-shadow:         0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.carregaListaLojas tr td:first-child{
+	width: 30px;
+}
+
+#lojasForm tr td:nth-child(3){
+	/*width: 370px;*/
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/*max-width: 370px;*/
+}
+
+#tableLojas tr:not(:first-child):hover, #selectCarta tr:not(:first-child):hover{
+	cursor:pointer;
+}
+
+#addDataRoteiro tr:nth-child(2n+1), #lojasForm tr:nth-child(2n+1), #selectCarta tr:nth-child(2n+1) {
+	background:  #e8e8e8;
+}
+
+#tableRoteiros tr:first-child, #lojasForm tr:first-child, #tableLojas tr:first-child, #selectCarta tr:first-child{
+	background: #ADC4DC !important;
+	color: #000;
+	font-weight: bold;
+	font-size:12px;
+	line-height: 20px;
+}
+#lojasForm tr td:nth-child(2){
+	/*width: 178px;*/
+}
+#lojasForm tr td:nth-child(4){
+	/*width: 40px;*/
+}
+#lojasForm tr td:nth-child(5){
+	width: 40px;
+}
+#lojasForm tr td:nth-child(6){
+	width: 40px;
+}
+#lojasForm tr td:nth-child(6){
+	width: 40px;
+}
+#lojasForm tr td:nth-child(7){
+	width: 40px;
+}
+#lojasForm tr td:nth-child(8){
+	width: 40px;
+}
+#lojasForm tr td:nth-child(9){
+	width: 40px;
+}
+#lojasForm tr td:nth-child(10){
+	width: 40px;
+}
+#lojasForm tr td:nth-child(11){
+	width: 40px;
+}
+input[type=text]{
+	background: none;
+}
+
+.idCol0 {
+	background: #FCDCDB !important;
+}
+
+.selected{
+	background: #CCC !important;
+}
+

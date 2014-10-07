@@ -1,0 +1,60 @@
+.fakeRow{
+	height:10px;
+}
+
+.delAcao img{
+	height: 18px;
+	width: 18px;
+}
+
+.rowLine{
+	border-top: 1px #000 solid;
+}
+
+.selected{
+	background:#CCC !important;
+}
+
+.delAcao{
+	float: left;
+	margin-left: 15px;
+	cursor:pointer;
+}
+
+.addAcao{
+	float: left;
+}
+
+.addAcao img{
+	cursor:pointer;
+}
+
+.par{
+	background: #E8E8E8;
+}
+
+.impar{
+	background: #FFF;
+}
+
+#acoesTable{
+	border: 1px solid #e7e7e7;
+	width:100%;
+}
+
+#acoesTable tr:first-child{
+	background: #ADC4DC !important;
+	color: #000;
+	font-weight: bold;
+	font-size:12px;
+	line-height: 20px;
+}
+
+#acoesTable tr:not(:first-child):hover{
+	background:#CCC;
+	cursor:pointer;
+}
+
+.navLojas{
+	float: right;
+}

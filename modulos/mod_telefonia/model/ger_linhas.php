@@ -8,14 +8,14 @@
 		function loadTableData($end, $page, $where, $orderBy){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Select idLinha, numLinha, plano, iccid From webcafe_modTelefonia_linhas $where $orderBy");
+			$sql = $pdo->prepare("Select idLinha, numLinha, plano, iccid, linhaStatus, operadora From webcafe_modTelefonia_linhas $where $orderBy");
 			$sql->execute();
 			$total = $sql->rowCount();
 
 			$start = $page - 1;
 			$start = $start * $end;
 
-			$limit = $pdo->prepare("Select idLinha, numLinha, plano, iccid From webcafe_modTelefonia_linhas $where $orderBy Limit $start, $end");
+			$limit = $pdo->prepare("Select idLinha, numLinha, plano, iccid, linhaStatus, operadora From webcafe_modTelefonia_linhas $where $orderBy Limit $start, $end");
 			$limit->execute();
 
 			$pages = $total/$end;
@@ -34,6 +34,20 @@
 			$pdo = null;
 
 			return json_encode($res);
+		}
+
+		//Method to verify if the line already exists
+		function checkLine($dados){
+			$pdo = new Connection();
+
+			//Transform data into variables
+			$data = parse_str($dados);
+
+			$sql = $pdo->prepare("Select numLinha From webcafe_modtelefonia_linhas Where numLinha = :numLinha");
+			$sql->execute(array(":numLinha" => $numLinha));
+			$count = $sql->rowCount();
+
+			return $count;
 		}
 
 		//Method to save data
@@ -135,6 +149,31 @@
 				return 2; //Problem on delete
 			}
 
+		}
+
+		//Method to export to excel
+		function exportExcel($output){
+			$pdo = new Connection();
+
+			$rows = $pdo->prepare('Select numLinha, plano, iccid, linhaStatus, operadora, observacoes From webcafe_modtelefonia_linhas');
+			$rows->execute();
+
+			//Loop over the rows, outputting them
+			while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+				fputcsv($output, array($row->numLinha, $row->plano, $row->iccid, $row->linhaStatus, $row->operadora, $row->observacoes), ';');
+			}
+		}
+
+		//Method used to impor data from excel
+		function importExcel($col1, $col2, $col3, $col4, $col5, $col6, $col7, $col8, $col9, $col10, $col11){
+			$pdo = new Connection();
+			
+			$query = $pdo->prepare("
+				Insert Into webcafe_modTelefonia_linhas
+					(`idLinha`, `numLinha`, `plano`, `iccid`, `linhaStatus`, `operadora`, `observacoes`, `dataCadastro`, `dataAlteracao`, `userAdd`, `userLastChange`) 
+				Values 
+					('".$col1."','".$col2."','".$col3."','".$col4."','".$col5."','".$col6."','".$col7."','".$col8."','".$col9."','".$col10."','".$col11."')");
+			$query->execute();
 		}
 	}
 

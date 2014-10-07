@@ -18,6 +18,8 @@ $(function(){
 	//Call the function on page load
 	loadTable('1', regsLimit);
 
+	//Mask some fields
+	$('input[name=numLinha]').mask('(00) 0.0000-0000');
 
 	/****************************************/
 	/* Functions
@@ -134,6 +136,8 @@ $(function(){
 								"<td>"+data[1][i].numLinha+"</td>"+
 								"<td>"+data[1][i].plano+"</td>"+
 								"<td>"+data[1][i].iccid+"</td>"+
+								"<td>"+data[1][i].linhaStatus+"</td>"+
+								"<td>"+data[1][i].operadora+"</td>"+
 								"<td class = 'width100'>"+
 									"<button id = 'del_"+ data[1][i].idLinha +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
@@ -288,6 +292,9 @@ $(function(){
 		//Remove input hidden used to control the line that is changed
 		$('input[name=edit_idLinha]').remove();
 
+		//Enabled numLinha field
+		$('input[name=numLinha]').prop('readonly', false);
+
 		//Update button, its necessary because the operation changes
 		$('#gerLinhas_update').remove();
 		$('#gerLinhas_save').remove();
@@ -326,7 +333,9 @@ $(function(){
 
 					//Clear textarea
 					$('textarea[name=observacoes]').html('');
-				} else { //Have a problem to insert
+				} else if(data == 2) { //Have a problem to insert
+					alert("A linha informada já foi cadastrada");
+				} else {
 					alert("Falha ao inserir linha");
 				}
 			}
@@ -363,6 +372,9 @@ $(function(){
 				$('select[name=operadora]').val(data.operadora);
 				$('select[name=status]').val(data.linhaStatus);
 				$('textarea[name=observacoes]').html(data.observacoes);
+
+				//Disable numLinha field
+				$('input[name=numLinha]').prop('readonly', true);
 			}
 		})
 	})
@@ -465,6 +477,20 @@ $(function(){
 				$('#show_operadora').html(data.operadora);
 				$('#show_linhaStatus').html(data.linhaStatus);
 				$('#show_observacoes').html(data.observacoes);
+			}
+		})
+	});
+
+	//Function to export to excel
+	$("#gerLinhas_exportExcel").click(function(e) {
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+			type: 'POST',
+			data: {
+				op: 'exportExcel' //The optional operation to pass for back-end
+			},
+			success:function(data){
+				window.location = "modulos/mod_telefonia/controller/ger_linhas.php?export=true";
 			}
 		})
 	});

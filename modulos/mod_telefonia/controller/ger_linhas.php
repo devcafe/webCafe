@@ -45,6 +45,11 @@
 				echo $linhas->save($_POST['formData'], $idUser, $date); //Get return after insert
 			}
 
+		} else if ($_POST['op'] == 'autoCompleteDevice'){ //Autocomplete to get avaible devices
+			$linhas = new Linhas();			
+
+			echo json_encode($linhas->autoCompleteDevices()); //Load data to populate select, return a json
+
 		} else if ($_POST['op'] == 'loadData'){ //Load line data to edit
 			$linhas = new Linhas();
 
@@ -81,7 +86,7 @@
 		$output = fopen('php://output', 'w');
 
 		//Output the column headings
-		fputcsv($output, array('numLinha', 'plano', 'iccid', 'linhaStatus', 'operadora', 'observacoes'), ';', " ");
+		fputcsv($output, array('idLinha', 'numLinha', 'plano', 'iccid', 'linhaStatus', 'operadora', 'observacoes', 'dataCadastro', 'userAdd', 'userLastChange'), ';', " ");
 
 		//Call the method to get contents from database
 		$linhas->exportExcel($output);	

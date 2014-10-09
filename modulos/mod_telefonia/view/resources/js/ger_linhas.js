@@ -19,7 +19,17 @@ $(function(){
 	loadTable('1', regsLimit);
 
 	//Mask some fields
-	$('input[name=numLinha]').mask('(00) 0.0000-0000');
+	//Function to make nine digit optional
+	var nineDigit = function (val) {
+		return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+	},
+	options = {onKeyPress: function(val, e, field, options) {
+		field.mask(nineDigit.apply({}, arguments), options);
+ 	}
+	};
+
+	//9 digit is optional in cell phone number
+	$('input[name=numLinha]').mask(nineDigit, options);
 
 	/****************************************/
 	/* Functions
@@ -283,6 +293,10 @@ $(function(){
 	
 	//On click in the add line, update the button attributes
 	$('#gerLinhas_addLinhaBtn').on('click', function(){
+
+		//Call the function to load select data and enable autocomplete
+		loadDeviceData();
+
 		//Clear the form, beacause user can click first on edit
 		$('#gerLinhas_form')[0].reset();
 
@@ -301,7 +315,32 @@ $(function(){
 		$('#gerLinhas_modalFooter').append("<button type='button' id = 'gerLinhas_save' name = 'gerLinhas_save' class='btn btn-primary'>Salvar</button>");
 	})
 
-	//Save new line
+    //Function used to load device data on select, its necessary because the line can have a device
+    function loadDeviceData(){
+    	//Send a ajax to populate select
+    	//Its used "select2" plugin to able user to search on select list
+	    $.ajax({
+	    	url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+			type: 'POST',
+			data: {
+				op: 'autoCompleteDevice' //The optional operation to pass for back-end
+			},
+			dataType: 'json',	            
+	        success: function(data) {
+	        	var count = 0;
+
+	        	//Loop tougth the returned data to populate the select
+				$.each(data, function(){
+					$('#aparelhos').append('<option value = "'+ data[count].idAparelho +'">'+ data[count].aparelho +'</option>');		
+					count++;
+				})
+	        }
+	    }).done(function(){ //After done ajax, call select2 function to active plugin on select
+	    	$("#aparelhos").select2({ formatNoMatches: "Nenhum aparelho encontrado" });
+	    })
+	}
+	
+    //Save new line
 	$('#gerLinhas_modalFooter').on('click', '#gerLinhas_save', function(){
 		//The amount of records to show in table, used to reload table
 		var regsLimit = $('#gerLinhas_regs option:selected').val();

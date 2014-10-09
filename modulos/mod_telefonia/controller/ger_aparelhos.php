@@ -81,7 +81,7 @@
 		$output = fopen('php://output', 'w');
 
 		//Output the column headings
-		fputcsv($output, array('marca', 'modelo', 'imei', 'tipo', 'status', 'acessorios', 'observacoes'), ';', " ");
+		fputcsv($output, array('idAparelho', 'marca', 'modelo', 'imei', 'tipo', 'status', 'dataEnvioManutencao', 'acessorios', 'observacoes', 'dataCadastro', 'dataAlteracao', 'userAdd', 'userLastChange'), ';', " ");
 
 		//Call the method to get contents from database
 		$aparelhos->exportExcel($output);	
@@ -117,7 +117,7 @@
 			            $col10 = $slice[9];
 			            $col11 = $slice[10];
 
-			            $linhas->aparelhos($col1, $col2, $col3, $col4, $col5, $col6, $col7, $col8, $col9, $col10, $col11);
+			            $aparelhos->importExcel($col1, $col2, $col3, $col4, $col5, $col6, $col7, $col8, $col9, $col10, $col11);
 					}
 				}
 

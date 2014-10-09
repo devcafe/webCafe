@@ -18,6 +18,16 @@ $(function(){
 	//Call the function on page load
 	loadTable('1', regsLimit);
 
+	//Datepicker
+	$( "#dataEnvioManutencao" ).datepicker({ 
+		dayNamesMin: [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ],
+		monthNames: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
+		//changeYear: true,
+		//changeMonth: true,
+		yearRange: "1950:2020",
+		dateFormat: "dd-mm-y"
+	});
+
 	/****************************************/
 	/* Functions
 	/****************************************/
@@ -126,20 +136,20 @@ $(function(){
 						table_gerAparelhos.append(""+
 							"<tr>"+
 								"<td class = 'show width50 pull-left'>"+
-									"<button id = 'show_"+ data[1][i].idLinha +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_aparelho'>"+
+									"<button id = 'show_"+ data[1][i].idAparelho +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_aparelho'>"+
 									  "<span class='glyphicon glyphicon-search'></span>"+
 									"</button>"+
 								"</td>"+
-								"<td>"+data[1][i].numLinha+"</td>"+
-								"<td>"+data[1][i].plano+"</td>"+
-								"<td>"+data[1][i].iccid+"</td>"+
-								"<td>"+data[1][i].linhaStatus+"</td>"+
-								"<td>"+data[1][i].operadora+"</td>"+
+								"<td>"+data[1][i].marca+"</td>"+
+								"<td>"+data[1][i].modelo+"</td>"+
+								"<td>"+data[1][i].imei+"</td>"+
+								"<td>"+data[1][i].tipo+"</td>"+
+								"<td>"+data[1][i].status+"</td>"+
 								"<td class = 'width100'>"+
-									"<button id = 'del_"+ data[1][i].idLinha +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
+									"<button id = 'del_"+ data[1][i].idAparelho +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
 									"</button>"+
-									"<button id = 'edit_"+ data[1][i].idLinha +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_aparelho'>"+
+									"<button id = 'edit_"+ data[1][i].idAparelho +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_aparelho'>"+
 									  "<span class='glyphicon glyphicon-pencil'></span>"+
 									"</button>"+
 								"</td>"+
@@ -279,9 +289,13 @@ $(function(){
 	})
 	
 	//On click in the add a cell phone, update the button attributes
-	$('#gerAparelhos_addLinhaBtn').on('click', function(){
+	$('#gerAparelhos_addAparelhoBtn').on('click', function(){
 		//Clear the form, beacause user can click first on edit
 		$('#gerAparelhos_form')[0].reset();
+
+		//Clear textarea
+		$('textarea[name=acessorios]').html('');
+		$('textarea[name=observacoes]').html('');
 
 		//Remove input hidden used to control the cell phone that is changed
 		$('input[name=edit_idAparelho]').remove();
@@ -346,7 +360,7 @@ $(function(){
 
 		//First populate the cell phone data in fields
 		$.ajax({
-			url: 'modulos/mod_telefonia/controller/ger_aparelho.php',
+			url: 'modulos/mod_telefonia/controller/ger_aparelhos.php',
 			type: 'POST',
 			data: {
 				idAparelho: idAparelho, //Cell phone id to load data
@@ -355,8 +369,14 @@ $(function(){
 			dataType: 'json',
 			success: function(data){
 				//Popupate fields
-				
-				
+				$('input[name=marca]').val(data.marca);
+				$('input[name=modelo]').val(data.modelo);
+				$('input[name=imei]').val(data.imei);
+				$('select[name=tipo]').val(data.tipo);
+				$('select[name=status]').val(data.status);
+				$('input[name=dataEnvioManutencao]').html(data.dataEnvioManutencao);			
+				$('textarea[name=acessorios]').html(data.acessorios);	
+				$('textarea[name=observacoes]').html(data.observacoes);	
 			}
 		})
 	})
@@ -405,7 +425,7 @@ $(function(){
 	//Function to delete cell phone
 	$('#gerAparelhos_table').on('click', 'button[name=delete]', function(){
 		//The amount of records to show in table, used to reload table
-		var regsLimit = $('#gerLinhas_regs option:selected').val();
+		var regsLimit = $('#gerAparelhos_regs option:selected').val();
 
 		//The cell phone that user want to delete
 		var idAparelho = $(this).attr('id').split("_")[1];
@@ -451,7 +471,13 @@ $(function(){
 			dataType: 'json',
 			success: function(data){
 				//Popupate fields
-				
+				$('#show_marca').html(data.marca);
+				$('#show_modelo').html(data.modelo);
+				$('#show_imei').html(data.imei);
+				$('#show_tipo').html(data.tipo);
+				$('#show_status').html(data.status);
+				$('#show_observacoes').html(data.observacoes);
+				$('#show_acessorios').html(data.acessorios);
 			}
 		})
 	});

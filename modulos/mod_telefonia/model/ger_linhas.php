@@ -50,6 +50,19 @@
 			return $count;
 		}
 
+		//Method to load device select (used as autocomplete too)
+		function autoCompleteDevices(){
+			$pdo = new Connection();
+
+			$sql = $pdo->prepare('Select idAparelho, concat(marca, "-" , modelo, "-", imei ) As aparelho FROM webcafe_modtelefonia_aparelhos');
+
+			$sql->execute();
+
+			$obj = $sql->fetchAll(PDO::FETCH_OBJ);
+	     		
+			return $obj;
+		}
+
 		//Method to save data
 		function save($dados, $idUser, $date){
 			$pdo = new Connection();
@@ -155,12 +168,12 @@
 		function exportExcel($output){
 			$pdo = new Connection();
 
-			$rows = $pdo->prepare('Select numLinha, plano, iccid, linhaStatus, operadora, observacoes From webcafe_modtelefonia_linhas');
+			$rows = $pdo->prepare('Select idLinha, numLinha, plano, iccid, linhaStatus, operadora, observacoes, dataCadastro, dataAlteracao, userAdd, userLastChange From webcafe_modtelefonia_linhas');
 			$rows->execute();
 
 			//Loop over the rows, outputting them
 			while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
-				fputcsv($output, array($row->numLinha, $row->plano, $row->iccid, $row->linhaStatus, $row->operadora, $row->observacoes), ';');
+				fputcsv($output, array($row->idLinha, $row->numLinha, $row->plano, $row->iccid, $row->linhaStatus, $row->operadora, $row->observacoes, $row->dataCadastro, $row->dataAlteracao, $row->userAdd, $row->userLastChange), ';');
 			}
 		}
 

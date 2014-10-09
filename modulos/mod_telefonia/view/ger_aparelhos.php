@@ -107,31 +107,29 @@
 						<div class="form-group">
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="numLinha">Linha:</label>
-									<input type="text" name = "numLinha" class="form-control" placeholder="Número da linha">
+									<label for="marca">Marca:</label>
+									<input type="text" name = "marca" class="form-control" placeholder="Marca do aparelho">
 								</div>
 							</div>
 							<div class="col-xs-6">
 								<div class="form-group has-feedback">
-									<label for="plano">Plano</label>
-									<input type="text" name = "plano" id="plano" class="form-control" placeholder="Plano">
+									<label for="modelo">Modelo:</label>
+									<input type="text" name = "modelo" id="modelo" class="form-control" placeholder="Modelo">
 								</div>
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="iccid">ICCID</label>
-									<input type="text" name = "iccid" id="iccid" class="form-control" placeholder="ICCID">
+									<label for="imei">IMEI</label>
+									<input type="text" name = "imei" id="imei" class="form-control" placeholder="IMEI">
 								</div>
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="operadora">Operadora</label>
-									<select name = "operadora" id = "operadora" class="form-control">
-										<option value = "Vivo">Vivo</option>
-										<option value = "TIM">TIM</option>
-										<option value = "OI">OI</option>
-										<option value = "Nextel">Nextel</option>
-										<option value = "Claro">Claro</option>
+									<label for="operadora">Tipo</label>
+									<select name = "tipo" id = "tipo" class="form-control">
+										<option value = "Smartphone">Smartphone</option>
+										<option value = "Tablet">Tablet</option>
+										<option value = "Modem">Modem</option>
 									</select>
 								</div>
 							</div>
@@ -140,10 +138,22 @@
 									<label for="status">Status</label>
 									<select name = "status" id = "status" class="form-control">
 										<option value = "Uso">Uso</option>
-										<option value = "Parado">Parado</option>
-										<option value = "Bloqueado">Bloqueado</option>
+										<option value = "Disponivel">Disponivel</option>
+										<option value = "Manutencao">Manutenção</option>
 										<option value = "Furtado">Furtado</option>
 									</select>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="form-group has-feedback">
+									<label for="dataEnvioManutencao">Data de envio p/ Manutenção:</label>
+									<input type="text" name = "dataEnvioManutencao" id="dataEnvioManutencao" class="form-control" placeholder="Data de envio">
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group has-feedback">
+									<label for="acessorios">Acessórios</label>
+									<textarea class="form-control" name = "acessorios" id = "acessorios" rows="3"></textarea>	
 								</div>
 							</div>
 							<div class="col-xs-12">
@@ -183,27 +193,27 @@
 								<span id = "show_marca"> </span>
 							</div>
 							<div class="col-xs-6">
-								<label for="modelo">Modelo</label>
+								<label for="modelo">Modelo:</label>
 								<span id = "show_modelo"> </span>
 							</div>
 							<div class="col-xs-4">
-								<label for="imei">IMEI</label>
+								<label for="imei">IMEI:</label>
 								<span id = "show_imei"> </span>
 							</div>
 							<div class="col-xs-4">
-								<label for="tipo">Tipo</label>
+								<label for="tipo">Tipo:</label>
 								<span id = "show_tipo"> </span>
 							</div>
 							<div class="col-xs-4">
-								<label for="status">Status</label>
+								<label for="status">Status:</label>
 								<span id = "show_status"> </span>
 							</div>
 							<div class="col-xs-12">
-								<label for="acessorios">Acessórios</label>
+								<label for="acessorios">Acessórios:</label>
 								<span id = "show_acessorios"> </span>
 							</div>
 							<div class="col-xs-12">
-								<label for="observacoes">Observações</label>
+								<label for="observacoes">Observações:</label>
 								<span id = "show_observacoes"> </span>
 							</div>
 						</div>
@@ -218,7 +228,7 @@
 </div><!-- /.modal -->
 
 <!-- Import data -->
-<div class="modal fade" id = "gerLinhas_import_data">
+<div class="modal fade" id = "gerAparelhos_import_data">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -228,7 +238,7 @@
 				<h4 class="modal-title">Importar dados</h4>
 			</div>
 			<div class="modal-body">
-				<form enctype="multipart/form-data" method="post" role="form" action = "modulos/mod_telefonia/controller/ger_linhas.php?import=true">
+				<form enctype="multipart/form-data" method="post" role="form" action = "modulos/mod_telefonia/controller/ger_aparelhos.php?import=true">
 				    <div class="form-group">
 				        <label for="exampleInputFile">File Upload</label>
 				        <input type="file" name="file" id="file" size="150">

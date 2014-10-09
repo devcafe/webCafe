@@ -140,10 +140,16 @@
 									<label for="status">Status</label>
 									<select name = "status" id = "status" class="form-control">
 										<option value = "Uso">Uso</option>
-										<option value = "Parado">Parado</option>
+										<option value = "Disponivel">Disponivel</option>
 										<option value = "Bloqueado">Bloqueado</option>
 										<option value = "Furtado">Furtado</option>
 									</select>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group has-feedback">
+									<label for="aparelho">Aparelho:</label>
+									<select id="aparelhos"> </select>	
 								</div>
 							</div>
 							<div class="col-xs-12">

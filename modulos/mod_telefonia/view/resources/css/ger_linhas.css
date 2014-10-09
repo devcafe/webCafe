@@ -25,3 +25,9 @@
 #s2id_aparelhos{
 	width:80%;
 }
+#s2id_usuarios{
+	width:80%;
+}
+.select2-container{
+	display:block !important;
+}

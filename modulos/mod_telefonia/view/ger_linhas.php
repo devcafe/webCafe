@@ -37,11 +37,10 @@
 		<table id = "gerLinhas_table" class="table table-striped table-condensed table-hover">
 			<thead> 
 				<th class = "width50"></th>
-				<th id = "numLinha"> Numero <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "plano"> Plano <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "iccid"> ICCID <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "linhaStatus"> Status <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "operadora"> Operadora <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "a.numLinha"> Numero <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "b.marca"> Aparelho <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "a.linhaStatus"> Status da linha  <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "c.nome"> Usuario <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 				<th class = "width100"></th>
 			</thead>
 
@@ -52,10 +51,9 @@
 			<tfoot>
 				<th class = "width50"></th>
 				<th> Numero </th>
-				<th> Plano </th>
-				<th> ICCID </th>
-				<th> Status </th>
-				<th> Operadora </th>
+				<th> Aparelho </th>
+				<th> Status da linha </th>
+				<th> Usuario </th>
 				<th class = "width100"></th>
 			</tfoot>
 		</table>
@@ -146,10 +144,16 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-xs-12">
+							<div class="col-xs-12" id = "aparelhoGroup">
 								<div class="form-group has-feedback">
-									<label for="aparelho">Aparelho:</label>
-									<select id="aparelhos"> </select>	
+									<label for="aparelhos">Aparelho:</label>
+									<select id="aparelhos" name = "idAparelho"> </select>	
+								</div>
+							</div>
+							<div class="col-xs-12" id = "usuarioGroup">
+								<div class="form-group has-feedback">
+									<label for="usuarios">Usuario:</label>
+									<select id="usuarios" name = "idUsuario"> </select>	
 								</div>
 							</div>
 							<div class="col-xs-12">

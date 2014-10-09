@@ -331,6 +331,9 @@ $(function(){
 
 	//Function to populate fields before edit data
 	$('#gerAcoes_table').on('click', 'button[name=edit]', function(){
+		//Remove the last changed job
+		$('input[name=edit_idAcao]').remove();
+
 		//Get job id to edit
 		var idAcao = $(this).attr('id').split("_")[1];
 

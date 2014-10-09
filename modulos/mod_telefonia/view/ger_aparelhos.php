@@ -137,7 +137,7 @@
 								<div class="form-group has-feedback">
 									<label for="status">Status</label>
 									<select name = "status" id = "status" class="form-control">
-										<option value = "Uso">Uso</option>
+										<!--<option value = "Uso">Uso</option>-->
 										<option value = "Disponivel">Disponivel</option>
 										<option value = "Manutencao">Manutenção</option>
 										<option value = "Furtado">Furtado</option>

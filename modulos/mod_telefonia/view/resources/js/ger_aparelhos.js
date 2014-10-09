@@ -18,6 +18,15 @@ $(function(){
 	//Call the function on page load
 	loadTable('1', regsLimit);
 
+	//Datepicker
+	$( "#dataEnvioManutencao" ).datepicker({ 
+		dayNamesMin: [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ],
+		monthNames: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
+		//changeYear: true,
+		//changeMonth: true,
+		yearRange: "1950:2020",
+		dateFormat: "dd-mm-y"
+	});
 
 	/****************************************/
 	/* Functions
@@ -50,7 +59,7 @@ $(function(){
 			dataType: 'json',
 			success: function(data){	
 				//Show the total regs				
-				$('#gerAparelhos_tableRegTotal').html(data['totalRegs']);			
+				$('#gerAparelhos_tableRegTotal').html(data['totalRegs']);
 
 				//Show the total pages
 				$("#gerAparelhos_tableTotalPages").html(data['totalPages']);
@@ -126,13 +135,24 @@ $(function(){
 					for(var i=0;i<data[1].length;i++){					
 						table_gerAparelhos.append(""+
 							"<tr>"+
-								"<td>"+data[1][i].marcaAparelho+"</td>"+
-								"<td>"+data[1][i].modeloAparelho+"</td>"+
-								"<td>"+data[1][i].imeiAparelho+"</td>"+
+								"<td class = 'show width50 pull-left'>"+
+									"<button id = 'show_"+ data[1][i].idAparelho +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_aparelho'>"+
+									  "<span class='glyphicon glyphicon-search'></span>"+
+									"</button>"+
+								"</td>"+
+								"<td>"+data[1][i].marca+"</td>"+
+								"<td>"+data[1][i].modelo+"</td>"+
+								"<td>"+data[1][i].imei+"</td>"+
 								"<td>"+data[1][i].tipo+"</td>"+
-								"<td>"+data[1][i].statusAparelho+"</td>"+
-								"<td>"+data[1][i].acessorios+"</td>"+
-								"<td>"+data[1][i].observacoes+"</td>"+								
+								"<td>"+data[1][i].status+"</td>"+
+								"<td class = 'width100'>"+
+									"<button id = 'del_"+ data[1][i].idAparelho +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
+									  "<span class='glyphicon glyphicon-trash'></span>"+
+									"</button>"+
+									"<button id = 'edit_"+ data[1][i].idAparelho +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_aparelho'>"+
+									  "<span class='glyphicon glyphicon-pencil'></span>"+
+									"</button>"+
+								"</td>"+
 							"</tr>"+
 						"");
 					}
@@ -184,7 +204,7 @@ $(function(){
 	//This function is used to change the amount of data to show in page
 	$('#gerAparelhos_regs').change(function(){
 		//If uncomment this line, its able to possibility to keep the current page on change the amount of data to show 
-		//var page = $('#gerAparelhos_pagination li a.current').attr('id').split('_')[1];
+		//var page = $('#gerLinhas_pagination li a.current').attr('id').split('_')[1];
 
 		//Get the amount of records to show
 		var regsLimit = $('#gerAparelhos_regs option:selected').val();
@@ -268,4 +288,211 @@ $(function(){
 		}
 	})
 	
+	//On click in the add a cell phone, update the button attributes
+	$('#gerAparelhos_addAparelhoBtn').on('click', function(){
+		//Clear the form, beacause user can click first on edit
+		$('#gerAparelhos_form')[0].reset();
+
+		//Clear textarea
+		$('textarea[name=acessorios]').html('');
+		$('textarea[name=observacoes]').html('');
+
+		//Remove input hidden used to control the cell phone that is changed
+		$('input[name=edit_idAparelho]').remove();
+
+		//Update button, its necessary because the operation changes
+		$('#gerAparelhos_update').remove();
+		$('#gerAparelhos_save').remove();
+		$('#gerAparelhos_modalFooter').append("<button type='button' id = 'gerAparelhos_save' name = 'gerAparelhos_save' class='btn btn-primary'>Salvar</button>");
+	})
+
+	//Save cell phone
+	$('#gerAparelhos_modalFooter').on('click', '#gerAparelhos_save', function(){
+		//The amount of records to show in table, used to reload table
+		var regsLimit = $('#gerAparelhos_regs option:selected').val();
+
+		//Get data to save
+		var formData = $('#gerAparelhos_form').serialize();
+
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_aparelhos.php',
+			type: 'POST',
+			data: {
+				formData: formData,
+				op: 'save' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				//Check the return
+				if(data == 1){ //Means the insert as successful
+					alert("Aparelho cadastrado com sucesso!");
+
+					//Reload table
+					loadTable('1', regsLimit);
+
+					//Hide the modal
+					$('#add_aparelho').modal('hide');
+
+					//Clear the form
+					$('#gerAparelhos_form')[0].reset();
+
+				} else if(data == 2) { //Have a problem to insert
+					alert("O aparelho informado já foi cadastrado");
+				} else {
+					alert("Falha ao inserir aparelho");
+				}
+			}
+		});
+	})
+
+	//Function to populate fields before edit data
+	$('#gerAparelhos_table').on('click', 'button[name=edit]', function(){
+		//Get cell phone id to edit
+		var idAparelho = $(this).attr('id').split("_")[1];
+
+		//Update button, its necessary because the operation changes
+		$('#gerAparelhos_save').remove();
+		$('#gerAparelhos_update').remove();
+		$('#gerAparelhos_modalFooter').append("<button type='button' id = 'gerAparelhos_update' name = 'gerAparelhos_update' class='btn btn-primary'>Gravar</button>");
+
+		//Add a hidden input to control the cell phone
+		$('#gerAparelhos_form').append('<input type = "hidden" value = "'+ idAparelho +'" name = "edit_idAparelho"> ');
+
+		//First populate the cell phone data in fields
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_aparelhos.php',
+			type: 'POST',
+			data: {
+				idAparelho: idAparelho, //Cell phone id to load data
+				op: 'loadData' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				//Popupate fields
+				$('input[name=marca]').val(data.marca);
+				$('input[name=modelo]').val(data.modelo);
+				$('input[name=imei]').val(data.imei);
+				$('select[name=tipo]').val(data.tipo);
+				$('select[name=status]').val(data.status);
+				$('input[name=dataEnvioManutencao]').html(data.dataEnvioManutencao);			
+				$('textarea[name=acessorios]').html(data.acessorios);	
+				$('textarea[name=observacoes]').html(data.observacoes);	
+			}
+		})
+	})
+
+	//Function to edit data
+	$('#gerAparelhos_modalFooter').on('click', '#gerAparelhos_update', function(){
+		//The amount of records to show in table, used to reload table
+		var regsLimit = $('#gerAparelhos_regs option:selected').val();
+
+		//The cell phone that user want to update
+		var idAparelho = $('input[name=edit_idAparelho]').val();
+
+		//Get data to update
+		var formData = $('#gerAparelhos_form').serialize();
+
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_aparelhos.php',
+			type: 'POST',
+			data: {
+				formData: formData,
+				idAparelho: idAparelho,
+				op: 'update' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				//Check the return
+				if(data == 1){ //Means the update as successful
+					alert("Aparelho alterado com sucesso!");
+
+					//Reload table
+					loadTable('1', regsLimit);
+
+					//Hide the modal
+					$('#add_aparelho').modal('hide');
+
+					//Clear the form
+					$('#gerAparelhos_form')[0].reset();
+
+				} else { //Have a problem to insert
+					alert("Falha ao atualizar aparelho");
+				}
+			}
+		});
+	})
+
+	//Function to delete cell phone
+	$('#gerAparelhos_table').on('click', 'button[name=delete]', function(){
+		//The amount of records to show in table, used to reload table
+		var regsLimit = $('#gerAparelhos_regs option:selected').val();
+
+		//The cell phone that user want to delete
+		var idAparelho = $(this).attr('id').split("_")[1];
+
+		//Ask user if he really wanna delete the record
+		var anwswer = confirm("Tem certeza que deseja remover esse aparelho?");
+
+		if(anwswer){
+			$.ajax({
+				url: 'modulos/mod_telefonia/controller/ger_aparelhos.php',
+				type: 'POST',
+				data: {
+					idAparelho: idAparelho,
+					op: 'delete' //The optional operation to pass for back-end
+				},
+				dataType: 'json',
+				success: function(data){
+					//Check the return
+					if(data == 1){ //Means the update as successful
+						alert("Aparelho removido com sucesso!");
+
+						//Reload table
+						loadTable('1', regsLimit);
+					} else { //Have a problem to insert
+						alert("Falha ao remover aparelho");
+					}
+				}
+			});
+		}
+	});
+
+	//Function to see the cell phone data
+	$('#gerAparelhos_table').on('click', 'button[name=show]', function(){
+		var idAparelho = $(this).attr('id').split("_")[1];
+
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_aparelhos.php',
+			type: 'POST',
+			data: {
+				idAparelho: idAparelho, //Cell phone id to load data
+				op: 'loadData' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				//Popupate fields
+				$('#show_marca').html(data.marca);
+				$('#show_modelo').html(data.modelo);
+				$('#show_imei').html(data.imei);
+				$('#show_tipo').html(data.tipo);
+				$('#show_status').html(data.status);
+				$('#show_observacoes').html(data.observacoes);
+				$('#show_acessorios').html(data.acessorios);
+			}
+		})
+	});
+
+	//Function to export to excel
+	$("#gerAparelhos_exportExcel").click(function(e) {
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_aparelhos.php',
+			type: 'POST',
+			data: {
+				op: 'exportExcel' //The optional operation to pass for back-end
+			},
+			success:function(data){
+				window.location = "modulos/mod_telefonia/controller/ger_aparelhos.php?export=true";
+			}
+		})
+	});
 })

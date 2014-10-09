@@ -12,7 +12,7 @@
 /* Botoes */
 .proximaPag:link{
 	color:#fff !important;
-	background: url('../../../resources/images/Operacional/btnBG.png') repeat-x top left;
+	background: url('../../../../resources/img/Operacional/btnBG.png') repeat-x top left;
 	padding: 5px;
 	border-radius: 5px;
 	text-decoration: none;
@@ -21,17 +21,17 @@
 
 .voltarPag:link{
 	color:#fff !important;
-	background: url('../../../resources/images/Operacional/btnBG.png') repeat-x top left;
+	background: url('../../../../resources/img/Operacional/btnBG.png') repeat-x top left;
 	padding: 5px;
 	border-radius: 5px;
 	text-decoration: none;
 }
 
 .order_a-z {
-	background: url('../../../resources/images/Operacional/sortDown.png') no-repeat top right;
+	background: url('../../../../resources/img/Operacional/sortDown.png') no-repeat top right;
 	}
 .order_z-a {
-	background: url('../../../resources/images/Operacional/sortUp.png') no-repeat top right;
+	background: url('../../../../resources/img/Operacional/sortUp.png') no-repeat top right;
 	}	
 
 

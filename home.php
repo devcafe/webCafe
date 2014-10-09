@@ -8,7 +8,7 @@
 
 			//Verifica a plataforma e cria a pasta no servidor
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-				$path = 'C:\wamp\www\webCafe\resources\documentos\\';		
+				$path = 'resources\documentos\\';		
 				$bar = "\\";
 			} else {
 				$path = '/var/www/html/webCafe/resources/documentos/';

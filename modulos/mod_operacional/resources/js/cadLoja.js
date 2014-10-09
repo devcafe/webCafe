@@ -72,7 +72,7 @@ $(document).ready(function(){
 		cleanFields();
 
 		$.ajax({
-			url: 'mod_operacional/ajax/carregaDadosCEP.php',
+			url: 'modulos/mod_operacional/ajax/carregaDadosCEP.php',
 			type : 'POST', 
 			data: 'cep=' + $('#cep').val(),
 			dataType: 'json',
@@ -97,7 +97,7 @@ $(document).ready(function(){
 		cleanFieldsReceita();
 
 		$.ajax({
-			url: 'mod_operacional/ajax/carregaDadosCEP.php',
+			url: 'modulos/mod_operacional/ajax/carregaDadosCEP.php',
 			type : 'POST', 
 			data: 'cep=' + $('#estabReceitaCEP').val(),
 			dataType: 'json',
@@ -202,7 +202,7 @@ $(document).ready(function(){
 			//Envia formulário
 			$.ajax({
 				type: 'POST',
-				url: 'mod_operacional/ajax/cadLoja.php',
+				url: 'modulos/mod_operacional/ajax/cadLoja.php',
 				data: {					
 					dados: dados
 				},
@@ -423,7 +423,7 @@ $(document).ready(function(){
 		//Envia formulário
 		$.ajax({
 			type: 'POST',
-			url: 'mod_operacional/ajax/carregaListaBandeiras.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaBandeiras.php',
 			data: {
 				searchVal: searchVal,
 				pag: pag
@@ -514,7 +514,7 @@ $(document).ready(function(){
 
 		$.ajax({
 			type: 'POST',
-			url: 'mod_operacional/ajax/cadBandeiras.php',
+			url: 'modulos/mod_operacional/ajax/cadBandeiras.php',
 			data: {
 				bandeira: bandeira
 			},
@@ -572,7 +572,7 @@ $(document).ready(function(){
 
 		$.ajax({
 			type: 'POST',
-			url: 'mod_operacional/ajax/verificaCnpj.php',
+			url: 'modulos/mod_operacional/ajax/verificaCnpj.php',
 			data: {
 				verificarCnpj: verificarCnpj
 			},

@@ -136,13 +136,13 @@ input[name=cnpj], #status, #status2 {
 }
 
 .valido {
-	background: url('../../../resources/images/tick.png')no-repeat top right;
+	background: url('../../../../resources/img/tick.png')no-repeat top right;
 	width: 30px;
 	height: 20px;
 }
 
 .invalido {
-	background: url('../../../resources/images/delete.png')no-repeat top right;
+	background: url('../../../../resources/img/delete.png')no-repeat top right;
 	width: 30px;
 	height: 20px;
 }

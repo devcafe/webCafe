@@ -68,7 +68,7 @@ $(document).ready(function(){
 				toSearch: toSearch,
 				buscaCampo: buscaCampo
 			},
-			url: 'mod_operacional/ajax/carregaListaColaboradores.php',
+			url: 'modulos/mod_operacional/ajax/carregaListaColaboradores.php',
 			success: function (data){
 				
 				$('.listaColaboradores').empty();
@@ -106,7 +106,7 @@ $(document).ready(function(){
 						data: {
 							itens: itens
 						},
-						url: 'mod_operacional/ajax/geraListaColaboradores.php',
+						url: 'modulos/mod_operacional/ajax/geraListaColaboradores.php',
 						success: function (data){
 							$('#addDataUser').append(data);				
 						}

@@ -12,12 +12,8 @@
          </ul>
       </li>
        <li class='has-sub'><a href='#'>Operacional</a>
-         <ul>
-            <li><a href='?mod=mod_operacional&page=cadLoja' id = "cadLoja">Cadastrar Loja</a>  </li>
-            <li><a href='?mod=mod_operacional&page=gerAcoes' id = "gerAcoes">Gerenciar Ações</a> </li>
-            <li><a href='?mod=mod_operacional&page=gerLojas' id = "gerLojas">Gerenciar Lojas</a>  </li>
-            <li><a href='?mod=mod_operacional&page=gerRoteiro' id = "gerRoteiro">Gerenciar Roteiro</a> </li>            
-            <li><a href='?mod=mod_operacional&page=listLojas' id = "listLojas">Listar Loja</a> </li>
+         <ul>            
+            <li><a href='?mod=mod_operacional&page=ger_lojas' id = "ger_lojas">Gerenciar Lojas</a>  </li>           
          </ul>
       </li>
    </ul>

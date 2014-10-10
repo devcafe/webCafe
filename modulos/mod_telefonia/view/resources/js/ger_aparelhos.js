@@ -57,7 +57,8 @@ $(function(){
 				op: 'loadTable' //The optional operation to pass for back-end
 			},
 			dataType: 'json',
-			success: function(data){	
+			success: function(data){
+
 				//Show the total regs				
 				$('#gerAparelhos_tableRegTotal').html(data['totalRegs']);
 
@@ -132,7 +133,15 @@ $(function(){
 					paginationWrapper.append(pagination);
 
 					//Append data in table
-					for(var i=0;i<data[1].length;i++){					
+					for(var i=0;i<data[1].length;i++){	
+						//Check for device status. If status is equal to "uso", user cant delete
+						//because the device as attached to one line
+						if(data[1][i].status == 'Uso'){
+							var disabled = 'disabled'
+						} else {
+							var disabled = '';
+						}
+						
 						table_gerAparelhos.append(""+
 							"<tr>"+
 								"<td class = 'show width50 pull-left'>"+
@@ -146,7 +155,7 @@ $(function(){
 								"<td>"+data[1][i].tipo+"</td>"+
 								"<td>"+data[1][i].status+"</td>"+
 								"<td class = 'width100'>"+
-									"<button id = 'del_"+ data[1][i].idAparelho +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
+									"<button "+disabled+" id = 'del_"+ data[1][i].idAparelho +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
 									"</button>"+
 									"<button id = 'edit_"+ data[1][i].idAparelho +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_aparelho'>"+
@@ -290,6 +299,11 @@ $(function(){
 	
 	//On click in the add a cell phone, update the button attributes
 	$('#gerAparelhos_addAparelhoBtn').on('click', function(){
+		//Remove input text and replace for a select text when device status is diferent to "uso"
+		$('#deviceStatus select').remove();
+		$('#deviceStatus input').remove();
+		$('#deviceStatus').append('<select name = "status" id = "status" class="form-control"><option value = "Disponivel">Disponivel</option><option value = "Manutencao">Manutenção</option><option value = "Furtado">Furtado</option></select>');
+
 		//Clear the form, beacause user can click first on edit
 		$('#gerAparelhos_form')[0].reset();
 
@@ -371,15 +385,25 @@ $(function(){
 			},
 			dataType: 'json',
 			success: function(data){
+				//Set select option readonly prop to false
+				$('select[name=status]').attr('disabled', false);
+
 				//Popupate fields
 				$('input[name=marca]').val(data.marca);
 				$('input[name=modelo]').val(data.modelo);
 				$('input[name=imei]').val(data.imei);
 				$('select[name=tipo]').val(data.tipo);
-				$('select[name=status]').val(data.status);
+				//$('select[name=status]').val(data.status);
 				$('input[name=dataEnvioManutencao]').html(data.dataEnvioManutencao);			
 				$('textarea[name=acessorios]').html(data.acessorios);	
 				$('textarea[name=observacoes]').html(data.observacoes);	
+
+				//Remove select and replace for a input text when device status is equal "uso"
+				//its necessary because user cant change the device status while the device as attached into one line
+				if(data.status == 'Uso'){
+					$('#deviceStatus select').remove();
+					$('#deviceStatus').append("<input readonly type = 'text' name = 'status' value = '"+ data.status +"' class='form-control'> ");
+				}
 			}
 		})
 	})

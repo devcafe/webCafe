@@ -48,11 +48,17 @@
 			}
 
 		} else if ($_POST['op'] == 'autoCompleteDevice'){ //Autocomplete to get avaible devices
-			$idUser = $_SESSION['idUser'];
+			//$idUser = $_SESSION['idUser'];
 
 			$linhas = new Linhas();			
 
-			echo json_encode($linhas->autoCompleteDevices($_POST['operation'], $idUser)); //Load data to populate select, return a json
+			if($_POST['operation'] != 'add'){
+				$idUsuario = $linhas->getUserId($_POST['idLinha']); //Get line device id
+			} else {
+				$idUsuario = '';
+			}
+
+			echo json_encode($linhas->autoCompleteDevices($_POST['operation'], $idUsuario)); //Load data to populate select, return a json
 
 		} else if ($_POST['op'] == 'autoCompleteUser'){ //Autocomplete to get all users
 			$linhas = new Linhas();			
@@ -73,8 +79,15 @@
 			$date = date('d/m/Y H:i');
 			
 			$idAparelho = $linhas->getLineDevice($_POST['idLinha']); //Get line device id
-			$linhas->updateDeviceStatus('idAparelho='.$idAparelho, $idUser, $date, 'Disponivel'); //Update device status, change to "disponivel"
-			$linhas->updateDeviceStatus($_POST['formData'], $idUser, $date, 'Uso'); //Update device status, change to "disponivel"
+			
+			//Update old device status, change to "disponivel"
+			//if the device is the same, the second funcion change again to "uso"
+			//its needed because user can change devices
+			$linhas->updateDeviceStatus('idAparelho='.$idAparelho, $idUser, $date, 'Disponivel'); 
+			
+			//Update the new device status, change to "uso" (can be the old device)
+			$linhas->updateDeviceStatus($_POST['formData'], $idUser, $date, 'Uso'); 
+			
 			echo $linhas->edit($_POST['formData'], $idUser, $date, $_POST['idLinha']); //Get return after update
 
 		} else if ($_POST['op'] == 'delete'){ //Delete line
@@ -100,7 +113,7 @@
 		$output = fopen('php://output', 'w');
 
 		//Output the column headings
-		fputcsv($output, array('idLinha', 'numLinha', 'plano', 'iccid', 'linhaStatus', 'operadora', 'observacoes', 'dataCadastro', 'userAdd', 'userLastChange'), ';', " ");
+		fputcsv($output, array('idLinha', 'idAparelho', 'idUsuario', 'numLinha', 'plano', 'iccid', 'linhaStatus', 'operadora', 'observacoes', 'dataCadastro', 'userAdd', 'userLastChange'), ';', " ");
 
 		//Call the method to get contents from database
 		$linhas->exportExcel($output);	
@@ -136,8 +149,10 @@
 			            $col9 = $slice[8];
 			            $col10 = $slice[9];
 			            $col11 = $slice[10];
+			            $col12 = $slice[11];
+			            $col13 = $slice[12];
 
-			            $linhas->importExcel($col1, $col2, $col3, $col4, $col5, $col6, $col7, $col8, $col9, $col10, $col11);
+			            $linhas->importExcel($col1, $col2, $col3, $col4, $col5, $col6, $col7, $col8, $col9, $col10, $col11, $col12, $col13);
 					}
 				}
 

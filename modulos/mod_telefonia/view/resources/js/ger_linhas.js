@@ -294,7 +294,7 @@ $(function(){
 	$('#gerLinhas_addLinhaBtn').on('click', function(){
 		//The device and user fields always are visible
 		$('#aparelhoGroup').show();
-		$('#usuarioGroup').show();
+		$('#usuarioGroup').show();			
 
 		//Call the function to load select data and enable autocomplete for devices
 		loadDeviceData('add');
@@ -321,9 +321,12 @@ $(function(){
 	})
 
     //Function used to load device data on select, its necessary because the line can have a device
-    function loadDeviceData(operation){
+    function loadDeviceData(operation, idLinha){
     	//Operation is optional
 		operation = typeof operation !== 'undefined' ? operation : '';
+
+		//idLinha is optional
+		idLinha = typeof idLinha !== 'undefined' ? idLinha : '';
 
 		//If operation is equal to "edit", load user current device, and all another avaible devices
 		if(operation == 'edit'){
@@ -334,11 +337,12 @@ $(function(){
 				type: 'POST',
 				data: {
 					op: 'autoCompleteDevice', //The optional operation to pass for back-end
-					operation: operation
+					operation: 'edit',
+					idLinha: idLinha
 				},
 				dataType: 'json',	            
 		        success: function(data) {
-		        	console.log(data);
+
 		        	//Clear the select first
 		        	$('#aparelhos').empty();
 
@@ -347,7 +351,7 @@ $(function(){
 		        	//Default value is "1", its means, withous device
 		        	//if the line status is "uso", the option "nenhum" can't be selected, a device is now its mandatory
 		        	if($('#status').val() != 'Uso'){
-		        		$('#aparelhos').append('<option value = 1> Nenhum </option>');
+		        		$('#aparelhos').append('<option value = 1 selected="selected"> Nenhum </option>');
 		        	}
 
 		        	//Loop tougth the returned data to populate the select
@@ -367,10 +371,11 @@ $(function(){
 				type: 'POST',
 				data: {
 					op: 'autoCompleteDevice', //The optional operation to pass for back-end
-					operation: operation
+					operation: 'add'
 				},
 				dataType: 'json',	            
 		        success: function(data) {
+
 		        	//Clear the select first
 		        	$('#aparelhos').empty();
 
@@ -379,7 +384,7 @@ $(function(){
 		        	//Default value is "1", its means, withous device
 		        	//if the line status is "uso", the option "nenhum" can't be selected, a device is now its mandatory
 		        	if($('#status').val() != 'Uso'){
-		        		$('#aparelhos').append('<option value = 1> Nenhum </option>');
+		        		$('#aparelhos').append('<option value = 1 selected="selected"> Nenhum </option>');
 		        	}
 
 		        	//Loop tougth the returned data to populate the select
@@ -415,7 +420,7 @@ $(function(){
 	        	//Default value is "1", its means, withous user
 	        	//if the line status is "uso", the option "nenhum" can't be selected, a user is now its mandatory
 	        	if($('#status').val() != 'Uso'){
-	        		$('#usuarios').append('<option value = 1> Nenhum </option>');
+	        		$('#usuarios').append('<option value = 1 selected="selected"> Nenhum </option>');
 	        	}
 
 	        	//Loop tougth the returned data to populate the select
@@ -505,15 +510,15 @@ $(function(){
 
 	//Function to populate fields before edit data
 	$('#gerLinhas_table').on('click', 'button[name=edit]', function(){
+		//Get line id to edit
+		var idLinha = $(this).attr('id').split("_")[1];
+
 		//Load user and device data to populate select with database values
-		loadDeviceData('edit');
+		loadDeviceData('edit', idLinha);
 		loadUsersData();
 
 		//Remove the last changed line
 		$('input[name=edit_idLinha]').remove();
-
-		//Get line id to edit
-		var idLinha = $(this).attr('id').split("_")[1];
 
 		//Update button, its necessary because the operation changes
 		$('#gerLinhas_save').remove();
@@ -543,7 +548,13 @@ $(function(){
 				$('select[name=idAparelho]').val(data.idAparelho);
 				$('#s2id_usuarios .select2-chosen').html(data.nome + ' - ' + data.cpf);
 				$('select[name=idUsuario]').val(data.idUsuario);
-				$('textarea[name=observacoes]').html(data.observacoes);
+				$('textarea[name=observacoes]').html(data.observacoesLinha);
+
+				//Check line status, if line status is diferent from "uso" or "bloqueado", hide the select
+				if(data.linhaStatus != 'Uso' && data.linhaStatus != 'Bloqueado') {
+					$('#aparelhoGroup').hide();
+			       	$('#usuarioGroup').hide();
+			    }
 
 				//Disable numLinha field
 				$('input[name=numLinha]').prop('readonly', true);

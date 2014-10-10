@@ -70,7 +70,7 @@
 		}
 
 		//Method to load device select (used as autocomplete too)
-		function autoCompleteDevices($operation, $idUser){
+		function autoCompleteDevices($operation, $idUsuario){
 			$pdo = new Connection();
 
 			if($operation == 'add'){			
@@ -83,19 +83,18 @@
 		     		
 				return $obj;
 			} else {
-				//$sql = $pdo->prepare('Select idAparelho, concat(marca, "-" , modelo, "-", imei ) As aparelho From webcafe_modtelefonia_aparelhos Where idAparelho <> 1 And status = "Disponivel"');
-				//Get all devices with status "disponivel" and user current device
+
 				$sql = $pdo->prepare('
 					Select distinct a.idAparelho, concat(a.marca, "-" , a.modelo, "-", a.imei ) As aparelho 
 					From webcafe_modtelefonia_aparelhos a 
 					Inner Join webcafe_modtelefonia_linhas b On ( 
-					    a.`status` = "Disponivel"
-						Or a.idAparelho = 1
-					    Or a.idAparelho in (Select idAparelho From webcafe_modtelefonia_linhas Where idUsuario = :idUsuario)
+					  a.status = "Disponivel"
+                      Or a.idAparelho in (Select idAparelho From webcafe_modtelefonia_linhas Where idUsuario = :idUsuario)  
 					)
+					Where a.idAparelho != 1 #Dont get the "nenhum", because its used on front-end
 				');
 
-				$sql->execute(array(":idUsuario" => $idUser));
+				$sql->execute(array(":idUsuario" => $idUsuario));
 
 				$obj = $sql->fetchAll(PDO::FETCH_OBJ);
 		     		
@@ -163,6 +162,17 @@
 			return $res->idAparelho;
 		}
 
+		//Method to get line atached user
+		function getUserId($idLinha){
+			$pdo = new Connection();
+
+			$sql = $pdo->prepare("Select idUsuario From webcafe_modTelefonia_linhas Where idLinha = :idLinha");
+			$sql->execute(array(":idLinha" => $idLinha));
+			$res = $sql->fetch(PDO::FETCH_OBJ);
+
+			return $res->idUsuario;
+		}
+
 		//Method used to change device status after insert
 		//It's necessary because you only put a line into a avaible device
 		function updateDeviceStatus($dados, $idUser, $date, $deviceStatus){
@@ -195,7 +205,10 @@
 
 			$sql = $pdo->prepare("
 				Select 
-					* 
+					a.* 
+					,b.*
+					,c.*
+					,a.observacoes As observacoesLinha
 				From 
 					webcafe_modTelefonia_linhas a
 					Inner Join webcafe_modtelefonia_aparelhos b On (a.idAparelho = b.idAparelho)
@@ -272,24 +285,24 @@
 		function exportExcel($output){
 			$pdo = new Connection();
 
-			$rows = $pdo->prepare('Select idLinha, numLinha, plano, iccid, linhaStatus, operadora, observacoes, dataCadastro, dataAlteracao, userAdd, userLastChange From webcafe_modtelefonia_linhas');
+			$rows = $pdo->prepare('Select idLinha, idAparelho, idUsuario, numLinha, plano, iccid, linhaStatus, operadora, observacoes, dataCadastro, dataAlteracao, userAdd, userLastChange From webcafe_modtelefonia_linhas');
 			$rows->execute();
 
 			//Loop over the rows, outputting them
 			while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
-				fputcsv($output, array($row->idLinha, $row->numLinha, $row->plano, $row->iccid, $row->linhaStatus, $row->operadora, $row->observacoes, $row->dataCadastro, $row->dataAlteracao, $row->userAdd, $row->userLastChange), ';');
+				fputcsv($output, array($row->idLinha, $row->idAparelho, $row->idUsuario,$row->numLinha, $row->plano, $row->iccid, $row->linhaStatus, $row->operadora, $row->observacoes, $row->dataCadastro, $row->dataAlteracao, $row->userAdd, $row->userLastChange), ';');
 			}
 		}
 
 		//Method used to impor data from excel
-		function importExcel($col1, $col2, $col3, $col4, $col5, $col6, $col7, $col8, $col9, $col10, $col11){
+		function importExcel($col1, $col2, $col3, $col4, $col5, $col6, $col7, $col8, $col9, $col10, $col11, $col12, $col13){
 			$pdo = new Connection();
 
 			$query = $pdo->prepare("
 				Insert Into webcafe_modTelefonia_linhas
-					(`idLinha`, `numLinha`, `plano`, `iccid`, `linhaStatus`, `operadora`, `observacoes`, `dataCadastro`, `dataAlteracao`, `userAdd`, `userLastChange`) 
+					(`idLinha`, `idAparelho`, `idUsuario`, `numLinha`, `plano`, `iccid`, `linhaStatus`, `operadora`, `observacoes`, `dataCadastro`, `dataAlteracao`, `userAdd`, `userLastChange`) 
 				Values 
-					('".$col1."','".$col2."','".$col3."','".$col4."','".$col5."','".$col6."','".$col7."','".$col8."','".$col9."','".$col10."','".$col11."')");
+					('".$col1."','".$col2."','".$col3."','".$col4."','".$col5."','".$col6."','".$col7."','".$col8."','".$col9."','".$col10."','".$col11."','".$col12."','".$col13."')");
 			$query->execute();
 		}
 	}

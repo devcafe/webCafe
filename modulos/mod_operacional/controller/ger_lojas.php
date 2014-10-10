@@ -78,12 +78,18 @@
 
 			echo $lojas->delete($idUser, $date, $_POST['idLoja']); //Get return after delete
 
-		} else if ($_POST['op'] == 'flags'){ 
-			$lojas = new Lojas();
+		} else if ($_POST['op'] == 'autoCompleteFlag'){ //Autocomplete to get avaible flags
+			$loja = new Lojas();			
 
-			echo $lojas->loadFlag($_POST['keyword']);			
+			echo json_encode($loja->autoCompleteFlag()); //Load data to populate select, return a json
+
+		}else if ($_POST['op'] == 'loadCep'){ //Autocomplete to get avaible flags
+			$loja = new Lojas();
+
+			echo json_encode($loja->loadCep($_POST['cep'])); //Load data to populate select, return a json
 
 		} 
+
 	} else if(isset($_GET['export'])) { //If variable export exists in url, export data in excel
 		$lojas = new Lojas();
 
@@ -138,4 +144,5 @@
 				echo "<script>alert('Record successfully uploaded.');window.location.href='http://localhost/webCafe/main.php?mod=mod_telefonia&page=ger_lojas';</script>";
 			}
 	}
+
 ?>

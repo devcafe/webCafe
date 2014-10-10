@@ -18,6 +18,11 @@ $(function(){
 	//Call the function on page load
 	loadTable('1', regsLimit);
 
+	//mask fields
+	$("input[name=cnpj]").mask("99.999.999/9999-99");
+	$("input[name=cep]").mask("99999-999");
+	$("input[name=estabReceitaCEP]").mask("99999-999");
+
 	/****************************************/
 	/* Functions
 	/****************************************/
@@ -145,7 +150,7 @@ $(function(){
 									"<button id = 'del_"+ data[1][i].idLoja +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
 									"</button>"+
-									"<button id = 'edit_"+ data[1][i].idLoja +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_linha'>"+
+									"<button id = 'edit_"+ data[1][i].idLoja +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_Loja'>"+
 									  "<span class='glyphicon glyphicon-pencil'></span>"+
 									"</button>"+
 								"</td>"+
@@ -285,7 +290,11 @@ $(function(){
 	})
 	
 	//On click in the add store, update the button attributes
-	$('#gerLojas_addLinhaBtn').on('click', function(){
+	$('#gerLojas_addLojaBtn').on('click', function(){
+
+		//Call the function to load flag data and populate select
+		loadFlagData();
+
 		//Clear the form, beacause user can click first on edit
 		$('#gerLojas_form')[0].reset();
 
@@ -293,16 +302,40 @@ $(function(){
 		$('textarea[name=observacoes]').html('');
 
 		//Remove input hidden used to control the store that is changed
-		$('input[name=edit_idLinha]').remove();
+		$('input[name=edit_idLoja]').remove();
 
-		//Enabled numLinha field
-		$('input[name=numLinha]').prop('readonly', false);
+		//Enabled numLoja field
+		$('input[name=numLoja]').prop('readonly', false);
 
 		//Update button, its necessary because the operation changes
 		$('#gerLojas_update').remove();
 		$('#gerLojas_save').remove();
 		$('#gerLojas_modalFooter').append("<button type='button' id = 'gerLojas_save' name = 'gerLojas_save' class='btn btn-primary'>Salvar</button>");
 	})
+
+	function loadFlagData(){
+    	//Send a ajax to populate select
+    	//Its used "select2" plugin to able user to search on select list
+	    $.ajax({
+	    	url: 'modulos/mod_operacional/controller/ger_lojas.php',
+			type: 'POST',
+			data: {
+				op: 'autoCompleteFlag' //The optional operation to pass for back-end
+			},
+			dataType: 'json',	            
+	        success: function(data) {
+	        	var count = 0;
+
+	        	//Loop tougth the returned data to populate the select
+				$.each(data, function(){
+					$('select[name=bandeira]').append('<option value = "'+ data[count].idBandeira +'">'+ data[count].bandeira +'</option>');		
+					count++;
+				})
+	        }
+	    }).done(function(){ //After done ajax, call select2 function to active plugin on select
+	    	$("select[name=bandeira]").select2({ formatNoMatches: "Nenhuma bandeira encontrada" });
+	    })
+	}
 
 	//Save new store
 	$('#gerLojas_modalFooter').on('click', '#gerLojas_save', function(){
@@ -311,7 +344,6 @@ $(function(){
 
 		//Get data to save
 		var formData = $('#gerLojas_form').serialize();
-
 		$.ajax({
 			url: 'modulos/mod_operacional/controller/ger_lojas.php',
 			type: 'POST',
@@ -323,6 +355,7 @@ $(function(){
 			success: function(data){
 				//Check the return
 				if(data == 1){ //Means the insert as successful
+					console.log(data);
 					alert("Loja cadastrada com sucesso!");
 
 					//Reload table
@@ -348,7 +381,7 @@ $(function(){
 	// //Function to populate fields before edit data
 	// $('#gerLojas_table').on('click', 'button[name=edit]', function(){
 	// 	//Get store id to edit
-	// 	var idLinha = $(this).attr('id').split("_")[1];
+	// 	var idLoja = $(this).attr('id').split("_")[1];
 
 	// 	//Update button, its necessary because the operation changes
 	// 	$('#gerLojas_save').remove();
@@ -356,28 +389,28 @@ $(function(){
 	// 	$('#gerLojas_modalFooter').append("<button type='button' id = 'gerLojas_update' name = 'gerLojas_update' class='btn btn-primary'>Gravar</button>");
 
 	// 	//Add a hidden input to control the store
-	// 	$('#gerLojas_form').append('<input type = "hidden" value = "'+ idLinha +'" name = "edit_idLinha"> ');
+	// 	$('#gerLojas_form').append('<input type = "hidden" value = "'+ idLoja +'" name = "edit_idLoja"> ');
 
 	// 	//First populate the store data in fields
 	// 	$.ajax({
 	// 		url: 'modulos/mod_operacional/controller/ger_lojas.php',
 	// 		type: 'POST',
 	// 		data: {
-	// 			idLinha: idLinha, //store id to load data
+	// 			idLoja: idLoja, //store id to load data
 	// 			op: 'loadData' //The optional operation to pass for back-end
 	// 		},
 	// 		dataType: 'json',
 	// 		success: function(data){
 	// 			//Popupate fields
-	// 			$('input[name=numLinha]').val(data.numLinha);
+	// 			$('input[name=numLoja]').val(data.numLoja);
 	// 			$('input[name=plano]').val(data.plano);
 	// 			$('input[name=iccid]').val(data.iccid);
 	// 			$('select[name=operadora]').val(data.operadora);
-	// 			$('select[name=status]').val(data.linhaStatus);
+	// 			$('select[name=status]').val(data.LojaStatus);
 	// 			$('textarea[name=observacoes]').html(data.observacoes);
 
-	// 			//Disable numLinha field
-	// 			$('input[name=numLinha]').prop('readonly', true);
+	// 			//Disable numLoja field
+	// 			$('input[name=numLoja]').prop('readonly', true);
 	// 		}
 	// 	})
 	// })
@@ -388,7 +421,7 @@ $(function(){
 	// 	var regsLimit = $('#gerLojas_regs option:selected').val();
 
 	// 	//The store that user want to update
-	// 	var idLinha = $('input[name=edit_idLinha]').val();
+	// 	var idLoja = $('input[name=edit_idLoja]').val();
 
 	// 	//Get data to update
 	// 	var formData = $('#gerLojas_form').serialize();
@@ -398,20 +431,20 @@ $(function(){
 	// 		type: 'POST',
 	// 		data: {
 	// 			formData: formData,
-	// 			idLinha: idLinha,
+	// 			idLoja: idLoja,
 	// 			op: 'update' //The optional operation to pass for back-end
 	// 		},
 	// 		dataType: 'json',
 	// 		success: function(data){
 	// 			//Check the return
 	// 			if(data == 1){ //Means the update as successful
-	// 				alert("Linha alterada com sucesso!");
+	// 				alert("Loja alterada com sucesso!");
 
 	// 				//Reload table
 	// 				loadTable('1', regsLimit);
 
 	// 				//Hide the modal
-	// 				$('#add_linha').modal('hide');
+	// 				$('#add_Loja').modal('hide');
 
 	// 				//Clear the form
 	// 				$('#gerLojas_form')[0].reset();
@@ -419,47 +452,49 @@ $(function(){
 	// 				//Clear textarea
 	// 				$('textarea[name=observacoes]').html('');
 	// 			} else { //Have a problem to insert
-	// 				alert("Falha ao atualizar linha");
+	// 				alert("Falha ao atualizar Loja");
 	// 			}
 	// 		}
 	// 	});
 	// })
 
-	// //Function to delete store
-	// $('#gerLojas_table').on('click', 'button[name=delete]', function(){
-	// 	//The amount of records to show in table, used to reload table
-	// 	var regsLimit = $('#gerLojas_regs option:selected').val();
+	//Function to delete store
+	$('#gerLojas_table').on('click', 'button[name=delete]', function(){
+		//The amount of records to show in table, used to reload table
+		var regsLimit = $('#gerLojas_regs option:selected').val();
 
-	// 	//The store that user want to delete
-	// 	var idLinha = $(this).attr('id').split("_")[1];
+		//The store that user want to delete
+		var idLoja = $(this).attr('id').split("_")[1];
 
-	// 	//Ask user if he really wanna delete the record
-	// 	var anwswer = confirm("Tem certeza que deseja remover essa linha?");
+		//Ask user if he really wanna delete the record
+		var anwswer = confirm("Tem certeza que deseja remover essa Loja?");
 
-	// 	if(anwswer){
-	// 		$.ajax({
-	// 			url: 'modulos/mod_operacional/controller/ger_lojas.php',
-	// 			type: 'POST',
-	// 			data: {
-	// 				idLinha: idLinha,
-	// 				op: 'delete' //The optional operation to pass for back-end
-	// 			},
-	// 			dataType: 'json',
-	// 			success: function(data){
-	// 				//Check the return
-	// 				if(data == 1){ //Means the update as successful
-	// 					alert("Linha removida com sucesso!");
+		if(anwswer){
+			$.ajax({
+				url: 'modulos/mod_operacional/controller/ger_lojas.php',
+				type: 'POST',
+				data: {
+					idLoja: idLoja,
+					op: 'delete' //The optional operation to pass for back-end
+				},
+				dataType: 'json',
+				success: function(data){
+					//Check the return
+					if(data == 1){ //Means the update as successful
+						alert("Loja removida com sucesso!");
 
-	// 					//Reload table
-	// 					loadTable('1', regsLimit);
-	// 				} else { //Have a problem to insert
-	// 					alert("Falha ao remover linha");
-	// 				}
-	// 			}
-	// 		});
-	// 	}
-	// });
-
+						//Reload table
+						loadTable('1', regsLimit);
+					} else { //Have a problem to insert
+						alert("Falha ao remover Loja");
+					}
+				}
+			});
+		}
+	});
+	$('#teste').click(function(){
+		console.log($('select[name=bandeira]').val());
+	})
 	//Function to see the store
 	$('#gerLojas_table').on('click', 'button[name=show]', function(){
 		var idLoja = $(this).attr('id').split("_")[1];			
@@ -520,47 +555,77 @@ $(function(){
 	// 	})
 	// });
 
-	// carregar bandeiras
+	function cleanFields(){
+		$('input[name=rua]').val('');
+		$('input[name=bairro]').val('');
+		$('input[name=cidade]').val('');
+		$('input[name=uf]').val('');
+	}
 
-		// 	$.ajax({
-		// 	url: 'modulos/mod_operacional/controller/ger_lojas.php',
-		// 	type: 'POST',
-		// 	data: {			
-		// 		op: 'flags' //The optional operation to pass for back-end
-		// 	},
-		// 	success: function(data){
-		// 		$('input[name=bandeira]').attr("data-source",data['flags']);
-		// 		 console.log(data);
-		// 	}
-		// });
-
-	
-	$("#flag").keyup(function(){
-		var keyword = $(this).val();
-
+	$('input[name=cep]').focusout(function(){
+		cleanFields();
+		var cep = $('input[name=cep]').val();		
 		$.ajax({
 			url: 'modulos/mod_operacional/controller/ger_lojas.php',
-			type: 'POST',
-			data: {keyword:keyword,op: 'flags'},
-			success:function(data){
-				$('#flag_list_id').show();
-				$('#flag_list_id').html(data);
+			type : 'POST', 
+			data: {
+				cep:cep,
+				op:'loadCep',
+			},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+				if(data.sucesso == 1){										
+					$('input[name=rua]').val(data.rua);
+					$('input[name=bairro]').val(data.bairro);
+					$('input[name=cidade]').val(data.cidade);
+					$('input[name=uf]').val(data.estado);
+					$('input[name=numero]').focus();
+					
+				}
 			}
-		});
-	})
+		});   
+		return false;  
 
+	});
 
-	$("flag_list_id").on("click",'li', function(){
-		var item = $(this).html();
-		var id = $(this).attr('id'); 
-		// change input value
-		$('#flag').val(item);
+		function cleanFieldsReceita(){
+		$('input[name=rua]').val('');
+		$('input[name=bairro]').val('');
+		$('input[name=cidade]').val('');
+		$('input[name=uf]').val('');
+	}
 
-		// change input id
-		$('#idEstabBandeira').val(id);
+	$('input[name=estabReceitaCEP]').focusout(function(){
+		cleanFieldsReceita();
+		var cep = $('input[name=estabReceitaCEP]').val();		
+		$.ajax({
+			url: 'modulos/mod_operacional/controller/ger_lojas.php',
+			type : 'POST', 
+			data: {
+				cep:cep,
+				op:'loadCep',
+			},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+				if(data.sucesso == 1){										
+					$('input[name=estabReceitaEndereco]').val(data.rua);
+					$('input[name=estabReceitaBairro]').val(data.bairro);
+					$('input[name=estabReceitaCidade]').val(data.cidade);
+					$('input[name=estabReceitaUF]').val(data.estado);
+					$('input[name=estabReceitaNumero]').focus();
+					
+				}
+			}
+		});   
+		return false;  
 
-		// hide proposition list
-		$('#flag_list_id').hide();
-	})
+	});
+ 
+ 
+		
+
+	
 	
 })

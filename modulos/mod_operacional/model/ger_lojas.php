@@ -57,42 +57,39 @@
 			//Transform data into variables
 			$data = parse_str($dados);
 
-			//Insert into database
-			$sql = $pdo->prepare("
-				Insert Into webcafe_modoperacional_lojas 
-					(`idLoja`, `cnpj`,`idEstabBandeira`,`nome`,`rua`,`numero`,`complemento`,`bairro`,`cidade`,`uf`,`cep`,`estabReceitaAberturaData`,`estabReceitaRazaoSocial`,`estabReceitaNomeEmpresarial`,`estabReceitaNF`,`estabReceitaEndereco`,`estabReceitaNumero`,`estabReceitaComplemento`,`estabReceitaBairro`,`estabReceitaCidade`,`estabReceitaUF`,`estabReceitaCEP`,`estabReceitaSituacao`,`estabReceitaSituacaoData`,`estabTel01`,`estabTel02`,`dataFechamento`) 
-				Values 
-					(:idLoja,:cnpj,:idEstabBandeira,:nome,:rua,:numero,:complemento,:bairro,:cidade,:uf,:cep,:estabReceitaAberturaData,:estabReceitaRazaoSocial,:estabReceitaNomeEmpresarial,:estabReceitaNF,:estabReceitaEndereco,:estabReceitaNumero,:estabReceitaComplemento,:estabReceitaBairro,:estabReceitaCidade,:estabReceitaUF,:estabReceitaCEP,:estabReceitaSituacao,:estabReceitaSituacaoData,:estabTel01,:estabTel02,:dataFechamento)
-			");
+			
+
+			$sql = $pdo->prepare("INSERT INTO `webcafe_modoperacional_lojas` (`idLoja`,`cnpj`, `idEstabBandeira`, `nome`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `cep`, `estabReceitaAberturaData`, `estabReceitaRazaoSocial`, `estabReceitaNomeEmpresarial`, `estabReceitaNF`, `estabReceitaEndereco`, `estabReceitaNumero`, `estabReceitaComplemento`, `estabReceitaBairro`, `estabReceitaCidade`, `estabReceitaUF`, `estabReceitaCEP`, `estabReceitaSituacao`, `estabReceitaSituacaoData`, `estabTel01`, `estabTel02`, `dataFechamento`, `userAdd`) VALUES (:idLoja,:cnpj, :idEstabBandeira, :nome, :rua, :numero, :complemento, :bairro, :cidade, :uf, :cep, :estabReceitaAberturaData, :estabReceitaRazaoSocial, :estabReceitaNomeEmpresarial, :estabReceitaNF, :estabReceitaEndereco, :estabReceitaNumero, :estabReceitaComplemento, :estabReceitaBairro, :estabReceitaCidade, :estabReceitaUF, :estabReceitaCEP, :estabReceitaSituacao, :estabReceitaSituacaoData, :estabTel01, :estabTel02, :dataFechamento, :userAdd)");
 
 			$sql->execute(array(
-				':idLinha' => '', 
-				':cnpj' => $cnpj,
-				':idEstabBandeira' => $bandeira,
-				':nome' => $nome,
-				':rua' => $rua,
-				':numero' => $numero,
-				':complemento' => $complemento,
-				':bairro' => $bairro,
-				':cidade' => $cidade,
-				':uf' => $uf,				
-				':cep' => $cep,
-				':estabReceitaAberturaData' => $estabReceitaAberturaData,
-				':estabReceitaRazaoSocial' => $estabReceitaRazaoSocial,
-				':estabReceitaNomeEmpresarial' => $estabReceitaNomeEmpresarial,
-				':estabReceitaNF' => $estabReceitaNF,
-				':estabReceitaEndereco' => $estabReceitaEndereco,
-				':estabReceitaNumero' => $estabReceitaNumero,
-				':estabReceitaComplemento' => $estabReceitaComplemento,
-				':estabReceitaBairro' => $estabReceitaBairro,
-				':estabReceitaCidade' => $estabReceitaCidade,
-				':estabReceitaUF' => $estabReceitaUF,
-				':estabReceitaCEP' => $estabReceitaCEP,
-				':estabReceitaSituacao' => $estabReceitaSituacao,
-				':estabReceitaSituacaoData' => $estabReceitaSituacaoData,
-				':estabTel01' => $estabTel01,
-				':estabTel02' => $estabTel02,
-				':dataFechamento' => $dataFechamento,
+				':idLoja' => '',
+				':cnpj' => $cnpj, 
+				':idEstabBandeira' => $bandeira, 
+				':nome' => $nome, 
+				':rua' => $rua, 
+				':numero' => $numero, 
+				':complemento' => $complemento, 
+				':bairro' => $bairro, 
+				':cidade' => $cidade, 
+				':uf' => $uf, 
+				':cep' => $cep, 
+				':estabReceitaAberturaData' => $estabReceitaAberturaData, 
+				':estabReceitaRazaoSocial' => $estabReceitaRazaoSocial, 
+				':estabReceitaNomeEmpresarial' => $estabReceitaNomeEmpresarial, 
+				':estabReceitaNF' => $estabReceitaNF, 
+				':estabReceitaEndereco' => $estabReceitaEndereco, 
+				':estabReceitaNumero' => $estabReceitaNumero, 
+				':estabReceitaComplemento' => $estabReceitaComplemento, 
+				':estabReceitaBairro' => $estabReceitaBairro, 
+				':estabReceitaCidade' => $estabReceitaCidade, 
+				':estabReceitaUF' => $estabReceitaUF, 
+				':estabReceitaCEP' => $estabReceitaCEP, 
+				':estabReceitaSituacao' => $estabReceitaSituacao, 
+				':estabReceitaSituacaoData' => $estabReceitaSituacaoData, 
+				':estabTel01' => $estabTel01, 
+				':estabTel02' => $estabTel02, 
+				':dataFechamento' => $dataFechamento, 
+				':userAdd' => $idUser,
 			));
 
 			if($sql){
@@ -106,27 +103,54 @@
 		function loadData($idLoja){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Select * From webcafe_modoperacional_lojas a inner join webcafe_modoperacional_bandeiras b on (a.idEstabBandeira = b.idBandeira ) Where idLoja = :idLoja");
+			$sql = $pdo->prepare("SELECT * From webcafe_modoperacional_lojas a inner join webcafe_modoperacional_bandeiras b on (a.idEstabBandeira = b.idBandeira ) Where idLoja = :idLoja");
 			$sql->execute(array(":idLoja" => $idLoja));
 			$res = $sql->fetch(PDO::FETCH_OBJ);
 
 			return json_encode($res);
 		}
 
-		// function loadFlag($keyword){
-		// 	$pdo = new Connection();
-		// 	$keyword = '%'.$_POST['keyword'].'%';
-		// 	$sql = $pdo->prepare("SELECT * FROM webcafe_modoperacional_bandeiras WHERE bandeira LIKE (:keyword) ORDER BY bandeira ASC LIMIT 0,10");
-		// 	$sql->bindParam(':keyword', $keyword, PDO::PARAM_STR);
-		// 	$sql->execute();
-		// 	$res = $sql->fetchAll();			
-		// 	foreach ($res as $rs) {
-		// 		// put in bold the written text
-		// 		$bandeira = str_replace($_POST['keyword'], '<b>'.$_POST['keyword'].'</b>', $rs['bandeira']);
-		// 		// add new option
-		// 	    echo '<li id ="'.$rs['idBandeira'].'">'. $bandeira .'</li>';
-		// 	}			
-		// }		
+		//Method to load flag select (used as autocomplete too)
+		function autoCompleteFlag(){
+			$pdo = new Connection();
+
+			$sql = $pdo->prepare("Select idBandeira, bandeira From webcafe_modoperacional_bandeiras");
+
+			$sql->execute();
+
+			$obj = $sql->fetchAll(PDO::FETCH_OBJ);
+	     		
+			return $obj;
+		}
+
+		// function normalizeStr($str) {
+		// 	$invalid = array(
+		// 		"Ã" => "A", "ã" => "a", "Á" => "A", "á" => "a", "Â" => "A", "â" => "a",
+		// 		"Ê" => "E", "ê" => "e", "É" => "E", "é" => "e", "Ç" => "C", "ç" => "c",
+		// 		"_" => " ", "Ó" => "O", "ó" => "o", "Ô" => "O", "ô" => "o", "Õ" => "O",
+		// 		"õ" => "o", "Í" => "I", "í" => "i", "Ú" => "U", "ú" => "u"
+		// 	);
+
+		// 	$str = str_replace(array_keys($invalid), array_values($invalid), $str);
+
+		// 	return $str;
+		// }
+
+		function loadCep($cep){
+
+			// $cep = $_POST['cep'];
+
+			$reg = simplexml_load_file("http://cep.republicavirtual.com.br/web_cep.php?formato=xml&cep=" . $cep);
+
+			$dados['sucesso'] = (string) $reg->resultado;
+
+			$dados['rua']     = (string) $reg->tipo_logradouro . ' ' . $reg->logradouro;
+			$dados['bairro']  = (string) $reg->bairro;
+			$dados['cidade']  = (string) $reg->cidade;
+			$dados['estado']  = (string) $reg->uf;			 
+
+			return $dados;
+		}		
 
 	// 	//Method to edit store
 	// 	function edit($dados, $idUser, $date, $idLinha){

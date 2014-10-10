@@ -12,11 +12,12 @@
 			if(isset($_POST['searchVal']) && $_POST['searchVal'] != ''){
 				$where = "
 					Where
-						numLinha like '%".$_POST['searchVal']."%' 
-					Or plano like '%".$_POST['searchVal']."%'
-					Or iccid like '%".$_POST['searchVal']."%'
-					Or linhaStatus like '%".$_POST['searchVal']."%'
-					Or operadora like '%".$_POST['searchVal']."%'";
+						a.numLinha like '%".$_POST['searchVal']."%' 
+					Or b.marca like '%".$_POST['searchVal']."%'
+					Or b.modelo like '%".$_POST['searchVal']."%'
+					Or b.imei like '%".$_POST['searchVal']."%'
+					Or a.linhaStatus like '%".$_POST['searchVal']."%'
+					Or c.nome like '%".$_POST['searchVal']."%'";
 			} else {
 				$where = '';
 			}
@@ -43,12 +44,20 @@
 				echo 2; //This means the line number already exists
 			} else {
 				echo $linhas->save($_POST['formData'], $idUser, $date); //Get return after insert
+				$linhas->updateDeviceStatus($_POST['formData'], $idUser, $date, 'Uso'); //Update device status, change to "uso"
 			}
 
 		} else if ($_POST['op'] == 'autoCompleteDevice'){ //Autocomplete to get avaible devices
+			$idUser = $_SESSION['idUser'];
+
 			$linhas = new Linhas();			
 
-			echo json_encode($linhas->autoCompleteDevices()); //Load data to populate select, return a json
+			echo json_encode($linhas->autoCompleteDevices($_POST['operation'], $idUser)); //Load data to populate select, return a json
+
+		} else if ($_POST['op'] == 'autoCompleteUser'){ //Autocomplete to get all users
+			$linhas = new Linhas();			
+
+			echo json_encode($linhas->autoCompleteUsers()); //Load data to populate select, return a json
 
 		} else if ($_POST['op'] == 'loadData'){ //Load line data to edit
 			$linhas = new Linhas();
@@ -62,7 +71,10 @@
 
 			//Get actual date
 			$date = date('d/m/Y H:i');
-
+			
+			$idAparelho = $linhas->getLineDevice($_POST['idLinha']); //Get line device id
+			$linhas->updateDeviceStatus('idAparelho='.$idAparelho, $idUser, $date, 'Disponivel'); //Update device status, change to "disponivel"
+			$linhas->updateDeviceStatus($_POST['formData'], $idUser, $date, 'Uso'); //Update device status, change to "disponivel"
 			echo $linhas->edit($_POST['formData'], $idUser, $date, $_POST['idLinha']); //Get return after update
 
 		} else if ($_POST['op'] == 'delete'){ //Delete line
@@ -73,6 +85,8 @@
 			//Get actual date
 			$date = date('d/m/Y H:i');
 
+			$idAparelho = $linhas->getLineDevice($_POST['idLinha']); //Get line device id
+			$linhas->updateDeviceStatus('idAparelho='.$idAparelho, $idUser, $date, 'Disponivel'); //Update device status, change to "disponivel"
 			echo $linhas->delete($idUser, $date, $_POST['idLinha']); //Get return after delete
 
 		} 

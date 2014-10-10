@@ -16,9 +16,10 @@
 					Or modelo like '%".$_POST['searchVal']."%'
 					Or imei like '%".$_POST['searchVal']."%'
 					Or tipo like '%".$_POST['searchVal']."%'
-					Or status like '%".$_POST['searchVal']."%'";
+					Or status like '%".$_POST['searchVal']."%'
+					And idAparelho <> 1";
 			} else {
-				$where = '';
+				$where = 'Where idAparelho <> 1';
 			}
 
 			if(isset($_POST['order']) && $_POST['order'] != ''){

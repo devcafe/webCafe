@@ -18,10 +18,11 @@
 					Or endereco like '%".$_POST['searchVal']."%'
 					Or bairro like '%".$_POST['searchVal']."%'
 					Or cidade like '%".$_POST['searchVal']."%'
-					Or uf like '%".$_POST['searchVal']."%'";
+					Or uf like '%".$_POST['searchVal']."%'
+					And idUsuario <> 1";
 
 			} else {
-				$where = '';
+				$where = 'Where idUsuario <> 1';
 			}
 
 			if(isset($_POST['order']) && $_POST['order'] != ''){

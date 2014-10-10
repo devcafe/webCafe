@@ -144,10 +144,9 @@ $(function(){
 									"</button>"+
 								"</td>"+
 								"<td>"+data[1][i].numLinha+"</td>"+
-								"<td>"+data[1][i].plano+"</td>"+
-								"<td>"+data[1][i].iccid+"</td>"+
+								"<td>"+data[1][i].aparelho+"</td>"+
 								"<td>"+data[1][i].linhaStatus+"</td>"+
-								"<td>"+data[1][i].operadora+"</td>"+
+								"<td>"+data[1][i].nome+"</td>"+
 								"<td class = 'width100'>"+
 									"<button id = 'del_"+ data[1][i].idLinha +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
@@ -293,9 +292,15 @@ $(function(){
 	
 	//On click in the add line, update the button attributes
 	$('#gerLinhas_addLinhaBtn').on('click', function(){
+		//The device and user fields always are visible
+		$('#aparelhoGroup').show();
+		$('#usuarioGroup').show();
 
-		//Call the function to load select data and enable autocomplete
-		loadDeviceData();
+		//Call the function to load select data and enable autocomplete for devices
+		loadDeviceData('add');
+
+		//Call the function to load select data and enable autocomplete for user
+		loadUsersData();
 
 		//Clear the form, beacause user can click first on edit
 		$('#gerLinhas_form')[0].reset();
@@ -316,30 +321,147 @@ $(function(){
 	})
 
     //Function used to load device data on select, its necessary because the line can have a device
-    function loadDeviceData(){
+    function loadDeviceData(operation){
+    	//Operation is optional
+		operation = typeof operation !== 'undefined' ? operation : '';
+
+		//If operation is equal to "edit", load user current device, and all another avaible devices
+		if(operation == 'edit'){
+			//Send a ajax to populate select
+	    	//Its used "select2" plugin to able user to search on select list
+		    $.ajax({
+		    	url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+				type: 'POST',
+				data: {
+					op: 'autoCompleteDevice', //The optional operation to pass for back-end
+					operation: operation
+				},
+				dataType: 'json',	            
+		        success: function(data) {
+		        	console.log(data);
+		        	//Clear the select first
+		        	$('#aparelhos').empty();
+
+		        	var count = 0;
+
+		        	//Default value is "1", its means, withous device
+		        	//if the line status is "uso", the option "nenhum" can't be selected, a device is now its mandatory
+		        	if($('#status').val() != 'Uso'){
+		        		$('#aparelhos').append('<option value = 1> Nenhum </option>');
+		        	}
+
+		        	//Loop tougth the returned data to populate the select
+					$.each(data, function(){
+						$('#aparelhos').append('<option value = "'+ data[count].idAparelho +'">'+ data[count].aparelho +'</option>');		
+						count++;
+					})
+		        }
+		    }).done(function(){ //After done ajax, call select2 function to active plugin on select
+		    	$("#aparelhos").select2({ formatNoMatches: "Nenhum aparelho encontrado" });
+		    })
+		} else {
+	    	//Send a ajax to populate select
+	    	//Its used "select2" plugin to able user to search on select list
+		    $.ajax({
+		    	url: 'modulos/mod_telefonia/controller/ger_linhas.php',
+				type: 'POST',
+				data: {
+					op: 'autoCompleteDevice', //The optional operation to pass for back-end
+					operation: operation
+				},
+				dataType: 'json',	            
+		        success: function(data) {
+		        	//Clear the select first
+		        	$('#aparelhos').empty();
+
+		        	var count = 0;
+
+		        	//Default value is "1", its means, withous device
+		        	//if the line status is "uso", the option "nenhum" can't be selected, a device is now its mandatory
+		        	if($('#status').val() != 'Uso'){
+		        		$('#aparelhos').append('<option value = 1> Nenhum </option>');
+		        	}
+
+		        	//Loop tougth the returned data to populate the select
+					$.each(data, function(){
+						$('#aparelhos').append('<option value = "'+ data[count].idAparelho +'">'+ data[count].aparelho +'</option>');		
+						count++;
+					})
+		        }
+		    }).done(function(){ //After done ajax, call select2 function to active plugin on select
+		    	$("#aparelhos").select2({ formatNoMatches: "Nenhum aparelho encontrado" });
+		    })
+		}
+	}
+
+ 	//Function used to load user data on select, its necessary because the line needs an user
+    function loadUsersData(){
+    	
     	//Send a ajax to populate select
     	//Its used "select2" plugin to able user to search on select list
 	    $.ajax({
 	    	url: 'modulos/mod_telefonia/controller/ger_linhas.php',
 			type: 'POST',
 			data: {
-				op: 'autoCompleteDevice' //The optional operation to pass for back-end
+				op: 'autoCompleteUser' //The optional operation to pass for back-end
 			},
 			dataType: 'json',	            
 	        success: function(data) {
+	        	//Clear the select first
+	        	$('#usuarios').empty();
+
 	        	var count = 0;
+
+	        	//Default value is "1", its means, withous user
+	        	//if the line status is "uso", the option "nenhum" can't be selected, a user is now its mandatory
+	        	if($('#status').val() != 'Uso'){
+	        		$('#usuarios').append('<option value = 1> Nenhum </option>');
+	        	}
 
 	        	//Loop tougth the returned data to populate the select
 				$.each(data, function(){
-					$('#aparelhos').append('<option value = "'+ data[count].idAparelho +'">'+ data[count].aparelho +'</option>');		
+					$('#usuarios').append('<option value = "'+ data[count].idUsuario +'">'+ data[count].usuario +'</option>');		
 					count++;
 				})
 	        }
 	    }).done(function(){ //After done ajax, call select2 function to active plugin on select
-	    	$("#aparelhos").select2({ formatNoMatches: "Nenhum aparelho encontrado" });
+	    	$("#usuarios").select2({ formatNoMatches: "Nenhum usuario encontrado" });
 	    })
 	}
-	
+
+	//Depending of the line status, the user and device infos change
+	$('#status').change(function(){
+		var status = $(this).val();
+
+		//Verify the status
+		switch(status) {
+		    case 'Uso':
+		        $('#aparelhoGroup').show();
+		        $('#usuarioGroup').show();
+		        loadUsersData(); //To update select
+		        loadDeviceData(); //To update select
+		        break;
+		    case 'Disponivel':
+		        $('#aparelhoGroup').hide();
+		        $('#usuarioGroup').hide();
+		        loadUsersData(); //To update select
+		        loadDeviceData(); //To update select
+		        break;
+		    case 'Bloqueado':
+		        $('#aparelhoGroup').show();
+		        $('#usuarioGroup').show();
+		        loadUsersData(); //To update select
+		        loadDeviceData(); //To update select
+		        break;
+		    case 'Furtado':
+		        $('#aparelhoGroup').hide();
+		        $('#usuarioGroup').hide();
+		        loadUsersData(); //To update select
+		        loadDeviceData(); //To update select
+		        break;
+		} 
+	});
+
     //Save new line
 	$('#gerLinhas_modalFooter').on('click', '#gerLinhas_save', function(){
 		//The amount of records to show in table, used to reload table
@@ -383,6 +505,13 @@ $(function(){
 
 	//Function to populate fields before edit data
 	$('#gerLinhas_table').on('click', 'button[name=edit]', function(){
+		//Load user and device data to populate select with database values
+		loadDeviceData('edit');
+		loadUsersData();
+
+		//Remove the last changed line
+		$('input[name=edit_idLinha]').remove();
+
 		//Get line id to edit
 		var idLinha = $(this).attr('id').split("_")[1];
 
@@ -410,6 +539,10 @@ $(function(){
 				$('input[name=iccid]').val(data.iccid);
 				$('select[name=operadora]').val(data.operadora);
 				$('select[name=status]').val(data.linhaStatus);
+				$('#s2id_aparelhos .select2-chosen').html(data.marca + ' - ' + data.modelo + ' - ' + data.imei);
+				$('select[name=idAparelho]').val(data.idAparelho);
+				$('#s2id_usuarios .select2-chosen').html(data.nome + ' - ' + data.cpf);
+				$('select[name=idUsuario]').val(data.idUsuario);
 				$('textarea[name=observacoes]').html(data.observacoes);
 
 				//Disable numLinha field

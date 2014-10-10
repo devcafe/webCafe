@@ -304,7 +304,7 @@ $(function(){
 		$('#gerUsuarios_form')[0].reset();
 
 		//Remove input hidden used to control the user that is changed
-		$('input[name=edit_idUsuario]').remove();
+		$('input[name=edit_idUsuario]').remove();		
 
 		//Clear textarea
 		$('textarea[name=observacoes]').html('');
@@ -356,6 +356,9 @@ $(function(){
 
 	//Function to populate fields before edit data
 	$('#gerUsuarios_table').on('click', 'button[name=edit]', function(){
+		//Remove the last changed user
+		$('input[name=edit_idUsuario]').remove();
+		
 		//Get user id to edit
 		var idUsuario = $(this).attr('id').split("_")[1];
 

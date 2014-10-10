@@ -347,6 +347,9 @@ $(function(){
 
 	//Function to populate fields before edit data
 	$('#gerAparelhos_table').on('click', 'button[name=edit]', function(){
+		//Remove the last changed device
+		$('input[name=edit_idAparelho]').remove();
+
 		//Get cell phone id to edit
 		var idAparelho = $(this).attr('id').split("_")[1];
 

@@ -113,7 +113,7 @@
 		$output = fopen('php://output', 'w');
 
 		//Output the column headings
-		fputcsv($output, array('idLinha', 'idAparelho', 'idUsuario', 'numLinha', 'plano', 'iccid', 'linhaStatus', 'operadora', 'observacoes', 'dataCadastro', 'userAdd', 'userLastChange'), ';', " ");
+		fputcsv($output, array('idLinha', 'idAparelho', 'idUsuario', 'numLinha', 'plano', 'iccid', 'linhaStatus', 'operadora', 'observacoes', 'dataCadastro', 'dataAlteracao', 'userAdd', 'userLastChange'), ';', " ");
 
 		//Call the method to get contents from database
 		$linhas->exportExcel($output);	
@@ -156,7 +156,7 @@
 					}
 				}
 
-				echo "<script>alert('Record successfully uploaded.');window.location.href='http://localhost/webCafe/main.php?mod=mod_telefonia&page=ger_linhas';</script>";
+				echo "<script>alert('Dados importados com sucesso.');window.location.href='http://localhost/webCafe/main.php?mod=mod_telefonia&page=ger_linhas';</script>";
 			}
 	}
 ?>

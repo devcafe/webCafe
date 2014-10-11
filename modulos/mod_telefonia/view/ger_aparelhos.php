@@ -134,7 +134,7 @@
 								</div>
 							</div>
 							<div class="col-xs-4">
-								<div class="form-group has-feedback">
+								<div class="form-group has-feedback" id = "deviceStatus">
 									<label for="status">Status</label>
 									<select name = "status" id = "status" class="form-control">
 										<!--<option value = "Uso">Uso</option>-->

@@ -33,7 +33,7 @@
 		</div>
 	</div>
 
-	<div id="gerUsuarios_tabelWrapperExport">
+	<div id="gerUsuarios_tabelWrapperExport" class = "table-responsive">
 		<table id = "gerUsuarios_table" class="table table-striped table-condensed table-hover">
 			<thead> 
 				<th class = "width50"></th>

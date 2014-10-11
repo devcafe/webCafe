@@ -18,10 +18,24 @@ $(function(){
 	//Call the function on page load
 	loadTable('1', regsLimit);
 
-	//mask fields
+	//Mask fields
 	$("input[name=cnpj]").mask("99.999.999/9999-99");
 	$("input[name=cep]").mask("99999-999");
 	$("input[name=estabReceitaCEP]").mask("99999-999");
+
+
+	//check filds
+	$("input[name=numero]").keypress(checkNumber);
+	$("input[name=estabReceitaNumero]").keypress(checkNumber);
+	$("input[name=uf]").keypress(ckeckKey);
+	$("input[name=cidade]").keypress(ckeckKey);
+	$("input[name=estabReceitaCidade]").keypress(ckeckKey);
+	$("input[name=estabReceitaUF]").keypress(ckeckKey);
+	$('input[name=estabTel01]').keypress(checkNumber);
+	$('input[name=estabTel02]').keypress(checkNumber);
+	
+
+	
 
 	/****************************************/
 	/* Functions
@@ -150,7 +164,7 @@ $(function(){
 									"<button id = 'del_"+ data[1][i].idLoja +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
 									"</button>"+
-									"<button id = 'edit_"+ data[1][i].idLoja +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_Loja'>"+
+									"<button id = 'edit_"+ data[1][i].idLoja +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_loja'>"+
 									  "<span class='glyphicon glyphicon-pencil'></span>"+
 									"</button>"+
 								"</td>"+
@@ -295,17 +309,14 @@ $(function(){
 		//Call the function to load flag data and populate select
 		loadFlagData();
 
+		//Cnpj if the field is disabled it enables
+		$('input[name=cnpj]').prop('readonly', false);
+
 		//Clear the form, beacause user can click first on edit
 		$('#gerLojas_form')[0].reset();
-
-		//Clear textarea
-		$('textarea[name=observacoes]').html('');
-
+	
 		//Remove input hidden used to control the store that is changed
-		$('input[name=edit_idLoja]').remove();
-
-		//Enabled numLoja field
-		$('input[name=numLoja]').prop('readonly', false);
+		$('input[name=edit_idLoja]').remove();		
 
 		//Update button, its necessary because the operation changes
 		$('#gerLojas_update').remove();
@@ -333,9 +344,20 @@ $(function(){
 				})
 	        }
 	    }).done(function(){ //After done ajax, call select2 function to active plugin on select
-	    	$("select[name=bandeira]").select2({ formatNoMatches: "Nenhuma bandeira encontrada" });
+	    	$("select[name=bandeira]").select2({ formatNoMatches: "Nenhuma bandeira encontrada" }).one('select2-focus', select2Focus).on("select2-blur", function () {
+    $(this).one('select2-focus', select2Focus)
+});
 	    })
 	}
+
+	function select2Focus() {
+    var select2 = $(this).data('select2');
+    setTimeout(function() {
+        if (!select2.opened()) {
+            select2.open();
+        }
+    }, 0);  
+}
 
 	//Save new store
 	$('#gerLojas_modalFooter').on('click', '#gerLojas_save', function(){
@@ -378,85 +400,119 @@ $(function(){
 		});
 	})
 
-	// //Function to populate fields before edit data
-	// $('#gerLojas_table').on('click', 'button[name=edit]', function(){
-	// 	//Get store id to edit
-	// 	var idLoja = $(this).attr('id').split("_")[1];
+	//Function to populate fields before edit data
+	$('#gerLojas_table').on('click', 'button[name=edit]', function(){
+		//Load user and device data to populate select with database values
+		loadFlagData();
 
-	// 	//Update button, its necessary because the operation changes
-	// 	$('#gerLojas_save').remove();
-	// 	$('#gerLojas_update').remove();
-	// 	$('#gerLojas_modalFooter').append("<button type='button' id = 'gerLojas_update' name = 'gerLojas_update' class='btn btn-primary'>Gravar</button>");
+		//Get store id to edit
+		var idLoja = $(this).attr('id').split("_")[1];		
 
-	// 	//Add a hidden input to control the store
-	// 	$('#gerLojas_form').append('<input type = "hidden" value = "'+ idLoja +'" name = "edit_idLoja"> ');
+		//Update button, its necessary because the operation changes
+		$('#gerLojas_save').remove();
+		$('#gerLojas_update').remove();
+		$('#gerLojas_modalFooter').append("<button type='button' id = 'gerLojas_update' name = 'gerLojas_update' class='btn btn-primary'>Gravar</button>");
 
-	// 	//First populate the store data in fields
-	// 	$.ajax({
-	// 		url: 'modulos/mod_operacional/controller/ger_lojas.php',
-	// 		type: 'POST',
-	// 		data: {
-	// 			idLoja: idLoja, //store id to load data
-	// 			op: 'loadData' //The optional operation to pass for back-end
-	// 		},
-	// 		dataType: 'json',
-	// 		success: function(data){
-	// 			//Popupate fields
-	// 			$('input[name=numLoja]').val(data.numLoja);
-	// 			$('input[name=plano]').val(data.plano);
-	// 			$('input[name=iccid]').val(data.iccid);
-	// 			$('select[name=operadora]').val(data.operadora);
-	// 			$('select[name=status]').val(data.LojaStatus);
-	// 			$('textarea[name=observacoes]').html(data.observacoes);
+		//remove field edi_idLoja 'if it exists
+		$('input[name=edit_idLoja]').remove();	
 
-	// 			//Disable numLoja field
-	// 			$('input[name=numLoja]').prop('readonly', true);
-	// 		}
-	// 	})
-	// })
+		//Add a hidden input to control the store
+		$('#gerLojas_form').append('<input type = "hidden" value = "'+ idLoja +'" name = "edit_idLoja"> ');
 
-	// //Function to edit data
-	// $('#gerLojas_modalFooter').on('click', '#gerLojas_update', function(){
-	// 	//The amount of records to show in table, used to reload table
-	// 	var regsLimit = $('#gerLojas_regs option:selected').val();
+		//First populate the store data in fields
+		$.ajax({
+			url: 'modulos/mod_operacional/controller/ger_lojas.php',
+			type: 'POST',
+			data: {
+				idLoja: idLoja, //store id to load data
+				op: 'loadData' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				//Popupate fields
+				$('input[name=cnpj]').val(data.cnpj);			
+				$('#s2id_autogen1 .select2-chosen').html(data.bandeira);
+				$('select[name=bandeira]').val(data.idEstabBandeira);
+				$('input[name=nome]').val(data.nome);
+				$('input[name=rua]').val(data.rua);
+				$('input[name=numero]').val(data.numero);
+				$('input[name=complemento]').val(data.complemento);
+				$('input[name=bairro]').val(data.bairro);
+				$('input[name=cidade]').val(data.cidade);
+				$('input[name=uf]').val(data.uf);
+				$('input[name=cep]').val(data.cep);
+				$('input[name=estabReceitaAberturaData]').val(data.estabReceitaAberturaData);
+				$('input[name=estabReceitaRazaoSocial]').val(data.estabReceitaRazaoSocial);
+				$('input[name=estabReceitaNomeEmpresarial]').val(data.estabReceitaNomeEmpresarial);
+				$('input[name=estabReceitaNF]').val(data.estabReceitaNF);
+				$('input[name=estabReceitaEndereco]').val(data.estabReceitaEndereco);
+				$('input[name=estabReceitaNumero]').val(data.estabReceitaNumero);
+				$('input[name=estabReceitaComplemento]').val(data.estabReceitaComplemento);
+				$('input[name=estabReceitaBairro]').val(data.estabReceitaBairro);
+				$('input[name=estabReceitaCidade]').val(data.estabReceitaCidade);
+				$('input[name=estabReceitaUF]').val(data.estabReceitaUF);
+				$('input[name=estabReceitaCEP]').val(data.estabReceitaCEP);
+				$('input[name=estabReceitaSituacao]').val(data.estabReceitaSituacao);
+				$('input[name=estabReceitaSituacaoData]').val(data.estabReceitaSituacaoData);
+				$('input[name=estabTel01]').val(data.estabTel01);
+				$('input[name=estabTel02]').val(data.estabTel02);
+				$('input[name=dataFechamento]').val(data.dataFechamento);			
 
-	// 	//The store that user want to update
-	// 	var idLoja = $('input[name=edit_idLoja]').val();
+				//Disable cnpj field
+				$('input[name=cnpj]').prop('readonly', true);
+			}
+		})
+	})
 
-	// 	//Get data to update
-	// 	var formData = $('#gerLojas_form').serialize();
+	//Function to edit data
+	$('#gerLojas_modalFooter').on('click', '#gerLojas_update', function(){
+		//The amount of records to show in table, used to reload table
+		var regsLimit = $('#gerLojas_regs option:selected').val();
 
-	// 	$.ajax({
-	// 		url: 'modulos/mod_operacional/controller/ger_lojas.php',
-	// 		type: 'POST',
-	// 		data: {
-	// 			formData: formData,
-	// 			idLoja: idLoja,
-	// 			op: 'update' //The optional operation to pass for back-end
-	// 		},
-	// 		dataType: 'json',
-	// 		success: function(data){
-	// 			//Check the return
-	// 			if(data == 1){ //Means the update as successful
-	// 				alert("Loja alterada com sucesso!");
+		//The store that user want to update
+		var idLoja = $('input[name=edit_idLoja]').val();
 
-	// 				//Reload table
-	// 				loadTable('1', regsLimit);
+		//Get data to update
+		var formData = $('#gerLojas_form').serialize();
 
-	// 				//Hide the modal
-	// 				$('#add_Loja').modal('hide');
+		$.ajax({
+			url: 'modulos/mod_operacional/controller/ger_lojas.php',
+			type: 'POST',
+			data: {
+				formData: formData,
+				idLoja: idLoja,
+				op: 'update' //The optional operation to pass for back-end
+			},
+			dataType: 'json',
+			success: function(data){
+				//Check the return
+				if(data == 1){ //Means the update as successful
+					alert("Loja alterada com sucesso!");
 
-	// 				//Clear the form
-	// 				$('#gerLojas_form')[0].reset();
+					//Reload table
+					loadTable('1', regsLimit);
 
-	// 				//Clear textarea
-	// 				$('textarea[name=observacoes]').html('');
-	// 			} else { //Have a problem to insert
-	// 				alert("Falha ao atualizar Loja");
-	// 			}
-	// 		}
-	// 	});
-	// })
+					//Hide the modal
+					$('#add_Loja').modal('hide');
+
+					//Clear the form
+					$('#gerLojas_form')[0].reset();					
+
+					//Clear textarea
+					$('textarea[name=observacoes]').html('');
+
+					//remove fild hidden with idLoja
+					$('input[name=edit_idLoja]').remove();
+
+					//hide modal
+					$('#add_loja').modal('hide')
+
+				} else { //Have a problem to insert
+					alert("Falha ao atualizar Loja");
+				}
+			}
+		});
+	})
 
 	//Function to delete store
 	$('#gerLojas_table').on('click', 'button[name=delete]', function(){
@@ -464,10 +520,10 @@ $(function(){
 		var regsLimit = $('#gerLojas_regs option:selected').val();
 
 		//The store that user want to delete
-		var idLoja = $(this).attr('id').split("_")[1];
+		var idLoja = $(this).attr('id').split("_")[1];		
 
 		//Ask user if he really wanna delete the record
-		var anwswer = confirm("Tem certeza que deseja remover essa Loja?");
+		var anwswer = confirm("Tem certeza que deseja remover essa loja?");
 
 		if(anwswer){
 			$.ajax({
@@ -541,20 +597,21 @@ $(function(){
 		})
 	});
 
-	// //Function to export to excel
-	// $("#gerLojas_exportExcel").click(function(e) {
-	// 	$.ajax({
-	// 		url: 'modulos/mod_operacional/controller/ger_lojas.php',
-	// 		type: 'POST',
-	// 		data: {
-	// 			op: 'exportExcel' //The optional operation to pass for back-end
-	// 		},
-	// 		success:function(data){
-	// 			window.location = "modulos/mod_operacional/controller/ger_lojas.php?export=true";
-	// 		}
-	// 	})
-	// });
+	//Function to export to excel
+	$("#gerLojas_exportExcel").click(function(e) {
+		$.ajax({
+			url: 'modulos/mod_operacional/controller/ger_lojas.php',
+			type: 'POST',
+			data: {
+				op: 'exportExcel' //The optional operation to pass for back-end
+			},
+			success:function(data){
+				window.location = "modulos/mod_operacional/controller/ger_lojas.php?export=true";
+			}
+		})
+	});
 
+	//Executes the request when the CEP field lose focus
 	function cleanFields(){
 		$('input[name=rua]').val('');
 		$('input[name=bairro]').val('');
@@ -573,8 +630,7 @@ $(function(){
 				op:'loadCep',
 			},
 			dataType: 'json',
-			success: function(data){
-				console.log(data);
+			success: function(data){				
 				if(data.sucesso == 1){										
 					$('input[name=rua]').val(data.rua);
 					$('input[name=bairro]').val(data.bairro);
@@ -589,6 +645,7 @@ $(function(){
 
 	});
 
+//Executes the request when the CEP field lose focus
 		function cleanFieldsReceita(){
 		$('input[name=rua]').val('');
 		$('input[name=bairro]').val('');
@@ -622,10 +679,154 @@ $(function(){
 		return false;  
 
 	});
- 
- 
-		
 
+
+	// ************************************************* 
+
+ //Treatment fields to not accept accentuation
+	$('input[type=text]').on('keypress', function(e,args){
+		if (document.all){ var evt=event.keyCode; } //if ie
+		else{ var evt = e.charCode; }	//else by Mozilla
+
+		var valid_chars = ' 0123456789abcdefghijlmnopqrstuvxzwykABCDEFGHIJLMNOPQRSTUVXZWYK-_'+args; //List of allowed keys
+
+		var chr= String.fromCharCode(evt);	//Handle the key typed
+
+		if (valid_chars.indexOf(chr)>-1 ){ return true; }	//Checks if the entered key is in list
+
+		//To allow as keys <BACKSPACE>
+		if (valid_chars.indexOf(chr)>-1 || evt < 9){return true;}	//Checks if the entered key in this list
+			return false;	//Entered Checks if the key in this list
+	})
+
+
+	function checkNumber(e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    }
+
+
+	function ckeckKey(e){
+	     var key = (window.event) ? event.keyCode : e.which;
+
+	     if((key > 65 && key < 90)
+	         ||(key > 97 && key < 122))
+	               return true;
+	     else{
+	          if (key != 8) return false;
+	          else return true;
+	     }
+	}
+	//verifica se o campo tem zeros por meio de ER
 	
+	// function validarNumeroZero(e){
+	// 	var valor = $(e).val();
+	// 	var er = /^[0]{0,6}$/;
+	// 	if(valor != ''){
+	// 		if(er.test(valor)){
+	// 			$(e).focus();
+	// 			return true;
+	// 		}
+	// 	}
+	// }
+
+// checks the cnpj dynamically
+	$('input[name=cnpj]').keyup(function(){
+
+		var cnpj = $('input[name=cnpj]').val();
+
+		//if the size of cnpj was just 18 he makes the verification
+		if(cnpj.length == 18 && !($("input[name=edit_idLoja]").length)){
+			$.ajax({
+				type: 'POST',
+				url: 'modulos/mod_operacional/controller/ger_lojas.php',
+				data: {
+					op: 'checkCnpj',
+					cnpj:cnpj,
+				},
+				success: function (data){		
+					//returns the count data of items that have the same cnpj
+										if(data <= 0){
+						if($('input[name=cnpj]').hasClass('invalid')){
+							$('input[name=cnpj]').removeClass('invalid');
+							$('input[name=cnpj]').addClass('valid');
+						}else{
+							$('input[name=cnpj]').addClass('valid');
+						}
+					}else{
+						if($('input[name=cnpj]').hasClass('valid')){
+							$('input[name=cnpj]').removeClass('valid');
+							$('input[name=cnpj]').addClass('invalid');
+						}else{
+							$('input[name=cnpj]').addClass('invalid');
+						}
+					}
+				}				 
+			})
+		}else{ //if the size is not 18 cnpj he does not check
+			if($('input[name=cnpj]').hasClass('invalid')){
+				$('input[name=cnpj]').removeClass('invalid');
+			}else if($('input[name=cnpj]').hasClass('valid')){
+				$('input[name=cnpj]').removeClass('valid');
+			}
+		}
+
+	})
+
+//Generates store name from the neighborhood and city flag
+	$('input[name=numero]').focusout(function(){
+
+		// takes values ​​camposs
+		var aBandeira = $('#select2-chosen-2').html();
+		var aBairro = $('input[name=bairro]').val();
+		var aCidade = $('input[name=cidade]').val();
+		if(aBandeira == "SEM BANDEIRA DEFINIDA"){aBandeira = ""};
+
+		// setting the value in the Store
+		$('input[name=nome]').val($.trim(aBandeira + ' ' + aBairro + ' ' + aCidade));
+	})
+
+
+	// alterar inline
+	$("a[contenteditable=true]").blur(function(){
+			var nameFlag = $(this).html();
+			
+			if(nameFlag != ''){
+				var validChange = confirm("Tem certeza que deseja cadastrar a bandeira: " + nameFlag);
+			}
+			if(validChange == true && nameFlag != ''){
+				$.ajax({
+					url:'modulos/mod_operacional/controller/ger_lojas.php',
+					type:'POST',
+					data:{
+						op:'flagRegister',
+						nameFlag: nameFlag,
+					},
+					success: function(data){
+						if(data == 1){
+							alert('Bandeira cadastrada com sucesso');
+							$("a[contenteditable=true]").html("CADASTRAR BANDEIRA");
+							loadFlagData();
+						}else if (data == 2){
+							alert('Existe uma bandeira com esse nome, por isso não será possivel cadastrar essa bandeira.');
+							$("a[contenteditable=true]").html("CADASTRAR BANDEIRA");
+							$('select[name=bandeira]').focus();
+						}else{
+							alert('Houve algum problema, contate o administrador do sistemapara verificar o que houve');
+							$("a[contenteditable=true]").html("CADASTRAR BANDEIRA");
+						}
+					}
+				})
+			}else{
+				$("a[contenteditable=true]").html("CADASTRAR BANDEIRA");
+			}
+	})
+
+	$('a[contenteditable=true]').keypress(function (e) {
+        var code = null;
+        code = (e.keyCode ? e.keyCode : e.which);                
+        return (code == 13) ? false : true;
+   });	
 	
 })

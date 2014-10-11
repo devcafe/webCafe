@@ -3,7 +3,7 @@
 <script src="modulos/mod_telefonia/view/resources/js/ger_acoes.js"></script>
 <link rel="stylesheet" href="modulos/mod_telefonia/view/resources/css/ger_acoes.css" />
 
-<h3> Gerenciar Linhas </h3>
+<h3> Gerenciar Ação </h3>
 <div id = "tableWrapper_gerAcoes">
 	<div class="panel panel-default">
 		<div class="panel-body">

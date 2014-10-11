@@ -6,3 +6,23 @@
 select[name=bandeira]{
 	border: 0px !important;
 }
+
+.marginLeft20{
+	margin-left:20px;		
+}
+input[type="text"], a{
+	text-transform:uppercase;
+}
+
+.valid{
+	background-image: url('../../../../../resources/img/tick.png');
+	background-repeat: no-repeat;
+	background-position: 456px, 50px;	
+}
+
+.invalid{
+	background-image: url('../../../../../resources/img/delete.png');
+	background-repeat: no-repeat;
+	background-position: 456px, 50px;		
+
+}

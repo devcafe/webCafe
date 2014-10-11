@@ -88,8 +88,22 @@
 
 			echo json_encode($loja->loadCep($_POST['cep'])); //Load data to populate select, return a json
 
-		} 
+		}else if ($_POST['op'] == 'checkCnpj'){ //Autocomplete to get avaible flags
+			$loja = new Lojas();
 
+			echo $loja->checkCnpj($_POST['cnpj']); //Load data to populate select, return a json
+
+		}else if ($_POST['op'] == 'flagRegister'){ //Autocomplete to get avaible flags
+			$loja = new Lojas();
+
+			if($loja->checkflag($_POST['nameFlag']) > 0){
+				echo 2;
+			}else{
+				echo $loja->flagRegister($_POST['nameFlag']);
+			}
+
+			
+		}		 
 	} else if(isset($_GET['export'])) { //If variable export exists in url, export data in excel
 		$lojas = new Lojas();
 
@@ -100,7 +114,7 @@
 		$output = fopen('php://output', 'w');
 
 		//Output the column headings
-		fputcsv($output, array('numLinha', 'plano', 'iccid', 'lojastatus', 'operadora', 'observacoes'), ';', " ");
+		fputcsv($output, array('CodigoPDV', 'CNPJ', 'Bandeira', 'NomePDV', 'Rua', 'Bairro', 'cidade', 'UF'), ';', " ");
 
 		//Call the method to get contents from database
 		$lojas->exportExcel($output);	

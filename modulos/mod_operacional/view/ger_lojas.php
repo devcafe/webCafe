@@ -134,16 +134,10 @@
 							</div>
 							<div class="col-xs-5">
 								<div class="form-group has-feedback">
-									<label for="idEstabBandeira" >BANDEIRA: </label>
+									<label for="bandeira" >BANDEIRA: <a src = "#" contenteditable="true" tabindex = '-1'>CADASTRAR BANDEIRA</a></label>
 									<select name ="bandeira" class="form-control"> </select>														
 								</div>
-							</div>
-							<div class="col-xs-12">
-								<div class="form-group has-feedback">
-									<label for="nome">NOME:</label>
-									<input type="text" name = "nome" class="form-control" placeholder="NOME">
-								</div>
-							</div>
+							</div>						
 							<div class="col-xs-2">
 								<div class="form-group has-feedback">
 									<label for="cep">CEP:</label>
@@ -184,6 +178,12 @@
 								<div class="form-group has-feedback">
 									<label for="cidade">CIDADE:</label>
 									<input type="text" name = "cidade" class="form-control" placeholder="CIDADE">
+								</div>
+							</div>
+								<div class="col-xs-12">
+								<div class="form-group has-feedback">
+									<label for="nome">NOME:</label>
+									<input type="text" name = "nome" class="form-control" placeholder="NOME">
 								</div>
 							</div>
 
@@ -459,7 +459,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+				<button type="button" class="btn btn-default exit" data-dismiss="modal">Fechar</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

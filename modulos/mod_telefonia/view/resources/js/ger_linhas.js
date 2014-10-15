@@ -659,6 +659,8 @@ $(function(){
 				$('#show_iccid').html(data.iccid);
 				$('#show_operadora').html(data.operadora);
 				$('#show_linhaStatus').html(data.linhaStatus);
+				$('#show_aparelho').html(data.marca + ' - ' + data.modelo + ' - ' + data.imei);
+				$('#show_usuario').html(data.nome);
 				$('#show_observacoes').html(data.observacoes);
 			}
 		})

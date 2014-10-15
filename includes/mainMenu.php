@@ -13,9 +13,14 @@
             <li><a href='?mod=mod_telefonia&page=ger_acoes' id = "ger_acoes">Gerenciar ações</a> </li>
          </ul>
       </li>
-       <li class='has-sub'><a href='#'>Operacional</a>
+      <li class='has-sub'><a href='#'>Operacional</a>
          <ul>            
             <li><a href='?mod=mod_operacional&page=ger_lojas' id = "ger_lojas">Gerenciar Lojas</a>  </li>           
+         </ul>
+      </li>
+      <li class='has-sub'><a href='#'>Gerencial</a>
+         <ul>            
+            <li><a href='?mod=mod_gerencial&page=ger_sysUsuarios' id = "ger_sysUsuarios">Gerenciar usuários</a>  </li>           
          </ul>
       </li>
    </ul>

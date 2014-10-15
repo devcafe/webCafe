@@ -193,23 +193,31 @@
 								<span id = "show_numLinha"> </span>
 							</div>
 							<div class="col-xs-6">
-								<label for="plano">Plano</label>
+								<label for="plano">Plano:</label>
 								<span id = "show_plano"> </span>
 							</div>
 							<div class="col-xs-4">
-								<label for="iccid">ICCID</label>
+								<label for="iccid">ICCID:</label>
 								<span id = "show_iccid"> </span>
 							</div>
 							<div class="col-xs-4">
-								<label for="operadora">Operadora</label>
+								<label for="operadora">Operadora:</label>
 								<span id = "show_operadora"> </span>
 							</div>
 							<div class="col-xs-4">
-								<label for="status">Status</label>
+								<label for="status">Status:</label>
 								<span id = "show_linhaStatus"> </span>
 							</div>
+							<div class="col-xs-8">
+								<label for="aparelho">Aparelho:</label>
+								<span id = "show_aparelho"> </span>
+							</div>
+							<div class="col-xs-8">
+								<label for="usuario">Usuário:</label>
+								<span id = "show_usuario"> </span>
+							</div>
 							<div class="col-xs-12">
-								<label for="observacoes">Observações</label>
+								<label for="observacoes">Observações:</label>
 								<span id = "show_observacoes"> </span>
 							</div>
 						</div>

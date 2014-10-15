@@ -302,11 +302,40 @@ $(function(){
 		//Get data to save
 		var formData = $('#gerSysUsuarios_form').serialize();
 
+		var modulos = '';
+		var paginas = '';
+		var acessos = '';
+
+		//Get all modules access
+		$('input[name=userModulo]').each(function() {
+			modulos += $(this).val() + ';';
+		});
+
+		//Get all pages access
+		$('input[name=userPage]').each(function() {
+			paginas += $(this).val() + ';';
+		});
+
+		//Get all access rules
+		$('input[name=idAcesso]').each(function() {
+			acessos += $(this).val() + ';';
+		});
+
+		var resModulos = modulos.substring(-1, modulos.length-1);
+		var resPaginas = paginas.substring(-1, paginas.length-1);
+		var resAcessos = acessos.substring(-1, acessos.length-1);
+
+		var password = $('input[name=password]').val();
+
 		$.ajax({
 			url: 'modulos/mod_gerencial/controller/ger_sysUsuarios.php',
 			type: 'POST',
 			data: {
 				formData: formData,
+				resModulos: resModulos,
+				resPaginas: resPaginas,
+				resAcessos: resAcessos,
+				password: password,
 				op: 'save' //The optional operation to pass for back-end
 			},
 			dataType: 'json',
@@ -408,35 +437,35 @@ $(function(){
 		});
 	})
 
-	//Function to delete job
+	//Function to delete user
 	$('#gerSysUsuarios_table').on('click', 'button[name=delete]', function(){
 		//The amount of records to show in table, used to reload table
 		var regsLimit = $('#gerSysUsuarios_regs option:selected').val();
 
-		//The job that user want to delete
-		var idAcao = $(this).attr('id').split("_")[1];
+		//The user that user want to delete
+		var idSysUsuario = $(this).attr('id').split("_")[1];
 
 		//Ask user if he really wanna delete the record
-		var anwswer = confirm("Tem certeza que deseja remover esse acao?");
+		var anwswer = confirm("Tem certeza que deseja remover esse usuário?");
 
 		if(anwswer){
 			$.ajax({
 				url: 'modulos/mod_gerencial/controller/ger_sysUsuarios.php',
 				type: 'POST',
 				data: {
-					idAcao: idAcao,
+					idSysUsuario: idSysUsuario,
 					op: 'delete' //The optional operation to pass for back-end
 				},
 				dataType: 'json',
 				success: function(data){
 					//Check the return
 					if(data == 1){ //Means the update as successful
-						alert("Acao removida com sucesso!");
+						alert("Usuário removido com sucesso!");
 
 						//Reload table
 						loadTable('1', regsLimit);
 					} else { //Have a problem to insert
-						alert("Falha ao remover acao");
+						alert("Falha ao remover usuário");
 					}
 				}
 			});
@@ -585,8 +614,17 @@ $(function(){
 		//Get selected module
 		var selectedModulo = $('#modulosLista a.active').html();
 
+		//Get module ID
+		var moduleId = $('#modulosLista a.active').attr('id');
+
 		//Get selected page
 		var selectedPage = $('#paginasLista a.active').html();
+
+		//Get page ID
+		var pageId = $('#paginasLista a.active').attr('id');
+
+		//Get access ID
+		//var idAcesso = $('#permissoesLista a.active').attr('id');
 
 		//Variable used to append module, page and access to list
 		var lista = '';
@@ -612,12 +650,14 @@ $(function(){
 						lista += "<ul>";
 							lista += "<li>" + selectedModulo + "</li>";
 							lista += "<ul id = '"+ selectedModulo +"'>";
+							lista += "<input type = 'hidden' value = '"+ moduleId +"' name = 'userModulo'>";
 								lista += "<li>" + selectedPage + "</li>";
 									lista += "<ul id = '"+ selectedPage +"'>";
-
+										lista += "<input type = 'hidden' value = '"+ pageId +"' name = 'userPage'>";
 										//Loop on rules list to generate an array with all access rules and append to list
 										$('#permissoesLista a.active').each(function(){
 											lista += "<li>"+ $(this).html() +"</li>";
+											lista += "<input type = 'hidden' value = '"+ $(this).attr('id') +"' name = 'idAcesso'>";
 										});
 
 								lista += "</ul>";
@@ -631,17 +671,20 @@ $(function(){
 			} else if($('#'+selectedModulo).length == 1 && $('#'+selectedPage).length == 0){ //If the module is already added, and the page not, just add the page to module
 					
 					if($('#permissoesLista a.active').length <= 0){ //Check if user selected one rule
-						//Remove page from list, because all rules as been removed
-						$('#'+selectedPage).prev('li').remove();
-						$('#'+selectedPage).remove();
+						//If user dont selected any rule, show an error message
+						alert("Favor selecionar ao menos um acesso");
+						// //Remove page from list, because all rules as been removed
+						// $('#'+selectedPage).prev('li').remove();
+						// $('#'+selectedPage).remove();
 					} else {
 
 						lista += "<li>" + selectedPage + "</li>";
 						lista += "<ul id = '"+ selectedPage +"'>";
-
+							lista += "<input type = 'hidden' value = '"+ pageId +"' name = 'userPage'>";
 							//Loop on rules list to generate an array with all access rules and append to list
 							$('#permissoesLista a.active').each(function(){
 								lista += "<li>"+ $(this).html() +"</li>";
+								lista += "<input type = 'hidden' value = '"+ $(this).attr('id') +"' name = 'idAcesso'>";
 							});
 
 						lista += "</ul>";
@@ -655,19 +698,22 @@ $(function(){
 				//Loop on rules list to generate an array with all access rules and append to list
 				$('#permissoesLista a.active').each(function(){
 					lista += "<li>"+ $(this).html() +"</li>";
+					lista += "<input type = 'hidden' value = '"+ $(this).attr('id') +"' name = 'idAcesso'>";
 				});
 
 				if($('#permissoesLista a.active').length == 0){
-					//Remove page from list, because all rules as been removed
-					$('#'+selectedPage).prev('li').remove();
-					$('#'+selectedPage).remove();
+					//If user dont selected any rule, show an error message
+					alert("Favor selecionar ao menos um acesso");
+					// //Remove page from list, because all rules as been removed
+					// $('#'+selectedPage).prev('li').remove();
+					// $('#'+selectedPage).remove();
 				} else {
 					//Update the module pages acess list
 					$('#'+selectedPage).empty();
-				}
 
-				//Append the page again with the new rules
-				$('#'+selectedPage).append(lista);
+					//Append the page again with the new rules
+					$('#'+selectedPage).append(lista);
+				}
 			}
 		}		
 	})

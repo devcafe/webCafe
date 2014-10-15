@@ -134,12 +134,33 @@ $(function(){
 					//Append the pagination
 					paginationWrapper.append(pagination);
 
+					//Check if user have rigths to view line info
+					if($('input[name=accessView]').length <= 0){
+						var disabledView = 'disabled';
+					} else {
+						var disabledView = '';
+					}
+
+					//Check if user have rigths to delete line
+					if($('input[name=accessDelete]').length <= 0){
+						var disabledDelete = 'disabled';
+					} else {
+						var disabledDelete = '';
+					}
+
+					//Check if user have rigths to edit line
+					if($('input[name=accessEdit]').length <= 0){
+						var disabledEdit = 'disabled';
+					} else {
+						var disabledEdit = '';
+					}
+
 					//Append data in table
 					for(var i=0;i<data[1].length;i++){					
 						table_gerLinhas.append(""+
 							"<tr>"+
 								"<td class = 'show width50 pull-left'>"+
-									"<button id = 'show_"+ data[1][i].idLinha +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_linha'>"+
+									"<button "+disabledView+" id = 'show_"+ data[1][i].idLinha +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_linha'>"+
 									  "<span class='glyphicon glyphicon-search'></span>"+
 									"</button>"+
 								"</td>"+
@@ -148,10 +169,10 @@ $(function(){
 								"<td>"+data[1][i].linhaStatus+"</td>"+
 								"<td>"+data[1][i].nome+"</td>"+
 								"<td class = 'width100'>"+
-									"<button id = 'del_"+ data[1][i].idLinha +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
+									"<button "+disabledDelete+" id = 'del_"+ data[1][i].idLinha +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
 									"</button>"+
-									"<button id = 'edit_"+ data[1][i].idLinha +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_linha'>"+
+									"<button "+disabledEdit+"  id = 'edit_"+ data[1][i].idLinha +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_linha'>"+
 									  "<span class='glyphicon glyphicon-pencil'></span>"+
 									"</button>"+
 								"</td>"+

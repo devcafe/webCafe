@@ -124,7 +124,7 @@
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
 									<label for="password">Senha:</label>
-									<input type="text" name = "password" id="password" class="form-control" placeholder="Senha">
+									<input type="password" name = "password" id="password" class="form-control" placeholder="Senha">
 								</div>
 							</div>
 							<div class="col-xs-8">
@@ -138,6 +138,7 @@
 									<label for="email">Departamento:</label>
 									<select name = "departamento" id = "departamento" class="form-control">
 										<option value = "Atendimento">Atendimento</option>
+										<option value = "Telefonia">Telefonia</option>
 										<option value = "Operacional">Operacional</option>
 										<option value = "DP">DP</option>
 										<option value = "Financeiro">Financeiro</option>
@@ -168,11 +169,11 @@
 							</div>
 						</div>
 					</div>
+					<div class="modal-footer" id = "gerSysUsuarios_modalFooter">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+						<button type="button" id = "gerSysUsuarios_save" name = "gerSysUsuarios_save" class="btn btn-primary">Salvar</button>
+					</div>
 				</form>
-			</div>
-			<div class="modal-footer" id = "gerSysUsuarios_modalFooter">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				<button type="button" id = "gerSysUsuarios_save" name = "gerSysUsuarios_save" class="btn btn-primary">Salvar</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

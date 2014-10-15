@@ -1,4 +1,7 @@
-<?php require_once("../../../actions/security.php"); ?>
+<?php 
+	require_once("../../../actions/accessController.php"); 
+	require_once("../../../actions/security.php"); 
+?>
 
 <script src="modulos/mod_telefonia/view/resources/js/ger_linhas.js"></script>
 <link rel="stylesheet" href="modulos/mod_telefonia/view/resources/css/ger_linhas.css" />
@@ -19,9 +22,11 @@
 				</select>
 			</div>
 
+			<?php if(accessRules(4)){ ?>
 			<button type="button" id = "gerLinhas_addLinhaBtn" class="btn btn-primary pull-left marginLeft20" data-toggle="modal" data-target="#add_linha">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar linha
 			</button>
+			<?php } ?>
 
 			<button type="button" id = "gerLinhas_exportExcel" class="btn btn-success pull-left marginLeft20">
 			  <span class="glyphicon glyphicon-export"></span> Exportar para excel
@@ -32,6 +37,10 @@
 			</button>
 		</div>
 	</div>
+
+	<?php if(accessRules(1)){ echo "<input type = 'hidden' value = 'true' name = 'accessView'>"; } ?>
+	<?php if(accessRules(2)){ echo "<input type = 'hidden' value = 'true' name = 'accessDelete'>"; } ?>
+	<?php if(accessRules(3)){ echo "<input type = 'hidden' value = 'true' name = 'accessEdit'>"; } ?>
 
 	<div id="gerLinhas_tabelWrapperExport">
 		<table id = "gerLinhas_table" class="table table-striped table-condensed table-hover">
@@ -45,7 +54,7 @@
 			</thead>
 
 			<tbody>
-
+				
 			</tbody>
 
 			<tfoot>

@@ -51,28 +51,33 @@
 		}
 
 		//Method to save data
-		function save($dados, $idUser, $date){
+		function save($dados, $password, $idUser, $date, $modulos, $paginas, $acessos){
 			$pdo = new Connection();
 
 			//Transform data into variables
 			$data = parse_str($dados);
 
+			$finalPassword = sha1($password);
+
 			//Insert into database
 			$sql = $pdo->prepare("
 				Insert Into webcafe_usuarios
-					(`idUser`, `user`, `password`, `firstName`, `lastName`, `email`, `departamento`, `userAdd`) 
+					(`idUser`, `user`, `password`, `firstName`, `lastName`, `email`, `departamento`, `modulos`, `paginas`, `acessos`, `userAdd`) 
 				Values 
-					(:idUser, :user, :password, :firstName, :lastName, :email, :departamento, :userAdd)
+					(:idUser, :user, :password, :firstName, :lastName, :email, :departamento, :modulos, :paginas, :acessos, :userAdd)
 			");
 
 			$sql->execute(array(
 				':idUser' => '', 
 				':user' => $user,
-				':password' => $password,
+				':password' => $finalPassword,
 				':firstName' => $firstName,
 				':lastName' => $lastName,
 				':email' => $email,
 				':departamento' => $departamento,
+				':modulos' => $modulos,
+				':paginas' => $paginas,
+				':acessos' => $acessos,
 				':userAdd' => $idUser
 			));
 
@@ -130,11 +135,11 @@
 		}
 
 		//Method to delete line
-		function delete($idUser, $date, $idAcao){
+		function delete($idUser, $date, $idSysUsuario){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Delete From `webcafe_modtelefonia_acoes` Where idAcao = :idAcao");
-			$sql->execute(array(":idAcao" => $idAcao));
+			$sql = $pdo->prepare("Delete From `webcafe_usuarios` Where idUser = :idUser");
+			$sql->execute(array(":idUser" => $idSysUsuario));
 
 			if($sql){
 				return 1; //Delete success

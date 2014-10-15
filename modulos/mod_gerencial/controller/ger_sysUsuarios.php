@@ -43,8 +43,18 @@
 			if($usuarios->checkUser($_POST['formData']) > 0){
 				echo 2; //This means the job already exists
 			} else {
-				echo $usuarios->save($_POST['formData'], $idUser, $date); //Get return after insert
+				echo $usuarios->save($_POST['formData'], $_POST['password'], $idUser, $date, $_POST['resModulos'], $_POST['resPaginas'], $_POST['resAcessos']); //Get return after insert
 			}
+
+		} else if ($_POST['op'] == 'delete'){ //Delete user
+			$idUser = $_SESSION['idUser'];
+
+			$usuarios = new Usuarios();
+
+			//Get actual date
+			$date = date('d/m/Y H:i');
+
+			echo $usuarios->delete($idUser, $date, $_POST['idSysUsuario']); //Get return after delete
 
 		} else if ($_POST['op'] == 'loadModules'){ //Load modules
 			$usuarios = new Usuarios();

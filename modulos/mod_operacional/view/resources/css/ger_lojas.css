@@ -10,7 +10,7 @@ select[name=bandeira]{
 .marginLeft20{
 	margin-left:20px;		
 }
-input[type="text"], a{
+input[type="text"], a[contenteditable=true]{
 	text-transform:uppercase;
 }
 

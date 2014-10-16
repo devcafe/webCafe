@@ -175,11 +175,11 @@ $(function(){
 								"<td>"+data[1][i].nome+"</td>"+
 								"<td>"+data[1][i].rua+"</td>"+
 								"<td>"+data[1][i].numero+"</td>"+
-								"<td>"+data[1][i].complemento+"</td>"+
+								//"<td>"+data[1][i].complemento+"</td>"+
 								"<td>"+data[1][i].bairro+"</td>"+
 								"<td>"+data[1][i].cidade+"</td>"+
 								"<td>"+data[1][i].uf+"</td>"+
-								"<td>"+data[1][i].cep+"</td>"+
+								//"<td>"+data[1][i].cep+"</td>"+
 								"<td class = 'width100'>"+
 									"<button "+disabledDelete+" id = 'del_"+ data[1][i].idLoja +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+

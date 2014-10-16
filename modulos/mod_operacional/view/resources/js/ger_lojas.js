@@ -36,6 +36,11 @@ $(function(){
 		$('input[name=estabTel02]').keypress(checkNumber);
 	//exit chkfilds
 
+
+		$( "input[name=estabReceitaAberturaData]" ).datepicker();
+		$( "input[name=estabReceitaSituacaoData]" ).datepicker();
+		$( "input[name=dataFechamento]" ).datepicker();
+
 	/****************************************/
 	/* Functions
 	/****************************************/
@@ -391,7 +396,8 @@ $(function(){
 		if($('input[name=cnpj]').val().length <= 17){
 			alert("O campo do CNPJ não pode ficar vazio ou ter menos de 14 digitos.");
 			$('input[name=cnpj]').focus();
-		}else if(validateZero('input[name=numero]') == true){ //Checks whether the number field is empty or only with zero			
+		}
+		else if(validateZero('input[name=numero]') == true){ //Checks whether the number field is empty or only with zero			
 			//asks if you want to fill with countless number field	
 			var numberZero = confirm("O numero é invalido, você deseja preencher com sem numero? ");
 
@@ -421,7 +427,8 @@ $(function(){
 			alert("O Campo situação data é obrigatório");
 		}else if($('input[name=estabReceitaSituacaoData]').val() == ''){
 			alert("O Campo data de abertura é obrigatório");
-		}else{
+		}
+		else{
 			// --------------------------------save-----------------------------------
 			$.ajax({
 				url: 'modulos/mod_operacional/controller/ger_lojas.php',
@@ -450,7 +457,26 @@ $(function(){
 						$('textarea[name=observacoes]').html('');
 					} else if(data == 2) { //Have a problem to insert
 						alert("A loja informada já foi cadastrada");
-					} else {
+					}else if(data == 3) { //Have a problem to insert
+						alert("O campo CNPJ é obrigatório!");
+					}else if(data == 4) { //Have a problem to insert
+						alert("O Campo Bandeira é obrigatório");
+					}else if(data == 5) { //Have a problem to insert
+						alert("O Campo Nome do estabelecimento é obrigatório");
+					}else if(data == 6) { //Have a problem to insert
+						alert("O endereço completo da loja é obrigatório. Isto inclui: CEP, Bairro, Rua, Ciade e Estado (UF)");
+					}else if(data == 7) { //Have a problem to insert
+						alert("O Campo Nome empresarial é obrigatório");
+					}else if(data == 8) { //Have a problem to insert
+						alert("O endereço completo na receia federal é obrigatório, insto inclui: Nome Empresarial, CEP, Bairro, Rua, Ciade e Estado (UF)");
+					}else if(data == 9) { //Have a problem to insert
+						alert("O Campo situação data é obrigatório");
+					}else if(data == 10) { //Have a problem to insert
+						alert("O Campo data de abertura é obrigatório");
+					}
+
+					//fim else
+					 else {
 						alert("Falha ao inserir loja");
 					}
 				}
@@ -839,10 +865,11 @@ $(function(){
 	$('input[name=numero]').focusout(function(){
 
 		// takes values ​​camposs
-		var aBandeira = $('#select2-chosen-2').html();
+		var aBandeira = $('#select2-chosen-2:first-child').html();
 		var aBairro = $('input[name=bairro]').val();
 		var aCidade = $('input[name=cidade]').val();
 		if(aBandeira == "SEM BANDEIRA DEFINIDA"){aBandeira = ""};
+		console.log(aBandeira);
 
 		// setting the value in the Store
 		$('input[name=nome]').val($.trim(aBandeira + ' ' + aBairro + ' ' + aCidade));
@@ -872,6 +899,7 @@ $(function(){
 						if(data == 1){
 							alert('Bandeira cadastrada com sucesso');
 							$("a[contenteditable=true]").text("CADASTRAR BANDEIRA");
+							$('#select2-chosen-2').remove();
 							loadFlagData();
 						}else if (data == 2){
 							alert('Existe uma bandeira com esse nome, por isso não será possivel cadastrar essa bandeira.');

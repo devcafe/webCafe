@@ -46,10 +46,37 @@
 			//Get actual date
 			$date = date('d/m/Y H:i');
 
+			//Transform data into variables
+			$data = parse_str($_POST['formData']);
+
 			//Verify if theline alreay exists
 			if($lojas->checkStore($_POST['formData']) > 0){
 				echo 2; //This means the line number already exists
-			} else {
+			}elseif($cnpj == ""){
+				//"O campo CNPJ é obrigatório!";
+				echo 3;
+			}elseif($bandeira == ""){
+				//"O Campo Bandeira é obrigatório" ;
+				echo 4;
+			}elseif($nome == ""){
+				//"O Campo Nome do estabelecimento é obrigatório" ;
+				echo 5;
+			}elseif($cep == "" or $bairro == "" or $rua =="" or $cidade == "" or $uf == ""){
+				//"O endereço completo da loja é obrigatório, isto inclui: CEP, Bairro, Rua, Ciade e Estado (UF)" ;
+				echo 6;
+			}elseif($estabReceitaNomeEmpresarial == ""){
+				//"O Campo Nome empresarial é obrigatório" ;
+				echo 7;
+			}elseif($estabReceitaEndereco == "" or $estabReceitaNumero == "" or $estabReceitaBairro == "" or $estabReceitaCidade == "" or $estabReceitaCEP == "" or $estabReceitaUF == ""){
+				//"O endereço completo na receia federal é obrigatório, insto inclui: Nome Empresarial, CEP, Bairro, Rua, Ciade e Estado (UF)" ;
+				echo 8;
+			}elseif($estabReceitaAberturaData == ""){
+				//"O Campo situação data é obrigatório" ;
+				echo 9;
+			}elseif($estabReceitaSituacaoData == ""){
+				//"O Campo data de abertura é obrigatório" ;
+				echo 10;
+			}else {
 				echo $lojas->save($_POST['formData'], $idUser, $date); //Get return after insert
 			}
 

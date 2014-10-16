@@ -26,3 +26,15 @@ input[type="text"], a[contenteditable=true]{
 	background-position: 456px, 50px;		
 
 }
+
+.has-feedback .form-control {
+	padding-right: 0px !important;
+}
+
+#gerLojas_table tr td{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+

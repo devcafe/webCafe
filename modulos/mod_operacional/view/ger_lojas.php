@@ -36,11 +36,11 @@
 			</button>
 			<?php } ?>
 
-			<?php if(accessRules(35) || accessRules(99)){ ?>
+			<!--<?php if(accessRules(35) || accessRules(99)){ ?>
 			<button type="button" id = "gerLojas_importExcel" class="btn btn-success pull-left marginLeft20" data-toggle="modal" data-target="#gerLojas_import_data">
 			  <span class="glyphicon glyphicon-import"></span> Importar dados
 			</button>
-			<?php } ?>
+			<?php } ?>-->
 		</div>
 	</div>
 
@@ -196,7 +196,7 @@
 								<div class="col-xs-12">
 								<div class="form-group has-feedback">
 									<label for="nome">NOME:</label>
-									<input type="text" name = "nome" class="form-control" placeholder="NOME">
+									<input type="text" name = "nome" class="form-control" placeholder="NOME DA LOJA">
 								</div>
 							</div>
 
@@ -246,7 +246,7 @@
 								</div>
 							</div>
 
-							<div class="col-xs-3">					
+							<div class="col-xs-2">					
 								<div class="form-group has-feedback">
 									<label for="estabReceitaCEP">CEP:</label>
 									<input type="text" name = "estabReceitaCEP" class="form-control" placeholder="CEP">
@@ -261,7 +261,7 @@
 
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaBairro">Bairro</label>
+									<label for="estabReceitaBairro">BAIRRO</label>
 									<input type="text" name = "estabReceitaBairro" class="form-control" placeholder="Bairro">
 								</div>
 							</div>								
@@ -274,7 +274,7 @@
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaComplemento">COMPLMENTO:</label>
+									<label for="estabReceitaComplemento">COMPLEMENTO:</label>
 									<input type="text" name = "estabReceitaComplemento" class="form-control" placeholder="COMPLEMENTO">
 								</div>
 							</div>

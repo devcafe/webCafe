@@ -106,7 +106,7 @@
 					webcafe_usuarios a
 				Where 
 					a.idUser = :idUser");
-			
+
 			$sql->execute(array(":idUser" => $idSysUsuario));
 			$res = $sql->fetch(PDO::FETCH_OBJ);
 
@@ -225,7 +225,7 @@
 		function loadModulePagesRules($idPagina, $idModulo){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Select * From webcafe_moduloPaginaAcesso Where idPagina = :idPagina And idModulo = :idModulo");
+			$sql = $pdo->prepare("Select * From webcafe_modulopaginaacesso Where idPagina = :idPagina And idModulo = :idModulo");
 			$sql->execute(array(":idPagina" => $idPagina, ":idModulo" => $idModulo));
 			$res = $sql->fetchAll(PDO::FETCH_OBJ);
 

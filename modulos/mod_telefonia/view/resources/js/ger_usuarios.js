@@ -139,12 +139,33 @@ $(function(){
 					//Append the pagination
 					paginationWrapper.append(pagination);
 
+					//Check if user have rigths to view user info
+					if($('input[name=accessView]').length <= 0){
+						var disabledView = 'disabled';
+					} else {
+						var disabledView = '';
+					}
+
+					//Check if user have rigths to delete user
+					if($('input[name=accessDelete]').length <= 0){
+						var disabledDelete = 'disabled';
+					} else {
+						var disabledDelete = '';
+					}
+
+					//Check if user have rigths to edit user
+					if($('input[name=accessEdit]').length <= 0){
+						var disabledEdit = 'disabled';
+					} else {
+						var disabledEdit = '';
+					}
+
 					//Append data in table
 					for(var i=0;i<data[1].length;i++){					
 						table_gerUsuarios.append(""+
 							"<tr>"+
 								"<td class = 'show width50 pull-left'>"+
-									"<button id = 'show_"+ data[1][i].idUsuario +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_usuario'>"+
+									"<button "+disabledView+" id = 'show_"+ data[1][i].idUsuario +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_usuario'>"+
 									  "<span class='glyphicon glyphicon-search'></span>"+
 									"</button>"+
 								"</td>"+
@@ -156,10 +177,10 @@ $(function(){
 								"<td>"+data[1][i].cidade+"</td>"+
 								"<td>"+data[1][i].uf+"</td>"+
 								"<td class = 'width100'>"+
-									"<button id = 'del_"+ data[1][i].idUsuario +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
+									"<button "+disabledDelete+" id = 'del_"+ data[1][i].idUsuario +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
 									"</button>"+
-									"<button id = 'edit_"+ data[1][i].idUsuario +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_usuario'>"+
+									"<button "+disabledEdit+" id = 'edit_"+ data[1][i].idUsuario +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_usuario'>"+
 									  "<span class='glyphicon glyphicon-pencil'></span>"+
 									"</button>"+
 								"</td>"+

@@ -22,25 +22,29 @@
 				</select>
 			</div>
 
-			<?php if(accessRules(4)){ ?>
+			<?php if(accessRules(4) || accessRules(99)){ ?>
 			<button type="button" id = "gerLinhas_addLinhaBtn" class="btn btn-primary pull-left marginLeft20" data-toggle="modal" data-target="#add_linha">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar linha
 			</button>
 			<?php } ?>
 
+			<?php if(accessRules(26) || accessRules(99)){ ?>
 			<button type="button" id = "gerLinhas_exportExcel" class="btn btn-success pull-left marginLeft20">
 			  <span class="glyphicon glyphicon-export"></span> Exportar para excel
 			</button>
+			<?php } ?>
 
+			<?php if(accessRules(27) || accessRules(99)){ ?>
 			<button type="button" id = "gerLinhas_importExcel" class="btn btn-success pull-left marginLeft20" data-toggle="modal" data-target="#gerLinhas_import_data">
 			  <span class="glyphicon glyphicon-import"></span> Importar dados
 			</button>
+			<?php } ?>
 		</div>
 	</div>
 
-	<?php if(accessRules(1)){ echo "<input type = 'hidden' value = 'true' name = 'accessView'>"; } ?>
-	<?php if(accessRules(2)){ echo "<input type = 'hidden' value = 'true' name = 'accessDelete'>"; } ?>
-	<?php if(accessRules(3)){ echo "<input type = 'hidden' value = 'true' name = 'accessEdit'>"; } ?>
+	<?php if(accessRules(1) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessView'>"; } ?>
+	<?php if(accessRules(2) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessDelete'>"; } ?>
+	<?php if(accessRules(3) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessEdit'>"; } ?>
 
 	<div id="gerLinhas_tabelWrapperExport">
 		<table id = "gerLinhas_table" class="table table-striped table-condensed table-hover">

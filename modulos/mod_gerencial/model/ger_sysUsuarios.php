@@ -51,13 +51,20 @@
 		}
 
 		//Method to save data
-		function save($dados, $password, $idUser, $date, $modulos, $paginas, $acessos){
+		function save($dados, $password, $idUser, $date, $modulos, $paginas, $acessos, $admin){
 			$pdo = new Connection();
 
 			//Transform data into variables
 			$data = parse_str($dados);
 
 			$finalPassword = sha1($password);
+
+			//Define all access equal 99, because user is admin and got full access
+			if($admin != ''){
+				$modulos = '99';
+				$paginas = '99';
+				$acessos = '99';
+			}
 
 			//Insert into database
 			$sql = $pdo->prepare("

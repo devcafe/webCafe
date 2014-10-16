@@ -1,4 +1,7 @@
-<?php require_once("../../../actions/security.php"); ?>
+<?php 
+	require_once("../../../actions/accessController.php"); 
+	require_once("../../../actions/security.php"); 
+?>
 
 <script src="modulos/mod_operacional/view/resources/js/ger_lojas.js"></script>
 <link rel="stylesheet" href="modulos/mod_operacional/view/resources/css/ger_lojas.css" />
@@ -21,19 +24,29 @@
 				</select>
 			</div>
 
+			<?php if(accessRules(5) || accessRules(99)){ ?>
 			<button type="button" id = "gerLojas_addLojaBtn" class="btn btn-primary pull-left marginLeft20" data-toggle="modal" data-target="#add_loja">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar loja
 			</button>
+			<?php } ?>
 
+			<?php if(accessRules(34) || accessRules(99)){ ?>
 			<button type="button" id = "gerLojas_exportExcel" class="btn btn-success pull-left marginLeft20">
 			  <span class="glyphicon glyphicon-export"></span> Exportar para excel
 			</button>
+			<?php } ?>
 
+			<?php if(accessRules(35) || accessRules(99)){ ?>
 			<button type="button" id = "gerLojas_importExcel" class="btn btn-success pull-left marginLeft20" data-toggle="modal" data-target="#gerLojas_import_data">
 			  <span class="glyphicon glyphicon-import"></span> Importar dados
 			</button>
+			<?php } ?>
 		</div>
 	</div>
+
+	<?php if(accessRules(9) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessView'>"; } ?>
+	<?php if(accessRules(22) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessDelete'>"; } ?>
+	<?php if(accessRules(23) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessEdit'>"; } ?>
 
 	<div id="gerLojas_tabelWrapperExport">
 		<table id = "gerLojas_table" class="table table-striped table-condensed table-hover">

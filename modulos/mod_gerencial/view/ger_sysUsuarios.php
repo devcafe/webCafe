@@ -1,4 +1,7 @@
-<?php require_once("../../../actions/security.php"); ?>
+<?php 
+	require_once("../../../actions/accessController.php"); 
+	require_once("../../../actions/security.php"); 
+?>
 
 <script src="modulos/mod_gerencial/view/resources/js/ger_sysUsuarios.js"></script>
 <link rel="stylesheet" href="modulos/mod_gerencial/view/resources/css/ger_sysUsuarios.css" />
@@ -19,19 +22,27 @@
 				</select>
 			</div>
 
+			<?php if(accessRules(21) || accessRules(99)){ ?>
 			<button type="button" id = "gerSysUsuarios_addSysUsuarioBtn" class="btn btn-primary pull-left marginLeft20" data-toggle="modal" data-target="#add_sysUsuario">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar usuário
 			</button>
+			<?php } ?>
 
+			<?php if(accessRules(36) || accessRules(99)){ ?>
 			<button type="button" id = "gerSysUsuarios_exportExcel" class="btn btn-success pull-left marginLeft20">
 			  <span class="glyphicon glyphicon-export"></span> Exportar para excel
 			</button>
+			<?php } ?>
 
 			<!--<button type="button" id = "gerSysUsuarios_importExcel" class="btn btn-success pull-left marginLeft20" data-toggle="modal" data-target="#gerSysUsuarios_import_data">
 			  <span class="glyphicon glyphicon-import"></span> Importar dados
 			</button>-->
 		</div>
 	</div>
+
+	<?php if(accessRules(18) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessView'>"; } ?>
+	<?php if(accessRules(19) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessDelete'>"; } ?>
+	<?php if(accessRules(20) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessEdit'>"; } ?>
 
 	<div id="gerSysUsuarios_tabelWrapperExport">
 		<table id = "gerSysUsuarios_table" class="table table-striped table-condensed table-hover">
@@ -146,25 +157,31 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-xs-3">
-								<label for="modulos">Modulos</label>
-								<div class="list-group" id = "modulosLista"> </div>
-							</div>
-							<div class="col-xs-3">
-								<label for="paginas">Páginas</label>
-								<div class="list-group" id = "paginasLista"> </div>
-							</div>
-							<div class="col-xs-3">
-								<label for="permissoes">Permissões</label>
-								<div class="list-group" id = "permissoesLista">	</div>
-							</div>
-							<div class="col-xs-3">
-								<button type="button" id = "gerSysUsuarios_addAcessoBtn" class="btn btn-primary pull-left marginLeft20" >
-								  <span class="glyphicon glyphicon-plus"></span> Adicionar
-								</button>
-							</div>
 							<div class="col-xs-12">
-								<div id = "finalAccessRules"> </div>
+								<label for="adminUser">Administrador?</label>
+								<input type = "checkbox" name = "admin" value = "99">
+							</div>
+							<div id = "userAccessRules">
+								<div class="col-xs-3">
+									<label for="modulos">Modulos</label>
+									<div class="list-group" id = "modulosLista"> </div>
+								</div>
+								<div class="col-xs-3">
+									<label for="paginas">Páginas</label>
+									<div class="list-group" id = "paginasLista"> </div>
+								</div>
+								<div class="col-xs-3">
+									<label for="permissoes">Permissões</label>
+									<div class="list-group" id = "permissoesLista">	</div>
+								</div>
+								<div class="col-xs-3">
+									<button type="button" id = "gerSysUsuarios_addAcessoBtn" class="btn btn-primary pull-left marginLeft20" >
+									  <span class="glyphicon glyphicon-plus"></span> Adicionar
+									</button>
+								</div>
+								<div class="col-xs-12">
+									<div id = "finalAccessRules"> </div>
+								</div>
 							</div>
 							</div>
 						</div>

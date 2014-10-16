@@ -132,6 +132,27 @@ $(function(){
 					//Append the pagination
 					paginationWrapper.append(pagination);
 
+					//Check if user have rigths to view device info
+					if($('input[name=accessView]').length <= 0){
+						var disabledView = 'disabled';
+					} else {
+						var disabledView = '';
+					}
+
+					//Check if user have rigths to delete device
+					if($('input[name=accessDelete]').length <= 0){
+						var disabledDelete = 'disabled';
+					} else {
+						var disabledDelete = '';
+					}
+
+					//Check if user have rigths to edit device
+					if($('input[name=accessEdit]').length <= 0){
+						var disabledEdit = 'disabled';
+					} else {
+						var disabledEdit = '';
+					}
+
 					//Append data in table
 					for(var i=0;i<data[1].length;i++){	
 						//Check for device status. If status is equal to "uso", user cant delete
@@ -145,7 +166,7 @@ $(function(){
 						table_gerAparelhos.append(""+
 							"<tr>"+
 								"<td class = 'show width50 pull-left'>"+
-									"<button id = 'show_"+ data[1][i].idAparelho +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_aparelho'>"+
+									"<button "+disabledView+" id = 'show_"+ data[1][i].idAparelho +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_aparelho'>"+
 									  "<span class='glyphicon glyphicon-search'></span>"+
 									"</button>"+
 								"</td>"+
@@ -155,10 +176,10 @@ $(function(){
 								"<td>"+data[1][i].tipo+"</td>"+
 								"<td>"+data[1][i].status+"</td>"+
 								"<td class = 'width100'>"+
-									"<button "+disabled+" id = 'del_"+ data[1][i].idAparelho +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
+									"<button "+disabled+" "+disabledDelete+" id = 'del_"+ data[1][i].idAparelho +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
 									"</button>"+
-									"<button id = 'edit_"+ data[1][i].idAparelho +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_aparelho'>"+
+									"<button "+disabledEdit+" id = 'edit_"+ data[1][i].idAparelho +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_aparelho'>"+
 									  "<span class='glyphicon glyphicon-pencil'></span>"+
 									"</button>"+
 								"</td>"+

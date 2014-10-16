@@ -18,6 +18,7 @@ $(function(){
 	//Call the function on page load
 	loadTable('1', regsLimit);
 
+
 	/****************************************/
 	/* Functions
 	/****************************************/
@@ -121,12 +122,33 @@ $(function(){
 					//Append the pagination
 					paginationWrapper.append(pagination);
 
+					//Check if user have rigths to view user info
+					if($('input[name=accessView]').length <= 0){
+						var disabledView = 'disabled';
+					} else {
+						var disabledView = '';
+					}
+
+					//Check if user have rigths to delete user
+					if($('input[name=accessDelete]').length <= 0){
+						var disabledDelete = 'disabled';
+					} else {
+						var disabledDelete = '';
+					}
+
+					//Check if user have rigths to edit user
+					if($('input[name=accessEdit]').length <= 0){
+						var disabledEdit = 'disabled';
+					} else {
+						var disabledEdit = '';
+					}
+
 					//Append data in table
 					for(var i=0;i<data[1].length;i++){					
 						table_gerSysUsuarios.append(""+
 							"<tr>"+
 								"<td class = 'show width50 pull-left'>"+
-									"<button id = 'show_"+ data[1][i].idUser +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_sysUsuario'>"+
+									"<button "+disabledView+" id = 'show_"+ data[1][i].idUser +"' name = 'show' type='button' class='btn btn-default' data-toggle='modal' data-target='#show_sysUsuario'>"+
 									  "<span class='glyphicon glyphicon-search'></span>"+
 									"</button>"+
 								"</td>"+
@@ -135,10 +157,10 @@ $(function(){
 								"<td>"+data[1][i].email+"</td>"+
 								"<td>"+data[1][i].departamento+"</td>"+
 								"<td class = 'width100'>"+
-									"<button id = 'del_"+ data[1][i].idUser +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
+									"<button "+disabledDelete+" id = 'del_"+ data[1][i].idUser +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
 									  "<span class='glyphicon glyphicon-trash'></span>"+
 									"</button>"+
-									"<button id = 'edit_"+ data[1][i].idUser +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_sysUsuario'>"+
+									"<button "+disabledEdit+" id = 'edit_"+ data[1][i].idUser +"' name = 'edit' type='button' class='btn btn-warning pull-left' data-toggle='modal' data-target='#add_sysUsuario'>"+
 									  "<span class='glyphicon glyphicon-pencil'></span>"+
 									"</button>"+
 								"</td>"+
@@ -279,6 +301,15 @@ $(function(){
 	
 	//On click in the add an user, update the button attributes
 	$('#gerSysUsuarios_addSysUsuarioBtn').on('click', function(){
+		//Hide or show access
+		if($('input[name=admin]').prop('checked')){
+			//Hide access because the admin user as been checked
+			$('#userAccessRules').hide();	
+		} else {
+			//Show access because the admin user is not checked
+			$('#userAccessRules').show();
+		}
+
 		//Call function to load modules list
 		loadModules();
 
@@ -301,6 +332,9 @@ $(function(){
 
 		//Get data to save
 		var formData = $('#gerSysUsuarios_form').serialize();
+
+		//Get admin option
+		var admin = $('input[name=admin]:checked').val();
 
 		var modulos = '';
 		var paginas = '';
@@ -336,6 +370,7 @@ $(function(){
 				resPaginas: resPaginas,
 				resAcessos: resAcessos,
 				password: password,
+				admin: admin,
 				op: 'save' //The optional operation to pass for back-end
 			},
 			dataType: 'json',
@@ -716,5 +751,17 @@ $(function(){
 				}
 			}
 		}		
+	})
+
+	//Function to hide or show access
+	$('input[name=admin]').click(function(){
+		if($(this).prop('checked')){
+			//Hide access because the admin user as been checked
+			$('#userAccessRules').hide();	
+		} else {
+			//Show access because the admin user is not checked
+			$('#userAccessRules').show();
+		}
+		 
 	})
 })

@@ -39,11 +39,17 @@
 			//Get actual date
 			$date = date('d/m/Y H:i');
 
+			if(isset($_POST['admin'])){
+				$admin = $_POST['admin'];
+			} else {
+				$admin = '';
+			}
+
 			//Verify if the job alreay exists
 			if($usuarios->checkUser($_POST['formData']) > 0){
 				echo 2; //This means the job already exists
 			} else {
-				echo $usuarios->save($_POST['formData'], $_POST['password'], $idUser, $date, $_POST['resModulos'], $_POST['resPaginas'], $_POST['resAcessos']); //Get return after insert
+				echo $usuarios->save($_POST['formData'], $_POST['password'], $idUser, $date, $_POST['resModulos'], $_POST['resPaginas'], $_POST['resAcessos'], $admin); //Get return after insert
 			}
 
 		} else if ($_POST['op'] == 'delete'){ //Delete user

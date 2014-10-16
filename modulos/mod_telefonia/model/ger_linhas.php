@@ -12,7 +12,7 @@
 				Select 
 					a.idLinha, a.numLinha, concat(marca, ' - ', modelo, ' - ', imei) As aparelho, a.linhaStatus, c.nome
 				From  
-					webcafe_modTelefonia_linhas a
+					webcafe_modtelefonia_linhas a
 				Inner Join webcafe_modtelefonia_aparelhos b On (a.idAparelho = b.idAparelho)
 				Inner Join webcafe_modtelefonia_usuarios c On (a.idUsuario = c.idUsuario)
 				$where 
@@ -28,7 +28,7 @@
 				Select 
 					a.idLinha, a.numLinha, concat(marca, ' - ', modelo, ' - ', imei) As aparelho, a.linhaStatus, c.nome
 				From 
-					webcafe_modTelefonia_linhas a
+					webcafe_modtelefonia_linhas a
 				Inner Join webcafe_modtelefonia_aparelhos b On (a.idAparelho = b.idAparelho)
 				Inner Join webcafe_modtelefonia_usuarios c On (a.idUsuario = c.idUsuario) 
 				$where 
@@ -155,7 +155,7 @@
 		function getLineDevice($idLinha){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Select idAparelho From webcafe_modTelefonia_linhas Where idLinha = :idLinha");
+			$sql = $pdo->prepare("Select idAparelho From webcafe_modtelefonia_linhas Where idLinha = :idLinha");
 			$sql->execute(array(":idLinha" => $idLinha));
 			$res = $sql->fetch(PDO::FETCH_OBJ);
 
@@ -166,7 +166,7 @@
 		function getUserId($idLinha){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Select idUsuario From webcafe_modTelefonia_linhas Where idLinha = :idLinha");
+			$sql = $pdo->prepare("Select idUsuario From webcafe_modtelefonia_linhas Where idLinha = :idLinha");
 			$sql->execute(array(":idLinha" => $idLinha));
 			$res = $sql->fetch(PDO::FETCH_OBJ);
 
@@ -210,7 +210,7 @@
 					,c.*
 					,a.observacoes As observacoesLinha
 				From 
-					webcafe_modTelefonia_linhas a
+					webcafe_modtelefonia_linhas a
 					Inner Join webcafe_modtelefonia_aparelhos b On (a.idAparelho = b.idAparelho)
 					Inner Join webcafe_modtelefonia_usuarios c On (a.idUsuario = c.idUsuario) 
 				Where 
@@ -229,7 +229,7 @@
 			$data = parse_str($dados);
 
 			$sql = $pdo->prepare("
-				Update webcafe_modTelefonia_linhas
+				Update webcafe_modtelefonia_linhas
 			 	Set 
 			 		`idAparelho`= :idAparelho,
 			 		`idUsuario`= :idUsuario,
@@ -299,7 +299,7 @@
 			$pdo = new Connection();
 
 			$query = $pdo->prepare("
-				Insert Into webcafe_modTelefonia_linhas
+				Insert Into webcafe_modtelefonia_linhas
 					(`idLinha`, `idAparelho`, `idUsuario`, `numLinha`, `plano`, `iccid`, `linhaStatus`, `operadora`, `observacoes`, `dataCadastro`, `dataAlteracao`, `userAdd`, `userLastChange`) 
 				Values 
 					('".$col1."','".$col2."','".$col3."','".$col4."','".$col5."','".$col6."','".$col7."','".$col8."','".$col9."','".$col10."','".$col11."','".$col12."','".$col13."')");

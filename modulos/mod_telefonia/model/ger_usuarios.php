@@ -8,14 +8,14 @@
 		function loadTableData($end, $page, $where, $orderBy){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Select idUsuario, nome, celular, cep, endereco, bairro, cidade, uf From webcafe_modTelefonia_usuarios $where $orderBy");
+			$sql = $pdo->prepare("Select idUsuario, nome, celular, cep, endereco, bairro, cidade, uf From webcafe_modtelefonia_usuarios $where $orderBy");
 			$sql->execute();
 			$total = $sql->rowCount();
 
 			$start = $page - 1;
 			$start = $start * $end;
 
-			$limit = $pdo->prepare("Select idUsuario, nome, celular, cep, endereco, bairro, cidade, uf From webcafe_modTelefonia_usuarios $where $orderBy Limit $start, $end");
+			$limit = $pdo->prepare("Select idUsuario, nome, celular, cep, endereco, bairro, cidade, uf From webcafe_modtelefonia_usuarios $where $orderBy Limit $start, $end");
 			$limit->execute();
 
 			$pages = $total/$end;
@@ -43,7 +43,7 @@
 			//Transform data into variables
 			$data = parse_str($dados);
 
-			$sql = $pdo->prepare("Select cpf From webcafe_modTelefonia_usuarios Where cpf = :cpf");
+			$sql = $pdo->prepare("Select cpf From webcafe_modtelefonia_usuarios Where cpf = :cpf");
 			$sql->execute(array(":cpf" => $cpf));
 			$count = $sql->rowCount();
 
@@ -94,7 +94,7 @@
 		function loadData($idUsuario){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Select * From webcafe_modTelefonia_usuarios Where idUsuario = :idUsuario");
+			$sql = $pdo->prepare("Select * From webcafe_modtelefonia_usuarios Where idUsuario = :idUsuario");
 			$sql->execute(array(":idUsuario" => $idUsuario));
 			$res = $sql->fetch(PDO::FETCH_OBJ);
 
@@ -109,7 +109,7 @@
 			$data = parse_str($dados);
 
 			$sql = $pdo->prepare("
-				Update webcafe_modTelefonia_usuarios
+				Update webcafe_modtelefonia_usuarios
 			 	Set 
 			 		`nome`= :nome,
 			 		`telefone`= :telefone,
@@ -185,7 +185,7 @@
 			$pdo = new Connection();
 
 			$query = $pdo->prepare("
-				Insert Into webcafe_modTelefonia_usuarios
+				Insert Into webcafe_modtelefonia_usuarios
 					(`idUsuario`, `nome`, `telefone`, `celular`, `cep`, `endereco`, `bairro`, `cidade`, `uf`, `rg`, `profissao`, `cpf`, `observacoes`, `dataCadastro`, `userAdd`, `dataAlteracao`, `userLastChange`  ) 
 				Values 
 					('".$col1."','".$col2."','".$col3."','".$col4."','".$col5."','".$col6."','".$col7."','".$col8."','".$col9."','".$col10."','".$col11."','".$col12."','".$col13."', '".$col14."', '".$col15."', '".$col16."', '".$col17."')");

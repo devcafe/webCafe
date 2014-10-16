@@ -8,14 +8,14 @@
 		function loadTableData($end, $page, $where, $orderBy){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Select idAparelho, marca, modelo, imei, tipo, status From webcafe_modTelefonia_aparelhos $where $orderBy");
+			$sql = $pdo->prepare("Select idAparelho, marca, modelo, imei, tipo, status From webcafe_modtelefonia_aparelhos $where $orderBy");
 			$sql->execute();
 			$total = $sql->rowCount();
 
 			$start = $page - 1;
 			$start = $start * $end;
 
-			$limit = $pdo->prepare("Select idAparelho, marca, modelo, imei, tipo, status From webcafe_modTelefonia_aparelhos $where $orderBy Limit $start, $end");
+			$limit = $pdo->prepare("Select idAparelho, marca, modelo, imei, tipo, status From webcafe_modtelefonia_aparelhos $where $orderBy Limit $start, $end");
 			$limit->execute();
 
 			$pages = $total/$end;
@@ -43,7 +43,7 @@
 			//Transform data into variables
 			$data = parse_str($dados);
 
-			$sql = $pdo->prepare("Select imei From webcafe_modTelefonia_aparelhos Where imei = :imei");
+			$sql = $pdo->prepare("Select imei From webcafe_modtelefonia_aparelhos Where imei = :imei");
 			$sql->execute(array(":imei" => $imei));
 			$count = $sql->rowCount();
 
@@ -90,7 +90,7 @@
 		function loadData($idAparelho){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Select * From webcafe_modTelefonia_aparelhos Where idAparelho = :idAparelho");
+			$sql = $pdo->prepare("Select * From webcafe_modtelefonia_aparelhos Where idAparelho = :idAparelho");
 			$sql->execute(array(":idAparelho" => $idAparelho));
 			$res = $sql->fetch(PDO::FETCH_OBJ);
 
@@ -105,7 +105,7 @@
 			$data = parse_str($dados);
 
 			$sql = $pdo->prepare("
-				Update webcafe_modTelefonia_aparelhos
+				Update webcafe_modtelefonia_aparelhos
 			 	Set 
 			 		`marca`= :marca,
 			 		`modelo`= :modelo,
@@ -173,7 +173,7 @@
 			$pdo = new Connection();
 
 			$query = $pdo->prepare("
-				Insert Into webcafe_modTelefonia_aparelhos
+				Insert Into webcafe_modtelefonia_aparelhos
 					(`idAparelho`, `marca`, `modelo`, `imei`, `tipo`, `status`, `dataEnvioManutencao`, `acessorios`, `observacoes`, `userAdd`, `userLastChange`) 
 				Values 
 					('".$col1."','".$col2."','".$col3."','".$col4."','".$col5."','".$col6."','".$col7."','".$col8."','".$col9."','".$col10."','".$col11."')");

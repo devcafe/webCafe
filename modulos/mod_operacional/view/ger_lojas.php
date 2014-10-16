@@ -48,21 +48,21 @@
 	<?php if(accessRules(22) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessDelete'>"; } ?>
 	<?php if(accessRules(23) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessEdit'>"; } ?>
 
-	<div id="gerLojas_tabelWrapperExport">
+	<div id="gerLojas_tabelWrapperExport" class = "table-responsive">
 		<table id = "gerLojas_table" class="table table-striped table-condensed table-hover">
 			<thead> 
 				<th class = "width50"></th>
-				<th id = "idLoja"> ID <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "idLoja" class = "width100"> ID <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 				<th id = "cnpj"> CNPJ <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 				<th id = "bandeira"> Bandeira <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "nome"> Nome do Estabelecimento <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "nome"> Estabelecimento <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 				<th id = "rua"> Rua <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "numero"> Nº <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "complemento"> Complemto <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "numero" class = "width50"> Nº <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<!--<th id = "complemento"> Complemto <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>-->
 				<th id = "bairro"> Bairro <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 				<th id = "cidade"> Cidade <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "uf"> UF <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "cep"> CEP <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "uf" class = "width50"> UF <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<!--<th id = "cep"> CEP <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>-->
 
 				<th class = "width100"></th>
 			</thead>
@@ -76,14 +76,14 @@
 				<th> ID </th>
 				<th> CNPJ </th>
 				<th> Bandeira </th>
-				<th> Nome do Estabelecimento </th>
+				<th> Estabelecimento </th>
 				<th> Rua </th>
 				<th> Nº </th>
-				<th> Complemto </th>
+				<!--<th> Complemento </th>-->
 				<th> Bairro </th>
 				<th> Cidade </th>
 				<th> UF </th>
-				<th> cep </th>
+				<!--<th> cep </th>-->
 				<th class = "width100"></th>
 			</tfoot>
 		</table>

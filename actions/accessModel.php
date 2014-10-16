@@ -1,5 +1,5 @@
 <?php
-	$dir = $_SERVER['DOCUMENT_ROOT'] . 'webCafe/';
+	$dir = $_SERVER['DOCUMENT_ROOT'] . '/webCafe/';
 	require_once($dir . "conf/conn.php");
 
 	class Acessos{

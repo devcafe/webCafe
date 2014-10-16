@@ -7,6 +7,13 @@ select[name=bandeira]{
 	border: 0px !important;
 }
 
+.width50{
+	width:50px;
+}
+.width100{
+	width:100px;
+}
+
 .marginLeft20{
 	margin-left:20px;		
 }
@@ -26,15 +33,17 @@ input[type="text"], a[contenteditable=true]{
 	background-position: 456px, 50px;		
 
 }
-
 .has-feedback .form-control {
 	padding-right: 0px !important;
 }
 
-#gerLojas_table tr td{
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.table {
+  table-layout:fixed;
 }
 
+.table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 

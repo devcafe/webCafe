@@ -361,112 +361,117 @@
 			<div class="modal-body">
 				<form role="form">
 					<div class="row">
-						<div class="form-group">							
-							<div class="col-xs-4">
-								<label for="idLoja">idLoja</label>
-								<span id="show_idLoja"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="cnpj">cnpj</label>
-								<span id="show_cnpj"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="bandeira">bandeira</label>
-								<span id="show_bandeira"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="nome">nome</label>
-								<span id="show_nome"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="rua">rua</label>
-								<span id="show_rua"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="numero">numero</label>
-								<span id="show_numero"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="complemento">complemento</label>
-								<span id="show_complemento"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="bairro">bairro</label>
-								<span id="show_bairro"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="cidadeuf">cidadeuf</label>
-								<span id="show_cidadeuf"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="cep">cep</label>
-								<span id="show_cep"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaAberturaData">estabReceitaAberturaData</label>
-								<span id="show_estabReceitaAberturaData"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaRazaoSocial">estabReceitaRazaoSocial</label>
-								<span id="show_estabReceitaRazaoSocial"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaNomeEmpresarial">estabReceitaNomeEmpresarial</label>
-								<span id="show_estabReceitaNomeEmpresarial"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaNF">estabReceitaNF</label>
-								<span id="show_estabReceitaNF"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaEndereco">estabReceitaEndereco</label>
-								<span id="show_estabReceitaEndereco"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaNumero">estabReceitaNumero</label>
-								<span id="show_estabReceitaNumero"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaComplemento">estabReceitaComplemento</label>
-								<span id="show_estabReceitaComplemento"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaBairro">estabReceitaBairro</label>
-								<span id="show_estabReceitaBairro"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaCidade">estabReceitaCidade</label>
-								<span id="show_estabReceitaCidade"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaUF">estabReceitaUF</label>
-								<span id="show_estabReceitaUF"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaCEP">estabReceitaCEP</label>
-								<span id="show_estabReceitaCEP"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaSituacao">estabReceitaSituacao</label>
-								<span id="show_estabReceitaSituacao"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabReceitaSituacaoData">estabReceitaSituacaoData</label>
-								<span id="show_estabReceitaSituacaoData"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabTel01">estabTel01</label>
-								<span id="show_estabTel01"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="estabTel02">estabTel02</label>
-								<span id="show_estabTel02"> </span>
-							</div>
-							<div class="col-xs-4">
-								<label for="dataFechamento">dataFechamento</label>
-								<span id="show_dataFechamento"> </span>
-							</div>
-														
+						<div class="form-group">
+							<div class = "group-height">							
+								<div class="col-xs-4">
+									<label for="idLoja">ID:</label>
+									<span id="show_idLoja"> </span>
+								</div>
+								<div class="col-xs-8">
+									<label for="cnpj">CNPJ:</label>
+									<span id="show_cnpj"> </span>
+								</div>
+								<div class="col-xs-6">
+									<label for="bandeira">Bandeira:</label>
+									<span id="show_bandeira"> </span>
+								</div>
+								<div class="col-xs-6">
+									<label for="nome">Nome:</label>
+									<span id="show_nome"> </span>
+								</div>
+								<div class="col-xs-6">
+									<label for="rua">Rua:</label>
+									<span id="show_rua"> </span>
+								</div>
+								<div class="col-xs-2">
+									<label for="numero">Número:</label>
+									<span id="show_numero"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="bairro">Bairro:</label>
+									<span id="show_bairro"> </span>
+								</div>
+								<div class="col-xs-3">
+									<label for="complemento">Complemento:</label>
+									<span id="show_complemento"> </span>
+								</div>
+								<div class="col-xs-3">
+									<label for="cidade">Cidade:</label>
+									<span id="show_cidade"> </span>
+								</div>
+								<div class="col-xs-2">
+									<label for="uf">UF:</label>
+									<span id="show_uf"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="cep">CEP:</label>
+									<span id="show_cep"> </span>
+								</div>
+								<div class="col-xs-6">
+									<label for="estabReceitaRazaoSocial">Razão social:</label>
+									<span id="show_estabReceitaRazaoSocial"> </span>
+								</div>
+								<div class="col-xs-6">
+									<label for="estabReceitaNomeEmpresarial">Nome empresarial:</label>
+									<span id="show_estabReceitaNomeEmpresarial"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="estabReceitaAberturaData">Data abertura:</label>
+									<span id="show_estabReceitaAberturaData"> </span>
+								</div>
+								<div class="col-xs-6">
+									<label for="estabReceitaNF">Nome fantasia:</label>
+									<span id="show_estabReceitaNF"> </span>
+								</div>
+								<div class="col-xs-6">
+									<label for="estabReceitaEndereco">Endereço receita:</label>
+									<span id="show_estabReceitaEndereco"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="estabReceitaNumero">Numero receita:</label>
+									<span id="show_estabReceitaNumero"> </span>
+								</div>
+								<div class="col-xs-5">
+									<label for="estabReceitaBairro">Bairro receita:</label>
+									<span id="show_estabReceitaBairro"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="estabReceitaComplemento">Complemento receita:</label>
+									<span id="show_estabReceitaComplemento"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="estabReceitaCidade">Cidade receita:</label>
+									<span id="show_estabReceitaCidade"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="estabReceitaUF">Receita UF:</label>
+									<span id="show_estabReceitaUF"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="estabReceitaCEP">Receita CEP:</label>
+									<span id="show_estabReceitaCEP"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="estabReceitaSituacao">Receita situação:</label>
+									<span id="show_estabReceitaSituacao"> </span>
+								</div>
+								<div class="col-xs-6">
+									<label for="estabReceitaSituacaoData">Receita situação data:</label>
+									<span id="show_estabReceitaSituacaoData"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="estabTel01">Tel 01:</label>
+									<span id="show_estabTel01"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="estabTel02">Tel 02:</label>
+									<span id="show_estabTel02"> </span>
+								</div>
+								<div class="col-xs-4">
+									<label for="dataFechamento">Data fechamento:</label>
+									<span id="show_dataFechamento"> </span>
+								</div>
+							</div>														
 						</div>
 					</div>
 				</form>

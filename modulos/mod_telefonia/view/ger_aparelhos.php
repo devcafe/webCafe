@@ -1,4 +1,7 @@
-<?php require_once("../../../actions/security.php"); ?>
+<?php 
+	require_once("../../../actions/accessController.php"); 
+	require_once("../../../actions/security.php"); 
+?>
 
 <script src="modulos/mod_telefonia/view/resources/js/ger_aparelhos.js"></script>
 <link rel="stylesheet" href="modulos/mod_telefonia/view/resources/css/ger_aparelhos.css" />
@@ -19,19 +22,29 @@
 				</select>
 			</div>
 
+			<?php if(accessRules(8) || accessRules(99)){ ?>
 			<button type="button" id = "gerAparelhos_addAparelhoBtn" class="btn btn-primary pull-left marginLeft20" data-toggle="modal" data-target="#add_aparelho">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar aparelho
 			</button>
+			<?php } ?>
 
+			<?php if(accessRules(28) || accessRules(99)){ ?>
 			<button type="button" id = "gerAparelhos_exportExcel" class="btn btn-success pull-left marginLeft20">
 			  <span class="glyphicon glyphicon-export"></span> Exportar para excel
 			</button>
+			<?php } ?>
 
+			<?php if(accessRules(29) || accessRules(99)){ ?>
 			<button type="button" id = "gerAparelhos_importExcel" class="btn btn-success pull-left marginLeft20" data-toggle="modal" data-target="#gerAparelhos_import_data">
 			  <span class="glyphicon glyphicon-import"></span> Importar dados
 			</button>
+			<?php } ?>
 		</div>
 	</div>
+
+	<?php if(accessRules(5) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessView'>"; } ?>
+	<?php if(accessRules(6) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessDelete'>"; } ?>
+	<?php if(accessRules(7) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessEdit'>"; } ?>
 
 	<div id="gerAparelhos_tabelWrapperExport">
 		<table id = "gerAparelhos_table" class="table table-striped table-condensed table-hover">

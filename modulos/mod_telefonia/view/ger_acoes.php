@@ -1,4 +1,7 @@
-<?php require_once("../../../actions/security.php"); ?>
+<?php 
+	require_once("../../../actions/accessController.php"); 
+	require_once("../../../actions/security.php"); 
+?>
 
 <script src="modulos/mod_telefonia/view/resources/js/ger_acoes.js"></script>
 <link rel="stylesheet" href="modulos/mod_telefonia/view/resources/css/ger_acoes.css" />
@@ -19,19 +22,29 @@
 				</select>
 			</div>
 
+			<?php if(accessRules(17) || accessRules(99)){ ?>
 			<button type="button" id = "gerAcoes_addAcaoBtn" class="btn btn-primary pull-left marginLeft20" data-toggle="modal" data-target="#add_acao">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar ação
 			</button>
+			<?php } ?>
 
+			<?php if(accessRules(32) || accessRules(99)){ ?>
 			<button type="button" id = "gerAcoes_exportExcel" class="btn btn-success pull-left marginLeft20">
 			  <span class="glyphicon glyphicon-export"></span> Exportar para excel
 			</button>
+			<?php } ?>
 
+			<?php if(accessRules(33) || accessRules(99)){ ?>
 			<button type="button" id = "gerAcoes_importExcel" class="btn btn-success pull-left marginLeft20" data-toggle="modal" data-target="#gerAcoes_import_data">
 			  <span class="glyphicon glyphicon-import"></span> Importar dados
 			</button>
+			<?php } ?>
 		</div>
 	</div>
+
+	<?php if(accessRules(14) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessView'>"; } ?>
+	<?php if(accessRules(15) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessDelete'>"; } ?>
+	<?php if(accessRules(16) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessEdit'>"; } ?>
 
 	<div id="gerAcoes_tabelWrapperExport">
 		<table id = "gerAcoes_table" class="table table-striped table-condensed table-hover">

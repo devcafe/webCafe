@@ -1,4 +1,7 @@
-<?php require_once("../../../actions/security.php"); ?>
+<?php 
+	require_once("../../../actions/accessController.php"); 
+	require_once("../../../actions/security.php"); 
+?>
 
 <script src="modulos/mod_telefonia/view/resources/js/ger_linhas.js"></script>
 <link rel="stylesheet" href="modulos/mod_telefonia/view/resources/css/ger_linhas.css" />
@@ -19,19 +22,29 @@
 				</select>
 			</div>
 
+			<?php if(accessRules(4) || accessRules(99)){ ?>
 			<button type="button" id = "gerLinhas_addLinhaBtn" class="btn btn-primary pull-left marginLeft20" data-toggle="modal" data-target="#add_linha">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar linha
 			</button>
+			<?php } ?>
 
+			<?php if(accessRules(26) || accessRules(99)){ ?>
 			<button type="button" id = "gerLinhas_exportExcel" class="btn btn-success pull-left marginLeft20">
 			  <span class="glyphicon glyphicon-export"></span> Exportar para excel
 			</button>
+			<?php } ?>
 
+			<?php if(accessRules(27) || accessRules(99)){ ?>
 			<button type="button" id = "gerLinhas_importExcel" class="btn btn-success pull-left marginLeft20" data-toggle="modal" data-target="#gerLinhas_import_data">
 			  <span class="glyphicon glyphicon-import"></span> Importar dados
 			</button>
+			<?php } ?>
 		</div>
 	</div>
+
+	<?php if(accessRules(1) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessView'>"; } ?>
+	<?php if(accessRules(2) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessDelete'>"; } ?>
+	<?php if(accessRules(3) || accessRules(99)){ echo "<input type = 'hidden' value = 'true' name = 'accessEdit'>"; } ?>
 
 	<div id="gerLinhas_tabelWrapperExport">
 		<table id = "gerLinhas_table" class="table table-striped table-condensed table-hover">
@@ -45,7 +58,7 @@
 			</thead>
 
 			<tbody>
-
+				
 			</tbody>
 
 			<tfoot>
@@ -193,23 +206,31 @@
 								<span id = "show_numLinha"> </span>
 							</div>
 							<div class="col-xs-6">
-								<label for="plano">Plano</label>
+								<label for="plano">Plano:</label>
 								<span id = "show_plano"> </span>
 							</div>
 							<div class="col-xs-4">
-								<label for="iccid">ICCID</label>
+								<label for="iccid">ICCID:</label>
 								<span id = "show_iccid"> </span>
 							</div>
 							<div class="col-xs-4">
-								<label for="operadora">Operadora</label>
+								<label for="operadora">Operadora:</label>
 								<span id = "show_operadora"> </span>
 							</div>
 							<div class="col-xs-4">
-								<label for="status">Status</label>
+								<label for="status">Status:</label>
 								<span id = "show_linhaStatus"> </span>
 							</div>
+							<div class="col-xs-8">
+								<label for="aparelho">Aparelho:</label>
+								<span id = "show_aparelho"> </span>
+							</div>
+							<div class="col-xs-8">
+								<label for="usuario">Usuário:</label>
+								<span id = "show_usuario"> </span>
+							</div>
 							<div class="col-xs-12">
-								<label for="observacoes">Observações</label>
+								<label for="observacoes">Observações:</label>
 								<span id = "show_observacoes"> </span>
 							</div>
 						</div>

@@ -19,21 +19,23 @@ $(function(){
 	loadTable('1', regsLimit);
 
 	//Mask fields
-	$("input[name=cnpj]").mask("99.999.999/9999-99");
-	$("input[name=cep]").mask("99999-999");
-	$("input[name=estabReceitaCEP]").mask("99999-999");
+		$("input[name=cnpj]").mask("99.999.999/9999-99");
+		$("input[name=cep]").mask("99999-999");
+		$("input[name=estabReceitaCEP]").mask("99999-999");
+	// exit Mask fields
 
 
 	//check filds
-	$("input[name=numero]").keypress(checkNumber);
-	$("input[name=estabReceitaNumero]").keypress(checkNumber);
-	$("input[name=uf]").keypress(ckeckKey);
-	$("input[name=cidade]").keypress(ckeckKey);
-	$("input[name=estabReceitaCidade]").keypress(ckeckKey);
-	$("input[name=estabReceitaUF]").keypress(ckeckKey);
-	$('input[name=estabTel01]').keypress(checkNumber);
-	$('input[name=estabTel02]').keypress(checkNumber);
-	
+		$("input[name=numero]").keypress(checkNumber);
+		$("input[name=estabReceitaNumero]").keypress(checkNumber);
+		$("input[name=uf]").keypress(ckeckKey);
+		$("input[name=cidade]").keypress(ckeckKey);
+		$("input[name=estabReceitaCidade]").keypress(ckeckKey);
+		$("input[name=estabReceitaUF]").keypress(ckeckKey);
+		$('input[name=estabTel01]').keypress(checkNumber);
+		$('input[name=estabTel02]').keypress(checkNumber);
+	//exit chkfilds
+
 	/****************************************/
 	/* Functions
 	/****************************************/
@@ -362,20 +364,20 @@ $(function(){
 				})
 	        }
 	    }).done(function(){ //After done ajax, call select2 function to active plugin on select
-	    	$("select[name=bandeira]").select2({ formatNoMatches: "Nenhuma bandeira encontrada" }).one('select2-focus', select2Focus).on("select2-blur", function () {
-    $(this).one('select2-focus', select2Focus)
-});
+			$("select[name=bandeira]").select2({ formatNoMatches: "Nenhuma bandeira encontrada" }).one('select2-focus', select2Focus).on("select2-blur", function () {
+				$(this).one('select2-focus', select2Focus)
+			});
 	    })
 	}
 
 	function select2Focus() {
-    var select2 = $(this).data('select2');
-    setTimeout(function() {
-        if (!select2.opened()) {
-            select2.open();
-        }
-    }, 0);  
-}
+	    var select2 = $(this).data('select2');
+	    setTimeout(function() {
+	        if (!select2.opened()) {
+	            select2.open();
+	        }
+	    }, 0);  
+	}
 
 	//Save new store
 	$('#gerLojas_modalFooter').on('click', '#gerLojas_save', function(){
@@ -384,38 +386,76 @@ $(function(){
 
 		//Get data to save
 		var formData = $('#gerLojas_form').serialize();
-		$.ajax({
-			url: 'modulos/mod_operacional/controller/ger_lojas.php',
-			type: 'POST',
-			data: {
-				formData: formData,
-				op: 'save' //The optional operation to pass for back-end
-			},
-			dataType: 'json',
-			success: function(data){
-				//Check the return
-				if(data == 1){ //Means the insert as successful
-					console.log(data);
-					alert("Loja cadastrada com sucesso!");
+	// --------------------------------validation-----------------------------------	
+		//checks the amount of numbers cnpj
+		if($('input[name=cnpj]').val().length <= 17){
+			alert("O campo do CNPJ não pode ficar vazio ou ter menos de 14 digitos.");
+			$('input[name=cnpj]').focus();
+		}else if(validateZero('input[name=numero]') == true){ //Checks whether the number field is empty or only with zero			
+			//asks if you want to fill with countless number field	
+			var numberZero = confirm("O numero é invalido, você deseja preencher com sem numero? ");
 
-					//Reload table
-					loadTable('1', regsLimit);
-
-					//Hide the modal
-					$('#add_loja').modal('hide');
-
-					//Clear the form
-					$('#gerLojas_form')[0].reset();
-
-					//Clear textarea
-					$('textarea[name=observacoes]').html('');
-				} else if(data == 2) { //Have a problem to insert
-					alert("A loja informada já foi cadastrada");
-				} else {
-					alert("Falha ao inserir loja");
-				}
+			if(numberZero == true){
+				$('input[name=numero]').val("S/N");
+			}else{
+				$('input[name=numero]').focus();
 			}
-		});
+		}else if(validateZero('input[name=estabReceitaNumero]') == true){
+			//asks if you want to fill with countless number field	
+			var numberZero = confirm("O numero do estabelecimento é invalido, você deseja preencher com sem numero? ");
+
+			if(numberZero == true){
+				$('input[name=estabReceitaNumero]').val("S/N");
+			}else{
+				$('input[name=estabReceitaNumero]').focus();
+			}
+		}else if($('input[name=cep]').val() == '' || $('input[name=bairro]').val() == '' || $('input[name=rua]').val() == '' || $('input[name=cidade]').val() == '' || $('input[name=uf]').val() == ''){
+			alert("Você precisa preencher o endereço completo. Isto inclui: CEP, Bairro, Rua, Cidade e UF.");
+		}else if($('input[name=nome]').val() == ''){
+			alert("Você precisa preencher o nome da loja");
+			$('input[name=nome]').focus();
+		}else if($('input[name=estabReceitaNomeEmpresarial]').val() == ''){		
+			alert("Você precisa preencher o nome empresarial da empresa");
+			$('input[name=estabReceitaNomeEmpresarial]').focus();
+		}else if($('input[name=estabReceitaAberturaData]').val() == ''){
+			alert("O Campo situação data é obrigatório");
+		}else if($('input[name=estabReceitaSituacaoData]').val() == ''){
+			alert("O Campo data de abertura é obrigatório");
+		}else{
+			// --------------------------------save-----------------------------------
+			$.ajax({
+				url: 'modulos/mod_operacional/controller/ger_lojas.php',
+				type: 'POST',
+				data: {
+					formData: formData,
+					op: 'save' //The optional operation to pass for back-end
+				},
+				dataType: 'json',
+				success: function(data){
+					//Check the return
+					if(data == 1){ //Means the insert as successful
+						console.log(data);
+						alert("Loja cadastrada com sucesso!");
+
+						//Reload table
+						loadTable('1', regsLimit);
+
+						//Hide the modal
+						$('#add_loja').modal('hide');
+
+						//Clear the form
+						$('#gerLojas_form')[0].reset();
+
+						//Clear textarea
+						$('textarea[name=observacoes]').html('');
+					} else if(data == 2) { //Have a problem to insert
+						alert("A loja informada já foi cadastrada");
+					} else {
+						alert("Falha ao inserir loja");
+					}
+				}
+			});
+		}
 	})
 
 	//Function to populate fields before edit data
@@ -736,18 +776,21 @@ $(function(){
 	          else return true;
 	     }
 	}
-	//verifica se o campo tem zeros por meio de ER
+
+	// verifica se o campo tem zeros por meio de ER
 	
-	// function validarNumeroZero(e){
-	// 	var valor = $(e).val();
-	// 	var er = /^[0]{0,6}$/;
-	// 	if(valor != ''){
-	// 		if(er.test(valor)){
-	// 			$(e).focus();
-	// 			return true;
-	// 		}
-	// 	}
-	// }
+	function validateZero(e){
+		var value = $(e).val();
+		var er = /^[0]{0,6}$/;
+		if(value != ''){
+			if(er.test(value)){
+				$(e).focus();
+				return true;
+			}
+		}else{
+			return true;
+		}
+	}
 
 // checks the cnpj dynamically
 	$('input[name=cnpj]').keyup(function(){
@@ -805,15 +848,19 @@ $(function(){
 		$('input[name=nome]').val($.trim(aBandeira + ' ' + aBairro + ' ' + aCidade));
 	})
 
+	//Change value when clicking on element 
+	$("a[contenteditable=true]").on("click", function(){
+		$(this).text("DIGITE O NOME DA BANDEIRA");	
+	})
 
-	// alterar inline
+	// change inline
 	$("a[contenteditable=true]").blur(function(){
 			var nameFlag = $(this).html();
 			
-			if(nameFlag != ''){
+			if(nameFlag != '' && !(nameFlag === "DIGITE O NOME DA BANDEIRA")){
 				var validChange = confirm("Tem certeza que deseja cadastrar a bandeira: " + nameFlag);
 			}
-			if(validChange == true && nameFlag != ''){
+			if(validChange === true && nameFlag !== ''){
 				$.ajax({
 					url:'modulos/mod_operacional/controller/ger_lojas.php',
 					type:'POST',
@@ -824,20 +871,20 @@ $(function(){
 					success: function(data){
 						if(data == 1){
 							alert('Bandeira cadastrada com sucesso');
-							$("a[contenteditable=true]").html("CADASTRAR BANDEIRA");
+							$("a[contenteditable=true]").text("CADASTRAR BANDEIRA");
 							loadFlagData();
 						}else if (data == 2){
 							alert('Existe uma bandeira com esse nome, por isso não será possivel cadastrar essa bandeira.');
-							$("a[contenteditable=true]").html("CADASTRAR BANDEIRA");
+							$("a[contenteditable=true]").text("CADASTRAR BANDEIRA");
 							$('select[name=bandeira]').focus();
 						}else{
 							alert('Houve algum problema, contate o administrador do sistemapara verificar o que houve');
-							$("a[contenteditable=true]").html("CADASTRAR BANDEIRA");
+							$("a[contenteditable=true]").text("CADASTRAR BANDEIRA");
 						}
 					}
 				})
 			}else{
-				$("a[contenteditable=true]").html("CADASTRAR BANDEIRA");
+				$("a[contenteditable=true]").text("CADASTRAR BANDEIRA");
 			}
 	})
 

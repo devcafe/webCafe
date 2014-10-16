@@ -147,7 +147,7 @@
 							</div>
 							<div class="col-xs-5">
 								<div class="form-group has-feedback">
-									<label for="bandeira" >BANDEIRA: <a src = "#" contenteditable="true" tabindex = '-1'>CADASTRAR BANDEIRA</a></label>
+									<label for="bandeira" >BANDEIRA: <a src = "#" contenteditable="true" tabindex = '-1' >CADASTRAR BANDEIRA</a></label>
 									<select name ="bandeira" class="form-control"> </select>														
 								</div>
 							</div>						

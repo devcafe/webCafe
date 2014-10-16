@@ -1,6 +1,15 @@
+.bandeirasSelectContainner{
+	width: 340px;
+	height: 50px;
+}
+
+.select2-choice{
+	height: 34px !important;
+}
+
 .modal-body{
 	overflow: scroll;
-	height: 600px;
+	height: 500px;
 }
 
 .top20{

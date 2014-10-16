@@ -136,7 +136,7 @@
 						<div class="form-group">
 						<div class="col-xs-12">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaAberturaData"><h3>DADOS DA LOJA</h3></label>									
+									<label for="estabReceitaAberturaData"><h3>Dados da loja</h3></label>									
 								</div>
 							</div>						
 							<div class="col-xs-7">
@@ -147,8 +147,8 @@
 							</div>
 							<div class="col-xs-5">
 								<div class="form-group has-feedback">
-									<label for="bandeira" >BANDEIRA: <a src = "#" contenteditable="true" tabindex = '-1' >CADASTRAR BANDEIRA</a></label>
-									<select name ="bandeira" class="form-control"> </select>														
+									<label for="bandeira" >Bandeira: <a src = "#" contenteditable="true" tabindex = '-1' >Cadastrar bandeira</a></label>
+									<select name ="bandeira" class = "bandeirasSelectContainner"> </select>														
 								</div>
 							</div>						
 							<div class="col-xs-2">
@@ -159,26 +159,26 @@
 							</div>
 							<div class="col-xs-5">
 								<div class="form-group has-feedback">
-									<label for="rua">RUA:</label>
-									<input type="text" name = "rua" class="form-control" placeholder="RUA">
+									<label for="rua">Rua:</label>
+									<input type="text" name = "rua" class="form-control" placeholder="Rua">
 								</div>
 							</div>
 							<div class="col-xs-2">
 								<div class="form-group has-feedback">
-									<label for="numero">NUMERO:</label>
-									<input type="text" name = "numero" class="form-control" placeholder="NUMERO">
+									<label for="numero">Numero:</label>
+									<input type="text" name = "numero" class="form-control" placeholder="Numero">
 								</div>
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="complemento">COMPLEMENTO:</label>
-									<input type="text" name = "complemento" class="form-control" placeholder="COMPLEMENTO">
+									<label for="complemento">Complemento:</label>
+									<input type="text" name = "complemento" class="form-control" placeholder="Complemento">
 								</div>
 							</div>
 							<div class="col-xs-3">
 								<div class="form-group has-feedback">
-									<label for="bairro">BAIRRO:</label>
-									<input type="text" name = "bairro" class="form-control" placeholder="BAIRRO">
+									<label for="bairro">Bairro:</label>
+									<input type="text" name = "bairro" class="form-control" placeholder="Bairro">
 								</div>
 							</div>
 							<div class="col-xs-2">
@@ -189,14 +189,14 @@
 							</div>
 							<div class="col-xs-3 ">
 								<div class="form-group has-feedback">
-									<label for="cidade">CIDADE:</label>
-									<input type="text" name = "cidade" class="form-control" placeholder="CIDADE">
+									<label for="cidade">Cidade:</label>
+									<input type="text" name = "cidade" class="form-control" placeholder="Cidade">
 								</div>
 							</div>
 								<div class="col-xs-12">
 								<div class="form-group has-feedback">
-									<label for="nome">NOME:</label>
-									<input type="text" name = "nome" class="form-control" placeholder="NOME DA LOJA">
+									<label for="nome">Nome:</label>
+									<input type="text" name = "nome" class="form-control" placeholder="Nome da loja">
 								</div>
 							</div>
 
@@ -216,28 +216,28 @@
 
 							<div class="col-xs-12">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaAberturaData"><h3>DADOS DA RECEITA</h3></label>									
+									<label for="estabReceitaAberturaData"><h3>Dados da receita</h3></label>									
 								</div>
 							</div>
 
 							<div class="col-xs-7">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaRazaoSocial">RAZÃO SOCIAL:</label>
-									<input type="text" name = "estabReceitaRazaoSocial" class="form-control" placeholder="RAZÃO SOCIAL">
+									<label for="estabReceitaRazaoSocial">Razão social:</label>
+									<input type="text" name = "estabReceitaRazaoSocial" class="form-control" placeholder="Razão social">
 								</div>
 							</div>
 
 							<div class="col-xs-7">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaNomeEmpresarial">NOME EMPRESARIAL:</label>
-									<input type="text" name = "estabReceitaNomeEmpresarial" class="form-control" placeholder="NOME EMPRESARIAL">
+									<label for="estabReceitaNomeEmpresarial">Nome empresarial:</label>
+									<input type="text" name = "estabReceitaNomeEmpresarial" class="form-control" placeholder="Nome empresarial">
 								</div>
 							</div>
 
 							<div class="col-xs-7">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaNF">NOME FANTASIA:</label>
-									<input type="text" name = "estabReceitaNF" class="form-control" placeholder="NOME FANTASIA">
+									<label for="estabReceitaNF">Nome fantasia:</label>
+									<input type="text" name = "estabReceitaNF" class="form-control" placeholder="Nome fantasia">
 								</div>
 							</div>
 							<div class="col-xs-12">
@@ -254,34 +254,34 @@
 							</div>
 							<div class="col-xs-5">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaEndereco">ENDEREÇO NA RECEITA:</label>
-									<input type="text" name = "estabReceitaEndereco" class="form-control" placeholder="ENDEREÇO NA RECEITA">
+									<label for="estabReceitaEndereco">Endereço na receita:</label>
+									<input type="text" name = "estabReceitaEndereco" class="form-control" placeholder="Endereço na receita">
 								</div>
 							</div>
 
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaBairro">BAIRRO</label>
+									<label for="estabReceitaBairro">Bairro:</label>
 									<input type="text" name = "estabReceitaBairro" class="form-control" placeholder="Bairro">
 								</div>
 							</div>								
 							
 							<div class="col-xs-2">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaNumero">Nº:</label>
-									<input type="text" name = "estabReceitaNumero" class="form-control" placeholder="NUMERO">
+									<label for="estabReceitaNumero">Numero:</label>
+									<input type="text" name = "estabReceitaNumero" class="form-control" placeholder="Numero">
 								</div>
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaComplemento">COMPLEMENTO:</label>
-									<input type="text" name = "estabReceitaComplemento" class="form-control" placeholder="COMPLEMENTO">
+									<label for="estabReceitaComplemento">Complemento:</label>
+									<input type="text" name = "estabReceitaComplemento" class="form-control" placeholder="Complemento">
 								</div>
 							</div>
 							<div class="col-xs-3">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaCidade">CIDADE:</label>
-									<input type="text" name = "estabReceitaCidade" class="form-control" placeholder="CIDADE">
+									<label for="estabReceitaCidade">Cidade:</label>
+									<input type="text" name = "estabReceitaCidade" class="form-control" placeholder="Cidade">
 								</div>
 							</div>
 							<div class="col-xs-2">
@@ -292,27 +292,27 @@
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="estabTel01">TELEFONE 01:</label>
-									<input type="text" name = "estabTel01" class="form-control" placeholder="TELEFONE 1">
+									<label for="estabTel01">Telefone 01:</label>
+									<input type="text" name = "estabTel01" class="form-control" placeholder="Telefone 1">
 								</div>
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="estabTel02">TELEFONE 02: </label>
-									<input type="text" name = "estabTel02" class="form-control" placeholder="TELEFONE 2">
+									<label for="estabTel02">Telefone 02: </label>
+									<input type="text" name = "estabTel02" class="form-control" placeholder="Telefone 2">
 								</div>
 							</div>
 
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaAberturaData">DATA ABERTURA:</label>
-									<input type="text" name = "estabReceitaAberturaData" class="form-control" placeholder="DATA ABERTURA:">
+									<label for="estabReceitaAberturaData">Data abertura:</label>
+									<input type="text" name = "estabReceitaAberturaData" class="form-control" placeholder="Data abertura:">
 								</div>
 							</div>
 							
 							<div class="col-xs-3">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaSituacao">SITUAÇÃO:</label>
+									<label for="estabReceitaSituacao">Situação:</label>
 									<select  name="estabReceitaSituacao" id="estabReceitaSituacao" class="form-control">
 										<option val="ATIVO" >ATIVO</option>
 										<option val="BAIXADA" >BAIXADA</option>
@@ -323,15 +323,15 @@
 							</div>
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="estabReceitaSituacaoData">SISTUAÇÃO DATA:</label>
-									<input type="text" name = "estabReceitaSituacaoData" class="form-control" placeholder="SITUAÇÃO DATA">
+									<label for="estabReceitaSituacaoData">Situação data:</label>
+									<input type="text" name = "estabReceitaSituacaoData" class="form-control" placeholder="Situação data">
 								</div>
 							</div>
 							
 							<div class="col-xs-4">
 								<div class="form-group has-feedback">
-									<label for="dataFechamento">DATA FECHAMENTO:</label>
-									<input type="text" name = "dataFechamento" class="form-control" placeholder="DATA FECHAMENTO">
+									<label for="dataFechamento">Data fechamento:</label>
+									<input type="text" name = "dataFechamento" class="form-control" placeholder="Data fechamento">
 								</div>
 							</div>
 

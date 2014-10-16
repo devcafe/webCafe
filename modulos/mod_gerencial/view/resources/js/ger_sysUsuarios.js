@@ -399,6 +399,9 @@ $(function(){
 
 	//Function to populate fields before edit data
 	$('#gerSysUsuarios_table').on('click', 'button[name=edit]', function(){
+		//Load modules
+		loadModules();
+
 		//Remove the last changed user
 		$('input[name=edit_idSysUsuario]').remove();
 
@@ -424,9 +427,12 @@ $(function(){
 			dataType: 'json',
 			success: function(data){
 				//Popupate fields
-				$('input[name=nome]').val(data.nome);
-				$('input[name=cnpj]').val(data.cnpj);
-				$('input[name=razaoSocial]').val(data.razaoSocial);
+				$('input[name=firstName]').val(data.firstName);
+				$('input[name=lastName]').val(data.lastName);
+				$('input[name=password]').val(data.password);
+				$('input[name=user]').val(data.user);
+				$('input[name=email]').val(data.email);
+				$('input[name=departamento]').val(data.departamento);
 			}
 		})
 	})

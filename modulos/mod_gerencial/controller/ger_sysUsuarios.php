@@ -52,6 +52,11 @@
 				echo $usuarios->save($_POST['formData'], $_POST['password'], $idUser, $date, $_POST['resModulos'], $_POST['resPaginas'], $_POST['resAcessos'], $admin); //Get return after insert
 			}
 
+		} else if ($_POST['op'] == 'loadData'){ //Load user data to edit
+			$usuarios = new Usuarios();
+			
+			echo $usuarios->loadData($_POST['idSysUsuario']); //Get return to populate fields
+		
 		} else if ($_POST['op'] == 'delete'){ //Delete user
 			$idUser = $_SESSION['idUser'];
 

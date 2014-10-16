@@ -96,11 +96,18 @@
 		}
 
 		//Method to load data before edit
-		function loadData($idAcao){
+		function loadData($idSysUsuario){
 			$pdo = new Connection();
 
-			$sql = $pdo->prepare("Select * From webcafe_modtelefonia_acoes Where idAcao = :idAcao");
-			$sql->execute(array(":idAcao" => $idAcao));
+			$sql = $pdo->prepare("
+				Select 
+					a.* 
+				From 
+					webcafe_usuarios a
+				Where 
+					a.idUser = :idUser");
+			
+			$sql->execute(array(":idUser" => $idSysUsuario));
 			$res = $sql->fetch(PDO::FETCH_OBJ);
 
 			return json_encode($res);

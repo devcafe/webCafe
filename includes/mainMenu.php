@@ -18,6 +18,10 @@
             <?php if(accessPages(2) || accessPages(99)){ echo '<li><a href="?mod=mod_telefonia&page=ger_aparelhos" id = "ger_aparelhos">Gerenciar aparelhos</a> </li>'; } ?>
             <?php if(accessPages(3) || accessPages(99)){ echo '<li><a href="?mod=mod_telefonia&page=ger_usuarios" id = "ger_usuarios">Gerenciar usuarios</a> </li>'; } ?>
             <?php if(accessPages(4) || accessPages(99)){ echo '<li><a href="?mod=mod_telefonia&page=ger_acoes" id = "ger_acoes">Gerenciar ações</a> </li>'; } ?>
+            <ul class = "groupMenu02">
+            <?php if(accessPages(1) || accessPages(99)){ echo '<li><a href="#" > Relatórios</a>  </li>'; } ?>
+            <?php if(accessPages(1) || accessPages(99)){ echo '<li><a href="?mod=mod_telefonia&page=historico" id = "historico">Histórico</a>  </li>'; } ?>
+            </ul>
          </ul>
       </li>
       <?php } ?>

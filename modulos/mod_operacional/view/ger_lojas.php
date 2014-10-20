@@ -24,7 +24,7 @@
 				</select>
 			</div>
 
-			<?php if(accessRules(5) || accessRules(99)){ ?>
+			<?php if(accessRules(25) || accessRules(99)){ ?>
 			<button type="button" id = "gerLojas_addLojaBtn" class="btn btn-primary pull-left marginLeft20" data-toggle="modal" data-target="#add_loja">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar loja
 			</button>

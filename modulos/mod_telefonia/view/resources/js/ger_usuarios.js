@@ -537,4 +537,39 @@ $(function(){
 			}
 		})
 	});
+
+		//Executes the request when the CEP field lose focus
+	function cleanFields(){
+		$('input[name=rua]').val('');
+		$('input[name=bairro]').val('');
+		$('input[name=cidade]').val('');
+		$('input[name=uf]').val('');
+	}
+
+	$('input[name=cep]').blur(function(){
+		cleanFields();
+		var cep = $(this).val();		
+		$.ajax({
+			url: 'modulos/mod_telefonia/controller/ger_usuarios.php',
+			type : 'POST', 
+			data: {
+				cep:cep,
+				op:'loadCep',
+			},
+			dataType: 'json',
+			success: function(data){				
+				if(data.sucesso == 1){										
+					$('input[name=endereco]').val(data.rua);
+					$('input[name=bairro]').val(data.bairro);
+					$('input[name=cidade]').val(data.cidade);
+					$('input[name=uf]').val(data.estado);
+					// $('input[name=numero]').focus();
+					
+				}
+			}
+		});   
+		return false;  
+
+	});
+
 })

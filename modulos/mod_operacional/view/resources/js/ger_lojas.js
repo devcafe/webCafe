@@ -331,6 +331,8 @@ $(function(){
 	//On click in the add store, update the button attributes
 	$('#gerLojas_addLojaBtn').on('click', function(){
 
+		treatmentFields();
+
 		//Call the function to load flag data and populate select
 		loadFlagData();
 
@@ -703,9 +705,9 @@ $(function(){
 		$('input[name=uf]').val('');
 	}
 
-	$('input[name=cep]').focusout(function(){
+	$('input[name=cep]').blur(function(){
 		cleanFields();
-		var cep = $('input[name=cep]').val();		
+		var cep = $(this).val();		
 		$.ajax({
 			url: 'modulos/mod_operacional/controller/ger_lojas.php',
 			type : 'POST', 
@@ -737,9 +739,9 @@ $(function(){
 		$('input[name=uf]').val('');
 	}
 
-	$('input[name=estabReceitaCEP]').focusout(function(){
+	$('input[name=estabReceitaCEP]').blur(function(){
 		cleanFieldsReceita();
-		var cep = $('input[name=estabReceitaCEP]').val();		
+		var cep = $(this).val();		
 		$.ajax({
 			url: 'modulos/mod_operacional/controller/ger_lojas.php',
 			type : 'POST', 
@@ -768,20 +770,22 @@ $(function(){
 	// ************************************************* 
 
  //Treatment fields to not accept accentuation
-	$('input[type=text]').on('keypress', function(e,args){
-		if (document.all){ var evt=event.keyCode; } //if ie
-		else{ var evt = e.charCode; }	//else by Mozilla
+ function treatmentFields(){
+		$('input[type=text]').on('keypress', function(e,args){
+			if (document.all){ var evt=event.keyCode; } //if ie
+			else{ var evt = e.charCode; }	//else by Mozilla
 
-		var valid_chars = ' 0123456789abcdefghijlmnopqrstuvxzwykABCDEFGHIJLMNOPQRSTUVXZWYK-_'+args; //List of allowed keys
+			var valid_chars = ' 0123456789abcdefghijlmnopqrstuvxzwykABCDEFGHIJLMNOPQRSTUVXZWYK-_:.'+args; //List of allowed keys
 
-		var chr= String.fromCharCode(evt);	//Handle the key typed
+			var chr= String.fromCharCode(evt);	//Handle the key typed
 
-		if (valid_chars.indexOf(chr)>-1 ){ return true; }	//Checks if the entered key is in list
+			if (valid_chars.indexOf(chr)>-1 ){ return true; }	//Checks if the entered key is in list
 
-		//To allow as keys <BACKSPACE>
-		if (valid_chars.indexOf(chr)>-1 || evt < 9){return true;}	//Checks if the entered key in this list
-			return false;	//Entered Checks if the key in this list
-	})
+			//To allow as keys <BACKSPACE>
+			if (valid_chars.indexOf(chr)>-1 || evt < 9){return true;}	//Checks if the entered key in this list
+				return false;	//Entered Checks if the key in this list
+		})
+	}
 
 
 	function checkNumber(e) {

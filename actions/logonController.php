@@ -14,8 +14,11 @@
 	//Valida se o usuário e senha estão correos
 	$logon = new logon();
 
+	//Data atual
+	$date = date('d/m/Y H:i');
+
 	//Se o retornar 1 valor, ele grava a sessão autentica o usuário e rerenciona para página principal
-	if($logon->authUser($dados) == 1){
+	if($logon->authUser($dados, $date) == 1){
 		///Grava dados na sessão
 		$logon->userSession($dados);
 

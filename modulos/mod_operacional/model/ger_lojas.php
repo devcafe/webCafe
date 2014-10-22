@@ -128,6 +128,18 @@
 		}
 
 		function loadCep($cep){
+			function normalizeStr($str) {
+				$invalid = array(
+					"Ã" => "A", "ã" => "a", "Á" => "A", "á" => "a", "Â" => "A", "â" => "a",
+					"Ê" => "E", "ê" => "e", "É" => "E", "é" => "e", "Ç" => "C", "ç" => "c",
+					"_" => " ", "Ó" => "O", "ó" => "o", "Ô" => "O", "ô" => "o", "Õ" => "O",
+					"õ" => "o", "Í" => "I", "í" => "i", "Ú" => "U", "ú" => "u"
+				);
+
+				$str = str_replace(array_keys($invalid), array_values($invalid), $str);
+
+				return $str;
+			}
 
 			// $cep = $_POST['cep'];
 
@@ -135,9 +147,9 @@
 
 			$dados['sucesso'] = (string) $reg->resultado;
 
-			$dados['rua']     = (string) $reg->tipo_logradouro . ' ' . $reg->logradouro;
-			$dados['bairro']  = (string) $reg->bairro;
-			$dados['cidade']  = (string) $reg->cidade;
+			$dados['rua']     = normalizeStr((string) $reg->tipo_logradouro . ' ' . $reg->logradouro);
+			$dados['bairro']  = normalizeStr((string) $reg->bairro);
+			$dados['cidade']  = normalizeStr((string) $reg->cidade);
 			$dados['estado']  = (string) $reg->uf;			 
 
 			return $dados;

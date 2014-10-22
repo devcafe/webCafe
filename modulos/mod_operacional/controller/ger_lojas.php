@@ -11,20 +11,29 @@
 			$page = $_POST['page'];
 
 			if(isset($_POST['searchVal']) && $_POST['searchVal'] != ''){
-				$where = "
-					Where
-						idLoja like '%".$_POST['searchVal']."%' 
-					Or cnpj like '%".$_POST['searchVal']."%'
-					Or bandeira like '%".$_POST['searchVal']."%'
-					Or nome like '%".$_POST['searchVal']."%'
-					Or rua like '%".$_POST['searchVal']."%'
-					Or numero like '%".$_POST['searchVal']."%'
-					Or complemento like '%".$_POST['searchVal']."%'
-					Or bairro like '%".$_POST['searchVal']."%'
-					Or cidade like '%".$_POST['searchVal']."%'
-					Or uf like '%".$_POST['searchVal']."%'
-					Or cep like '%".$_POST['searchVal']."%'
-					";
+
+				//Checks by means of regular expression if there is: the search
+				if(preg_match('/:/', $_POST['searchVal'])) {
+   					$term = explode(':', $_POST['searchVal']);
+   					$column = strtolower($term[0]);
+   					$value = ltrim($term[1]);
+   					$where = "where ". $column ." like '%". $value ."%'";   						
+				}else {
+					$where = "
+						Where
+							idLoja like '%".$_POST['searchVal']."%' 
+						Or cnpj like '%".$_POST['searchVal']."%'
+						Or bandeira like '%".$_POST['searchVal']."%'
+						Or nome like '%".$_POST['searchVal']."%'
+						Or rua like '%".$_POST['searchVal']."%'
+						Or numero like '%".$_POST['searchVal']."%'
+						Or complemento like '%".$_POST['searchVal']."%'
+						Or bairro like '%".$_POST['searchVal']."%'
+						Or cidade like '%".$_POST['searchVal']."%'
+						Or uf like '%".$_POST['searchVal']."%'
+						Or cep like '%".$_POST['searchVal']."%'
+						";
+					}
 			} else {
 				$where = '';
 			}

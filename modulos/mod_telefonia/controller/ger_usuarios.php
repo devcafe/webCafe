@@ -10,16 +10,23 @@
 			$page = $_POST['page'];
 
 			if(isset($_POST['searchVal']) && $_POST['searchVal'] != ''){
-				$where = "
-					Where
-						nome like '%".$_POST['searchVal']."%' 
-					Or celular like '%".$_POST['searchVal']."%'
-					Or cep like '%".$_POST['searchVal']."%'
-					Or endereco like '%".$_POST['searchVal']."%'
-					Or bairro like '%".$_POST['searchVal']."%'
-					Or cidade like '%".$_POST['searchVal']."%'
-					Or uf like '%".$_POST['searchVal']."%'
-					And idUsuario <> 1";
+				if(preg_match('/:/', $_POST['searchVal'])) {
+   					$term = explode(':', $_POST['searchVal']);
+   					$column = strtolower($term[0]);
+   					$value = ltrim($term[1]);
+   					$where = "where ". $column ." like '%". $value ."%'";   						
+				}else{
+					$where = "
+						Where
+							nome like '%".$_POST['searchVal']."%' 
+						Or celular like '%".$_POST['searchVal']."%'
+						Or cep like '%".$_POST['searchVal']."%'
+						Or endereco like '%".$_POST['searchVal']."%'
+						Or bairro like '%".$_POST['searchVal']."%'
+						Or cidade like '%".$_POST['searchVal']."%'
+						Or uf like '%".$_POST['searchVal']."%'
+						And idUsuario <> 1";
+					}
 
 			} else {
 				$where = 'Where idUsuario <> 1';
@@ -73,6 +80,11 @@
 			$date = date('d/m/Y H:i');
 
 			echo $usuarios->delete($idUser, $date, $_POST['idUsuario']); //Get return after delete
+
+		}else if ($_POST['op'] == 'loadCep'){ //Autocomplete to get avaible flags
+			$usuarios = new Usuarios();
+
+			echo json_encode($usuarios->loadCep($_POST['cep'])); //Load data to populate select, return a json
 
 		} 
 	} else if(isset($_GET['export'])) { //If variable export exists in url, export data in excel

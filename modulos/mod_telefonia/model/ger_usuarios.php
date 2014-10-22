@@ -191,6 +191,21 @@
 					('".$col1."','".$col2."','".$col3."','".$col4."','".$col5."','".$col6."','".$col7."','".$col8."','".$col9."','".$col10."','".$col11."','".$col12."','".$col13."', '".$col14."', '".$col15."', '".$col16."', '".$col17."')");
 			$query->execute();
 		}
+		function loadCep($cep){
+			
+			// $cep = $_POST['cep'];
+
+			$reg = simplexml_load_file("http://cep.republicavirtual.com.br/web_cep.php?formato=xml&cep=" . $cep);
+
+			$dados['sucesso'] = (string) $reg->resultado;
+
+			$dados['rua']     = (string) $reg->tipo_logradouro . ' ' . $reg->logradouro;
+			$dados['bairro']  = (string) $reg->bairro;
+			$dados['cidade']  = (string) $reg->cidade;
+			$dados['estado']  = (string) $reg->uf;			 
+
+			return $dados;
+		}	
 	}
 
 ?>

@@ -18,7 +18,7 @@
 			<div class="input-group col-md-2 pull-left">
 				<select id = "gerLojas_regs" class="form-control">
 				  <option>5</option>
-				  <option>10</option>
+				  <option selected>10</option>
 				  <option>20</option>
 				  <option>50</option>
 				</select>
@@ -52,15 +52,15 @@
 		<table id = "gerLojas_table" class="table table-striped table-condensed table-hover">
 			<thead> 
 				<th class = "width50"></th>
-				<th id = "idLoja" class = "width100"> ID <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "idLoja" class = "width100"> IDLOJA <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 				<th id = "cnpj"> CNPJ <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "bandeira"> Bandeira <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "nome"> Estabelecimento <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "rua"> Rua <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "bandeira"> BANDEIRA <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "nome"> NOME <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "rua"> RUA <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 				<th id = "numero" class = "width50"> Nº <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 				<!--<th id = "complemento"> Complemto <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>-->
-				<th id = "bairro"> Bairro <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-				<th id = "cidade"> Cidade <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "bairro"> BAIRRO <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+				<th id = "cidade"> CIDADE <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 				<th id = "uf" class = "width50"> UF <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 				<!--<th id = "cep"> CEP <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>-->
 

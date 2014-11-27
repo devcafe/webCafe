@@ -16,4 +16,5 @@ $(document).ready(function(){
 	} else {
 		content.load( "modulos/"+ mod +"/view/"+ page +".php" );
 	}
+
 })	

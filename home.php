@@ -1,5 +1,6 @@
 <script src = "resources/js/home.js" type = "text/javascript"> </script>
 <link href = "resources/css/home.css" type = "text/css" rel = "stylesheet">
+<script src="http://malsup.github.com/jquery.form.js"></script>
 
 <h3> Biblioteca Café</h3>
 
@@ -12,8 +13,8 @@
 			</div>
 			<div class="input-group col-md-2 pull-left">
 				<select id = "doc_regs" class="form-control">
-				  <option>5</option>
-				  <option selected>10</option>
+				  <option selected>5</option>
+				  <option>10</option>
 				  <option>20</option>
 				  <option>50</option>
 				</select>

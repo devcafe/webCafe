@@ -139,11 +139,11 @@ $(document).ready(function(){
 								"<td>"+data[1][i].assunto+"</td>"+
 								"<td>"+data[1][i].documento+"</td>"+
 								"<td>"+data[1][i].responsavel+"</td>"+
-								"<td class = 'width100'>"+
-									"<button id = 'del_"+ data[1][i].idDocumento +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
-									  "<span class='glyphicon glyphicon-trash'></span>"+
-									"</button>"+									
-								"</td>"+
+								// "<td class = 'width100'>"+
+								// 	"<button id = 'del_"+ data[1][i].idDocumento +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
+								// 	  "<span class='glyphicon glyphicon-trash'></span>"+
+								// 	"</button>"+									
+								// "</td>"+
 							"</tr>"+
 						"");
 					}

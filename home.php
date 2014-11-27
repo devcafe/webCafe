@@ -33,7 +33,7 @@
 			<th id = "assunto"> Assunto <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<th id = "documento"> Documento <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<th id = "responsavel"> Responsavel <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-			<th class = "width100"></th>
+			<!-- <th class = "width100"></th> -->
 		</thead>
 
 		<tbody>
@@ -46,7 +46,7 @@
 			<th> Assunto </th>
 			<th> Documento </th>
 			<th> Responsavel </th>
-			<th class = "width100"></th>
+			<!-- <th class = "width100"></th> -->
 		</tfoot>
 	</table>
 

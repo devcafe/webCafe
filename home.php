@@ -30,7 +30,7 @@
 	<table id = "doc_table" class="table table-striped table-hover">
 		<thead > 
 			<th class = "width50"></th>
-			<th id = "departamento"> Departamento <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+			<th id = "a.departamento"> Departamento <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<th id = "assunto"> Assunto <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<th id = "documento"> Documento <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<th id = "responsavel"> Responsavel <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
@@ -114,7 +114,20 @@
 				<h4 class="modal-title">Adicionar documento</h4>
 			</div>
 			<div class="modal-body">
-				<form role="form" id = "doc_form" action = "actions/homeController.php">
+				<form action="actions/homeController.php" method="post" enctype="multipart/form-data">
+						
+					<label for="arquivo">Arquivo:</label> <input type="file" name="arquivo" id="arquivo" />
+					
+					<br />
+					<br />
+					
+					<input type="submit" value="Enviar" />
+			
+				</form>
+
+
+				<!-- <form role="form" id = "doc_form" action = "actions/homeController.php" enctype="multipart/form-data" method="post">
+				<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
 					<div class="row">
 						<div id = "error-message-wrapper" class="col-xs-12"> </div>
 					</div>
@@ -141,7 +154,7 @@
 							<div class="col-xs-6">
 								<div class="form-group has-feedback">			
 																
-											<input type="file" id="docFile" name="docFile" class="img"/>
+											<input type="file" id="docFile" name="docFile" class="pdf"/>
 											<input type="submit" id = "uploadDoc" value="Upload">
 											<div class="percent"> 0% </div>
 											<div id="status"> </div>
@@ -151,7 +164,7 @@
 							</div>
 						</div>
 					</div>
-				</form>
+				</form> -->
 			</div>
 			<div class="modal-footer" id = "doc_modalFooter">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

@@ -15,6 +15,7 @@
    				 webcafe_documentos a inner join  webcafe_usuarios b ON a.responsavel = b.idUser
    			    $where
    			    	$orderBy");
+		
 			$sql->execute();
 			$total = $sql->rowCount();
 
@@ -36,6 +37,7 @@
  				$where
  					$orderBy
  				Limit $start, $end");
+			
 			  				
 			$limit->execute();
 
@@ -68,21 +70,30 @@
 			return json_encode($res);
 		}
 
-		function cadDocumento($path, $idUser){
+		function cadDocumento($path, $responsavel){
+			$departamento = "Coord";
+			$doc = "pedro";
+			$assunto = "definir2";
+			// echo $path;
+			// echo $responsavel;
+
 			//Grava no banco
 			$pdo = new Connection();
 
 			$documento = $pdo->prepare('
-				Update	caferh_curriculum
-					Set
-						rostoFile = :path
-					Where
-						idUser = :idUser		
+				Insert Into	webcafe_documentos
+					(`idDocumento`,`departamento`, `assunto`, `documento`, `path`, `responsavel`)
+				VALUES 
+					(:idDocumento,:departamento, :assunto, :documento, :path, :responsavel)		
 			');
 
 			$documento->execute(array(
-				':path' => $path, 
-				':idUser' => $idUser
+				':idDocumento' => '', 
+				':departamento' => $departamento, 
+				':assunto' => $assunto,
+				':documento' => $doc, 
+				':path' => $path,
+				':responsavel' => $responsavel,
 			));
 
 			if($documento)

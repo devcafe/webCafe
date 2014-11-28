@@ -33,7 +33,7 @@
 			<th id = "a.departamento"> Departamento <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<th id = "assunto"> Assunto <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<th id = "documento"> Documento <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
-			<th id = "responsavel"> Responsavel <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
+			<th id = "responsavel"> Responsável <span class="pull-right glyphicon glyphicon-chevron-down"></span></th>
 			<!-- <th class = "width100"></th> -->
 		</thead>
 
@@ -46,7 +46,7 @@
 			<th> Departamento </th>
 			<th> Assunto </th>
 			<th> Documento </th>
-			<th> Responsavel </th>
+			<th> Responsável </th>
 			<!-- <th class = "width100"></th> -->
 		</tfoot>
 	</table>
@@ -55,7 +55,7 @@
 		<div id = "doc_tableInfos" class = "pull-left pagination text-center"> 
 			<p> 
 				<strong> Total de registros: </strong> <span id = "doc_tableRegTotal"> </span> 
-				<strong> | Voce esta na pagina: </strong> <span id = "doc_tableRegPage"> </span>
+				<strong> | Você esta na pagina: </strong> <span id = "doc_tableRegPage"> </span>
 				<strong> de: </strong> <span id = "doc_tableTotalPages"> </span>
 			</p>
 		</div>

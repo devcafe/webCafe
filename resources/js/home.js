@@ -19,6 +19,12 @@ $(document).ready(function(){
 	//Call the function on page load
 	loadTable('1', regsLimit);
 
+	$.validate({
+		modules : 'security',
+		validateOnBlur : true,
+		scrollToTopOnError : false
+	});
+
 
 	/****************************************/
 	/* Functions
@@ -139,11 +145,11 @@ $(document).ready(function(){
 								"<td>"+data[1][i].assunto+"</td>"+
 								"<td>"+data[1][i].documento+"</td>"+
 								"<td>"+data[1][i].responsavel+"</td>"+
-								// "<td class = 'width100'>"+
-								// 	"<button id = 'del_"+ data[1][i].idDocumento +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
-								// 	  "<span class='glyphicon glyphicon-trash'></span>"+
-								// 	"</button>"+									
-								// "</td>"+
+								"<td class = 'width100'>"+
+									"<button id = 'del_"+ data[1][i].idDocumento +"' name = 'delete' type='button' class='btn btn-danger pull-left'>"+
+									  "<span class='glyphicon glyphicon-trash'></span>"+
+									"</button>"+									
+								"</td>"+
 							"</tr>"+
 						"");
 					}
@@ -298,7 +304,84 @@ $(document).ready(function(){
 				
 			}
 		})
+	});	
+	$('#uploadDoc').click(function(){		
+        $('#docForm').ajaxForm({
+            uploadProgress: function(event, position, total, percentComplete) {
+                $('progress').attr('value',percentComplete);
+                $('#porcentagem').html(percentComplete+'%');
+            },        
+            success: function(data) {
+                $('progress').attr('value','100');
+                $('#porcentagem').html('100%');
+               	$("#notaUpload").html(data.messagem);
+               	if(data.messagem == "Arquivo salvo com sucesso, caso queria enviar outro basta refazer o processo. Se já terminou pode fechar."){
+               		$("#docForm")[0].reset();
+               		//Reload table
+					loadTable('1', regsLimit);
+               	}               	
+            },
+            error : function(){
+                $('#notaUpload').html('Erro ao enviar requisição! Se o erro persistir de um refresh na pagina.');
+            },
+            dataType: 'json',
+            url: 'actions/homeController.php',            
+        }).submit();
+    })
+
+    //Limpar campos apos upload
+    $("input[name=AddDepartamento]").keypress(function(){
+    	$("#notaUpload").html('');
+    	$('progress').attr('value','0');
+        $('#porcentagem').html('0%');
+
+    });
+    $("#doc_addAcaoBtn").click(function(){
+    	$("#notaUpload").html('');
+    	$('progress').attr('value','0');
+        $('#porcentagem').html('0%');
+    });
+
+    //Function to delete job
+	$('#doc_table').on('click', 'button[name=delete]', function(){
+		//The amount of records to show in table, used to reload table
+		var regsLimit = $('#doc_regs option:selected').val();
+
+		//The job that user want to delete
+		var idDocumento = $(this).attr('id').split("_")[1];		
+
+		//Ask user if he really wanna delete the record
+		var anwswer = confirm("Tem certeza que deseja remover esse documento?");
+
+		if(anwswer){
+			$.ajax({
+				url: 'actions/homeController.php',
+				type: 'POST',
+				data: {
+					idDocumento: idDocumento,
+					op: 'delete' //The optional operation to pass for back-end
+				},
+				dataType: 'json',
+				success: function(data){
+					//Check the return
+					if(data == 1){ //Means the update as successful
+						alert("Documento removida com sucesso!");
+
+						//Reload table
+						loadTable('1', regsLimit);
+					} else if(data == 2) { //Have a problem to insert
+						alert("Falha ao remover documento");
+					} else if (data == 3){//It is only possible to delete items that you have created yourself
+						alert("Só é possivel apagar itens que você mesmo criou.");
+					}else { //Unknown error, please contact your system administrator
+						alert("Erro desconhecido, favor contactar o administrador do sistema!");
+					}
+				}
+			});
+		}
 	});
+
+	
 
 	
 })

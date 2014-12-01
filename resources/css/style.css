@@ -32,6 +32,10 @@ h1:first-child {
 #ui-datepicker-div{
 	width: 280px;
 }
+#nota{
+	margin-left: 15%;
+	color: red;
+}
 
 /*******************************************/
 /* Footer

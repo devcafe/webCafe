@@ -1,7 +1,10 @@
-$(document).ready(function(){	
-	
+$(document).ready(function(){
+	//Esconde nota
+	$('#nota').hide();
+
 	//Botão de login
 	$('#btnLogin').click(function() {
+		$('#nota').hide();
 		//Pega os valores dos campos
 		var userLogin = $('#userLogin').val(); 
 		var pwdLogin = $('#pwdLogin').val();
@@ -16,13 +19,12 @@ $(document).ready(function(){
 				pwdLogin : pwdLogin,
 				remember: remember,
 			},
-			success: function(data){
-				console.log(data);
+			success: function(data){				
 				if(data == 1){
 					//Redireciona para a view principal
 					window.location.href = "main.php?page=home";
 				} else if(data == 2){
-					alert("Usuário ou senha incorreto");
+					$('#nota').show();
 				}
 			}
 		})		
@@ -34,7 +36,8 @@ $(document).ready(function(){
 	});
 
 	//Botão de login
-	$('#loginForm').keypress(function(event) {2
+	$('#loginForm').keypress(function(event) {
+		$('#nota').hide();
 		 if (event.which == 13) {
 	        event.preventDefault();
 
@@ -55,7 +58,7 @@ $(document).ready(function(){
 						//Redireciona para a view principal
 						window.location.href = "main.php?page=home";
 					} else if(data == 2){
-						alert("Usuário ou senha incorreto");
+						$('#nota').show();
 					}
 				}
 			})

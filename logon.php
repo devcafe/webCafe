@@ -19,7 +19,7 @@
 
 					<tr> 
 						<td><label for = "pwdLogin"> PASSWORD  </label></td>
-						<td><input type = "password" id = "pwdLogin" name= "pwdLogin"></td>
+						<td><input type = "password" id = "pwdLogin" name= "pwdLogin"></td>						
 					</tr>
 
 					<tr> 

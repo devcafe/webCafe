@@ -30,7 +30,10 @@
 							<label for="pwdLogin" class="col-sm-2 control-label">Password</label>
 							<div class="col-sm-4">
 								<input type="password" class="form-control" id="pwdLogin" placeholder="Password">
-							</div>
+							</div>							
+						</div>
+						<div id="nota">
+							<label>Usuário e/ou senha incorreto(s)</label>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">

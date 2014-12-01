@@ -17,8 +17,10 @@
 	//Data atual
 	$date = date('d/m/Y H:i');
 
-	//Se o retornar 1 valor, ele grava a sessão autentica o usuário e rerenciona para página principal
-	if($logon->authUser($dados, $date) == 1){
+	$logonAuth = $logon->authUser($dados, $date);	
+
+	//Se o retornar 1 valor, ele grava a sessão autentica o usuário e redireciona para página principal
+	if($logonAuth == 1){
 		///Grava dados na sessão
 		$logon->userSession($dados);
 

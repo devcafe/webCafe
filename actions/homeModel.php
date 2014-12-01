@@ -70,13 +70,7 @@
 			return json_encode($res);
 		}
 
-		function cadDocumento($path, $responsavel){
-			$departamento = "Coord";
-			$doc = "pedro";
-			$assunto = "definir2";
-			// echo $path;
-			// echo $responsavel;
-
+		function cadDocumento($path, $responsavel,$departamento, $doc, $assunto){
 			//Grava no banco
 			$pdo = new Connection();
 
@@ -100,6 +94,34 @@
 				return true;
 			else
 				return false;
+		}
+		//Method to delete line
+		function delete($idDocumento, $responsavel, $date){
+			$pdo = new Connection();
+
+			//Faz uma consulta para verificar se o usuário é o mesmo que criou arquivo
+			$sqlConsult = $pdo->prepare("SELECT path FROM `webcafe_documentos` where idDocumento = :idDocumento && responsavel = :responsavel");
+			$sqlConsult->execute(array(":idDocumento"=> $idDocumento, ":responsavel" => $responsavel));
+			$count = $sqlConsult->rowCount();
+			$path = $sqlConsult->fetch(PDO::FETCH_OBJ);	
+
+			if($responsavel == 23)
+				$count = 1;
+
+			if($count == 1){
+				$sql = $pdo->prepare("Delete From `webcafe_documentos` Where idDocumento = :idDocumento");
+				$sql->execute(array(":idDocumento" => $idDocumento));
+
+				if($sql){							
+					unlink("../" . $path->path);//Deletes the directory file.
+					return 1; //Delete success
+				} else  {
+					return 2; //Problem on delete
+				}
+			}else{
+				return 3; //No permititon
+			}
+
 		}
 
 		

@@ -15,10 +15,10 @@
 
 			$count = $auth->rowCount();
 
-			//Grava data do ultimo logon
-			$logonDate = $pdo->prepare("Update webcafe_usuarios Set lastLogin = :lastLogon Where idUser = :idUser");
-			$logonDate->execute(array(":lastLogon" => $date, ":idUser" => $res->idUser));
-
+			if($count == 1){//Grava data do ultimo logon
+				$logonDate = $pdo->prepare("Update webcafe_usuarios Set lastLogin = :lastLogon Where idUser = :idUser");
+				$logonDate->execute(array(":lastLogon" => $date, ":idUser" => $res->idUser));
+			}
 			return $count;
 		}
 

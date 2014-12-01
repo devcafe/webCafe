@@ -20,9 +20,9 @@
 				</select>
 			</div>
 			
-			<!-- <button type="button" id = "doc_addAcaoBtn" class="btn btn-primary pull-left marginLeft20" data-toggle="modal" data-target="#add_doc">
+			<button type="button" id = "doc_addAcaoBtn" class="btn btn-primary pull-left marginLeft20" data-toggle="modal" data-target="#add_doc">
 			  <span class="glyphicon glyphicon-plus"></span> Adicionar documento
-			</button> -->
+			</button>
 		
 		</div>
 	</div>
@@ -109,68 +109,52 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span>
+				<span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span>
 				</button>
 				<h4 class="modal-title">Adicionar documento</h4>
 			</div>
+			<form action="#" method="post" id="docForm" name="docForm">
 			<div class="modal-body">
-				<form action="actions/homeController.php" method="post" enctype="multipart/form-data">
-						
-					<label for="arquivo">Arquivo:</label> <input type="file" name="arquivo" id="arquivo" />
-					
-					<br />
-					<br />
-					
-					<input type="submit" value="Enviar" />
-			
-				</form>
-
-
-				<!-- <form role="form" id = "doc_form" action = "actions/homeController.php" enctype="multipart/form-data" method="post">
-				<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-					<div class="row">
-						<div id = "error-message-wrapper" class="col-xs-12"> </div>
-					</div>
+				
 					<div class="row">
 						<div class="form-group">
 							<div class="col-xs-12">
 								<div class="form-group has-feedback">
 									<label for="AddDepartamento">Departamento:</label>
-									<input type="text" name = "AddDepartamento" class="form-control" placeholder="Nome do departamento">
+									<input type="text" name = "AddDepartamento" class="required form-control" placeholder="Nome do departamento" data-validation="required" data-validation-error-msg="Campo obrigatório">
 								</div>
 							</div>
 							<div class="col-xs-12">
 								<div class="form-group has-feedback">
 									<label for="addAssunto">Assunto</label>
-									<input type="text" name = "addAssunto" id="addAssunto" class="form-control" placeholder="Assunto">
+									<input type="text" name = "addAssunto" id="addAssunto" class="required form-control" placeholder="Assunto" data-validation="required" data-validation-error-msg="Campo obrigatório">
 								</div>
 							</div>
 							<div class="col-xs-12">
 								<div class="form-group has-feedback">
 									<label for="addDocumento">Documento</label>
-									<input type="text" name = "addDocumento" id="addDocumento" class="form-control" placeholder="Nome do Documento">
+									<input type="text" name = "addDocumento" id="addDocumento" class="required form-control" placeholder="Nome do Documento" data-validation="required" data-validation-error-msg="Campo obrigatório">
 								</div>
 							</div>
 							<div class="col-xs-6">
-								<div class="form-group has-feedback">			
-																
-											<input type="file" id="docFile" name="docFile" class="pdf"/>
-											<input type="submit" id = "uploadDoc" value="Upload">
-											<div class="percent"> 0% </div>
-											<div id="status"> </div>
-											<div class="bar"> </div>										
-								
+								<div class="form-group has-feedback">
+									<input type="file" id="arquivo" name="arquivo" class="pdf " />																									
 								</div>
+								<progress value="0" max="100" class=""></progress><span id="porcentagem"> 0%</span>	
+								<div id="notaUpload"></div>
 							</div>
 						</div>
-					</div>
-				</form> -->
+					</div>					
 			</div>
 			<div class="modal-footer" id = "doc_modalFooter">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				<button type="button" id = "gerAcoes_save" name = "gerAcoes_save" class="btn btn-primary">Salvar</button>
+				<button type="button" id = "uploadDoc" name = "uploadDoc" class="btn btn-primary">Enviar</button>
 			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+			</form>	
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 

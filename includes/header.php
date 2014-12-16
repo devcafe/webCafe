@@ -18,7 +18,7 @@
 		<script src = "libs/formValidator/form-validator/jquery.form-validator.js" type = "text/javascript"> </script>
 		<script src = "resources/js/main.js" type = "text/javascript"> </script>
 		<script src = "libs/jqueryUI/jquery-ui.js" type = "text/javascript"> </script>
-		<script src = "libs/select2/select2.js" type = "text/javascript"> </script>
+		<script src = "libs/select2/select2.min.js" type = "text/javascript"> </script>
 		<script src = "libs/mask/jquery.mask.js" type = "text/javascript"> </script>		
 	</head>
 	<body>

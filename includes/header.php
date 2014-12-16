@@ -1,3 +1,8 @@
+<?php 
+   require_once("actions/accessController.php"); 
+   require_once("actions/security.php"); 
+?>
+
 <!DOCTYPE HTML>
 <html>
 	<head>

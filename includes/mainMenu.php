@@ -1,7 +1,3 @@
-<?php 
-   require_once("actions/accessController.php"); 
-   require_once("actions/security.php"); 
-?>
 
 <link rel="stylesheet" href="resources/css/mainMenu.css">
 <script src="resources/js/mainMenu.js"></script>
